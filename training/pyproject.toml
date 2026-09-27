@@ -11,6 +11,7 @@ dependencies = [
     "pillow>=11",
     "scikit-image>=0.25",
     "scipy>=1.14",
+    "torch>=2.5",
 ]
 
 [dependency-groups]
@@ -78,3 +79,11 @@ addopts = ["--strict-markers", "-ra"]
 markers = [
     "data: needs downloaded data in $DATA_DIR; skipped when it is missing",
 ]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

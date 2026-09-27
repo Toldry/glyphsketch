@@ -131,14 +131,19 @@ None of these are shipped. They run the pipeline that produces the exported file
 |---------|---------|---------|--------|-----|
 | `ast-serialize` | 0.11.2 | MIT | https://github.com/mypyc/ast_serialize | dev: type checking (mypy) |
 | `colorama` | 0.4.6 | BSD-3-Clause | https://github.com/tartley/colorama | dev: pytest on Windows only |
+| `filelock` | 4.0.4 | MIT | https://github.com/tox-dev/py-filelock | pipeline: dependency of torch |
 | `fonttools` | 4.66.0 | MIT | https://github.com/fonttools/fonttools | pipeline: cmap and outline checks |
+| `fsspec` | 2026.9.0 | BSD-3-Clause | https://github.com/fsspec/filesystem_spec | pipeline: dependency of torch |
 | `imageio` | 2.37.4 | BSD-2-Clause | https://github.com/imageio/imageio | pipeline: dependency of scikit-image |
 | `iniconfig` | 2.3.0 | MIT | https://github.com/pytest-dev/iniconfig | dev: tests (pytest) |
+| `jinja2` | 3.1.6 | BSD-3-Clause | https://github.com/pallets/jinja | pipeline: dependency of torch |
 | `lazy-loader` | 0.6 | BSD-3-Clause | https://github.com/scientific-python/lazy-loader | pipeline: dependency of scikit-image |
 | `librt` | 0.15.0 | MIT | https://github.com/mypyc/librt | dev: type checking (mypy) |
+| `markupsafe` | 3.0.3 | BSD-3-Clause | https://github.com/pallets/markupsafe | pipeline: dependency of jinja2 |
+| `mpmath` | 1.3.0 | BSD-3-Clause | https://github.com/mpmath/mpmath | pipeline: dependency of sympy |
 | `mypy` | 2.3.1 | MIT (bundled typeshed: Apache-2.0 and MIT) | https://github.com/python/mypy | dev: type checking |
 | `mypy-extensions` | 1.1.0 | MIT | https://github.com/python/mypy_extensions | dev: type checking (mypy) |
-| `networkx` | 3.7 | BSD-3-Clause | https://github.com/networkx/networkx | pipeline: dependency of scikit-image |
+| `networkx` | 3.7 | BSD-3-Clause | https://github.com/networkx/networkx | pipeline: dependency of scikit-image and torch |
 | `numpy` | 2.5.3 | BSD-3-Clause (wheel also bundles OpenBLAS: BSD-3-Clause; libgfortran: GPL-3.0-or-later WITH GCC-exception-3.1; libquadmath: LGPL-2.1-or-later) | https://github.com/numpy/numpy | pipeline: arrays |
 | `packaging` | 26.3 | Apache-2.0 OR BSD-2-Clause | https://github.com/pypa/packaging | dev: tests (pytest) |
 | `pathspec` | 1.1.1 | MPL-2.0 | https://github.com/cpburnz/python-pathspec | dev: type checking (mypy) |
@@ -149,8 +154,11 @@ None of these are shipped. They run the pipeline that produces the exported file
 | `ruff` | 0.16.9 | MIT | https://github.com/astral-sh/ruff | dev: lint and formatting |
 | `scikit-image` | 0.26.0 | BSD-3-Clause (a few files BSD-2-Clause or MIT) | https://github.com/scikit-image/scikit-image | pipeline: skeletonization |
 | `scipy` | 1.18.1 | BSD-3-Clause (wheel also bundles OpenBLAS: BSD-3-Clause; libgfortran: GPL-3.0-or-later WITH GCC-exception-3.1; libquadmath: LGPL-2.1-or-later) | https://github.com/scipy/scipy | pipeline: image filtering |
+| `setuptools` | 84.0.0 | MIT | https://github.com/pypa/setuptools | pipeline: dependency of torch |
+| `sympy` | 1.14.0 | BSD-3-Clause | https://github.com/sympy/sympy | pipeline: dependency of torch |
 | `tifffile` | 2026.9.20 | BSD-3-Clause | https://github.com/cgohlke/tifffile | pipeline: dependency of scikit-image |
-| `typing-extensions` | 4.16.0 | PSF-2.0 | https://github.com/python/typing_extensions | dev: type checking (mypy) |
+| `torch` | 2.14.0+cpu, 2.14.0 | BSD-3-Clause (bundled third-party code: Apache-2.0, Apache-2.0 WITH LLVM-exception, BSD-2-Clause, BSD-3-Clause, BSL-1.0, MIT). CPU-only build from the PyTorch index; 2.14.0 is the macOS wheel | https://github.com/pytorch/pytorch | pipeline: encoder training |
+| `typing-extensions` | 4.16.0 | PSF-2.0 | https://github.com/python/typing_extensions | dev: type checking (mypy); pipeline: dependency of torch |
 <!-- python-packages:end -->
 
 ## Web library and demo
