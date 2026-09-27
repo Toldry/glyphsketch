@@ -508,3 +508,65 @@ Kaggle's 4 CPUs and different library versions would give different training dat
 the CPU ablations. Installing the package with pip would enforce `requires-python >= 3.12`,
 which Kaggle's image may not meet; the source is checked to compile on Python 3.11 and
 is put on `PYTHONPATH` instead.
+
+## D25. Character-frequency prior from sampled Wikipedia dumps (M7, 2026-09-27)
+
+**Source.** The pages-articles-multistream dumps of 2026-09-01 for 18 languages that cover
+the charset's scripts: Latin (en, de, fr, es, it, pt, pl, cs, tr, vi), Cyrillic (ru, uk,
+bg, sr), Greek (el), Hebrew (he) and Arabic (ar, fa). The settings live in
+`resources/wikipedia_prior.toml`.
+
+**Sampling.** A multistream dump is a concatenation of independent bz2 streams of 100
+pages, so a byte range can be cut to the complete streams inside it. Per language, 24
+ranges of 4 MiB are fetched at evenly spaced points over the whole dump (over all parts
+when it is split): 1.7 GB in total instead of 72 GB for the full dumps, and 12
+minutes on the laptop. The sample holds about 870,000 articles and 3.1 billion characters.
+The ranges and a SHA-256 per chunk are recorded in the stage output.
+
+**Counting.** Articles only (namespace 0, no redirects). Wikitext is cleaned by rules, not
+parsed (`prior/wikitext.py`): comments, code-like blocks, URLs, tags, link and template
+brackets, template parameter names and table syntax go; their text stays. Maths is
+LaTeX inside `<math>`, so its commands are mapped to code points with the reviewed
+Detexify mapping, 16 common aliases (`\le`, `\to`, …) and the styled alphabets
+(`\mathbb{R}` → ℝ). Without that, ∫ or ≤ would hardly occur.
+
+**Combination.** Per language, the frequency over the charset's characters, with an
+add-½ count for every character; then the plain mean over languages. A script used by
+few languages (Hebrew) still gets its characters' weight from those languages, and the
+3,811 characters that occur in the sample outrank the 2,350 that don't. The value
+shipped is the natural log (from −2.9 for e down to −19.6).
+
+**Alternatives.** A single English dump would make every non-Latin character rare.
+Weighting by speakers or by wiki size would do the same for Greek or Hebrew. Published
+frequency tables exist only per language and seldom cover symbols. Full dumps would cost
+40× the download for estimates that are already stable: the smallest counted language has
+131 million characters.
+
+## D26. Ranking and result tiles (M7, 2026-09-27)
+
+**Score.** `similarity + weight · log prior`, with the similarity of index option (a)
+(best match over the character's renders). The weight is tuned on 20,000 real drawings
+from the training split that a synthetic-only encoder never saw; the test set is never
+used for tuning. Encoders trained on real drawings reuse the weight tuned on a
+synthetic-only encoder. On the laptop's synthetic-only encoder the best weight is 0.002.
+It raises top-1 from 41.3% to 47.3% and top-5 from 71.9% to 76.1% on the test set. The
+optimum is sharp: at 0.01 the gain is gone, and at 0.02 the prior dominates. So the
+grid is fine around it.
+
+**Tiles.** Members of a confusable group can't be told apart once drawn, so results show
+one tile per group, in the order of the group's best score. The tile shows the member in
+the keyboard language's script (from `resources/wikipedia_prior.toml`; a keyboard for
+Greek shows Α, one for English shows A), the most frequent such member if there are
+several, else the most frequent member. The other members are offered on the tile (a
+long press in Thumb-Key, a small menu in the web demo). Tiles raise the confusable-aware
+top-5 to 81.3%, because merged look-alikes free slots for other candidates.
+
+**Evaluation of tiles.** The test set has no keyboard language, so the evaluation assumes
+one in the drawn character's script (Latin for symbols). Exact top-1 of tiles then
+measures the representative choice. It is 1.5 points below ranked characters because case
+pairs share a group once size is normalized: a drawn O shows the more frequent o, and O is
+in the tile's menu.
+
+**Alternatives.** A script chooser on every tile would cost a tap for the common case. A
+prior per keyboard language would need a table per language (18× the size) for a gain the
+script rule already gives inside groups.

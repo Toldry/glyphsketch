@@ -161,20 +161,27 @@ EXPERIMENTS = {
 }
 
 
-def index_options(model: GlyphEncoder, device: torch.device) -> dict[str, tuple[str, GlyphIndex]]:
-    table = GlyphTable.load(stage_dir("glyphs"))
-    glyph_images = np.load(stage_dir("encoderdata") / GLYPH_IMAGES)
-    per_font = glyph_index(model, glyph_images, table.code_points, device)
-    generator = synthetic_generator()
-    prototypes = synthetic_index(model, generator, generator.code_points, PROTOTYPE_SAMPLES, device)
-    return {
-        "a-per-font": ("index (a): glyph render per font, best match", per_font),
-        "a-mean": ("index (a): mean of the glyph renders", per_font.averaged()),
-        "b-synthetic": (
+def index_options(
+    model: GlyphEncoder, device: torch.device, only: str | None = None
+) -> dict[str, tuple[str, GlyphIndex]]:
+    """Every index option (or just ``only``), with a description of each."""
+    options: dict[str, tuple[str, GlyphIndex]] = {}
+    if only in (None, "a-per-font", "a-mean"):
+        table = GlyphTable.load(stage_dir("glyphs"))
+        glyph_images = np.load(stage_dir("encoderdata") / GLYPH_IMAGES)
+        per_font = glyph_index(model, glyph_images, table.code_points, device)
+        options["a-per-font"] = ("index (a): glyph render per font, best match", per_font)
+        options["a-mean"] = ("index (a): mean of the glyph renders", per_font.averaged())
+    if only in (None, "b-synthetic"):
+        generator = synthetic_generator()
+        prototypes = synthetic_index(
+            model, generator, generator.code_points, PROTOTYPE_SAMPLES, device
+        )
+        options["b-synthetic"] = (
             f"index (b): mean of {PROTOTYPE_SAMPLES} synthetic drawings",
             prototypes,
-        ),
-    }
+        )
+    return options if only is None else {only: options[only]}
 
 
 def evaluate_experiment(
