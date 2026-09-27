@@ -425,3 +425,86 @@ plain A with a curl. Real training data (M6) is the way to close it.
 thickness changes) can't separate strokes, so it can't move them independently or
 misjoin them. A learned model of handwriting would need handwriting for every
 character, which is exactly what the design avoids.
+
+## D22. Encoder, loss and batches (M6, 2026-09-27)
+
+**Encoder.** A MobileNetV2-style CNN on 64×64 images: a 3×3 stride-2 stem (16 channels),
+seven inverted residual blocks (24 → 48 → 96 → 192 channels, three stride-2 steps), a
+1×1 head to 384 channels, global average pooling and a linear layer to 128 dimensions,
+L2-normalized. It costs 22.4M multiply-adds and has 546k parameters, about 0.55 MB in
+int8. It uses only 3×3 (standard and depthwise) and 1×1 convolutions, batch norm (folded
+at export), ReLU6, average pooling and one linear layer, so the TypeScript and Kotlin
+engines stay small. Drawings and glyphs share the same weights.
+
+**Loss.** Each batch holds B = 256 distinct characters, each with two drawing views and
+one glyph render. Three InfoNCE terms with a learned temperature: drawing → glyph and
+glyph → drawing (what index option (a) needs), and drawing → other drawing (what index
+option (b), averaged drawing prototypes, needs). Pairs of distinct characters in the same
+confusable group are masked out of the softmax, so pixel-identical characters (A, Α, А)
+are never pushed apart.
+
+**Hard negatives.** Half of each batch comes from neighbourhoods: a seed character plus up
+to 7 of its 24 nearest characters from other confusable groups. The neighbours start from
+HOG similarity of the glyph renders and are recomputed every 500 steps from the model's
+own glyph embeddings.
+
+**Data.** The `encoderdata` stage pre-generates 96 synthetic drawings per character
+(591,456 images, seed 1), the 64 px glyph renders (74,085), and the real training and test
+drawings rasterized like real input (132,974 and 39,943). In the synthetic-and-real
+experiment, each view is a real drawing with probability 0.35 when the character has
+real training drawings. Zero-shot characters and test-split writers are never used in
+training.
+
+**Alternatives.** A triplet loss uses one negative per anchor where InfoNCE uses the whole
+batch, and it needs careful margin tuning. A classifier with a softmax over characters
+would tie the model to a fixed character set, which the design rules out.
+
+## D23. Training on the laptop CPU (M6, 2026-09-27)
+
+**Threads.** Every worker pool starts single-threaded workers (OpenBLAS, OpenMP and MKL
+set to one thread) and uses half the cores by default (`GLYPHSKETCH_WORKERS` overrides);
+training uses the same number of torch threads. Before this, 20 workers each started a
+thread per core (about 40 each) and made the laptop unusable. `make slowdown` pauses,
+postpones or stops heavy jobs if the laptop still gets slow.
+
+**Speed.** Channels-last memory layout makes a training step 1.8× faster on this CPU
+(3.3 → 1.9 s for 768 images). Batch assembly takes 3 ms; the model is the bottleneck, as
+expected for depthwise convolutions on a CPU. At about 450 images/s, a 40-minute run gets
+about 1,400 steps, roughly one pass over the synthetic pool.
+
+**Time budget.** With a wall-clock budget, the cosine decay follows whichever of steps and
+time runs out first. A run cut short by time still ends with a low learning rate, instead
+of saving a checkpoint from the middle of the schedule.
+
+**Consequence.** CPU runs are short and serve the ablations. The final encoder is trained
+on a Kaggle GPU (D24).
+
+**Equal steps, not equal time.** The laptop's speed varies a lot: after about 1.5 hours of
+load, the same benchmark ran 5× slower (a single-threaded Python loop too, with nothing
+else running), most likely Windows power management or heat. A time budget then buys
+far fewer steps, so ablations compare runs with the same number of steps. The first run
+sets the number (synthetic-only: 1,701 steps in 40 minutes), and later runs use
+`--steps` with the time budget only as a safety cap.
+
+## D24. Long runs on Kaggle (M6, 2026-09-27)
+
+`uv run python -m glyphsketch.tools.kaggle_bundle` writes one zip with the package
+source and the stage files the experiments read (about 500 MB compressed, mostly the
+pre-generated images), with a SHA-256 manifest and the git commit.
+`training/kaggle/glyphsketch_train.ipynb` finds it under `/kaggle/input`, links it into
+`$DATA_DIR`, runs each entry of its `RUNS` list with `glyphsketch.model.experiments` on the
+GPU as a subprocess, and writes one results zip laid out like `$DATA_DIR` (checkpoints,
+training logs, evaluation reports). The default list is the equal-step ablation pair
+(1,701 steps each) and a long run of each variant (30,000 steps, capped at 200 minutes
+each). A dry run from the unpacked bundle, with the input read-only and only the bundled
+code on the path, trained, evaluated and wrote all outputs.
+Unpacking that zip into `/data` makes EVAL.md pick the results up.
+
+The bundle holds data derived from Detexify (ODbL) and font renders, so the Kaggle dataset
+must stay private: it is a working copy for training, not a redistribution.
+
+**Alternatives.** Regenerating the images on Kaggle would upload only about 130 MB, but
+Kaggle's 4 CPUs and different library versions would give different training data from
+the CPU ablations. Installing the package with pip would enforce `requires-python >= 3.12`,
+which Kaggle's image may not meet; the source is checked to compile on Python 3.11 and
+is put on `PYTHONPATH` instead.
