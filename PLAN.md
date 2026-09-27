@@ -43,7 +43,7 @@ Each milestone ends with tests passing, an entry in DECISIONS.md and focused com
 | # | Milestone | Exit criteria | Status |
 |---|-----------|---------------|--------|
 | M0 | **Devcontainer + skeleton** | Container builds; `LICENSE` (AGPL-3.0), `THIRD_PARTY.md`, `DECISIONS.md`, directory layout, GitHub Actions CI (Python tests + lint) | Done 2026-09-27 (CI runs once a remote exists) |
-| M1 | **Charset builder** | UCD pinned to the latest release. Exclude Cn/Co/Cc/Cf/Zs/Zl/Zp/Cs and combining marks (Mn/Me). v0 block list. Keep only emoji-presentation characters that have a text-presentation glyph in a free font. `charset.json` with code point, name, block, script, general category. Tests | Not started |
+| M1 | **Charset builder** | UCD pinned to the latest release. Exclude Cn/Co/Cc/Cf/Zs/Zl/Zp/Cs and combining marks (Mn/Me). v0 block list. Keep only emoji-presentation characters that have a text-presentation glyph in a free font. `charset.json` with code point, name, block, script, general category. Tests | Done 2026-09-27: Unicode 18.0.0, 6,454 candidates; the emoji rule is applied by M2's coverage filter (D8) |
 | M2 | **Fonts + renderer** | Pinned font downloads with checksums. fontTools cmap check (never `.notdef` or fallback). Several fonts per character. Coverage report per block. Tests | Not started |
 | M3 | **Real data + eval harness** | Detexify loader with a LaTeX→Unicode mapping. Omniglot alphabets in scope hand-mapped to code points, with the mapping in the repo. Held-out test split by writer. Top-1/top-5 metrics per block, plain and confusable-aware. Tests | Not started |
 | M4 | **Trivial baselines** | Raw-pixel and HOG nearest neighbour against the glyph renders. First EVAL.md numbers | Not started |

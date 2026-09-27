@@ -79,3 +79,67 @@ table.
 **Why.** The brief requires every dependency to be recorded with a license verified from
 the source. Transitive dependencies are easy to forget, and the test makes forgetting one
 fail CI.
+
+## D6. Unicode 18.0.0, pinned by checksum (M1, 2026-09-27)
+
+**Decision.** The pipeline uses Unicode 18.0.0, the latest release (published 2026-09-01).
+Eleven files are pinned by SHA-256 in `glyphsketch/ucd/files.py`: the UCD files the charset
+needs, plus `confusables.txt` and `intentional.txt` from the same release for the homoglyph
+work in M3 and M7. `download.download_file` writes to a temporary name and renames only after
+the checksum matches.
+
+**Why.** A silent upstream change would change the training data. Taking the security data
+from the same release keeps character properties and confusable data consistent.
+
+**Checks.** A data test compares every parsed name with Python's `unicodedata` (Unicode
+15.0). All 143k shared names match. Two general categories changed after 15.0 (U+0295 ʕ
+became Lo, U+1171E became Mc), and the test lists them explicitly.
+
+## D7. The v0 block list (M1, 2026-09-27)
+
+**Decision.** `resources/charset_v0.toml` lists 48 blocks in nine groups: Latin (with IPA,
+phonetic extensions and modifier letters), Greek, Cyrillic, Hebrew, Arabic, punctuation and
+letterlike symbols, mathematics, arrows, and symbols. Inside those blocks the builder drops
+general categories Cn, Co, Cc, Cf, Zs, Zl, Zp, Cs, Mn and Me, and characters with the
+`Deprecated` property. U+FDFC RIAL SIGN is added explicitly because its block (Arabic
+Presentation Forms-A) is otherwise excluded.
+
+Result: **6,454 candidate characters** (the plan estimated 8–12k), before the font
+coverage filter in M2. By group: Latin 1,697, mathematics 1,685 (997 of them Mathematical
+Alphanumeric Symbols), symbols 798, punctuation and letterlike 553, arrows 510, Cyrillic
+450, Greek 368, Arabic 356, Hebrew 37.
+
+**Left out, and why.**
+- Box Drawing, Block Elements, Braille Patterns: grids of near-identical shapes that
+  people don't draw by hand.
+- Alphabetic and Arabic Presentation Forms, Halfwidth and Fullwidth Forms: compatibility
+  forms of characters already in the set. A keyboard should insert the base character.
+- Emoji pictograph blocks (U+1F300 onwards), Geometric Shapes Extended and Supplemental
+  Arrows-C: not in the brief's v0 list, and mostly emoji or obscure.
+- CJK: planned as an optional index pack (M12).
+
+**Deprecated characters** (4 in these blocks, e.g. U+0149 ŉ) are dropped: Unicode
+recommends against using them.
+
+**Mathematical Alphanumeric Symbols are included.** Styled letters such as 𝔄, 𝒜 and 𝔸 are
+what math users most often look up. Note for M7: `confusables.txt` maps all of them to the
+plain letters, including fraktur and script forms that look quite different, so confusable
+groups must be checked visually (see M2 and M7) instead of taken from `confusables.txt`
+unchanged.
+
+**No spacing combining marks (Mc)** exist in these blocks, so the exclusion list matches
+the plan (Mn and Me only) with no special case.
+
+## D8. The emoji rule is enforced by the font coverage stage (M2) (M1, 2026-09-27)
+
+**Decision.** `charset.json` marks the 60 characters with `Emoji_Presentation=Yes` (⌚, ☕,
+♈, ⚡, ✅, ❌, ⭐, …) with `emoji_presentation: true`. The rule "keep only emoji-presentation
+characters that have a text-presentation glyph in a free font" is applied in M2, where the
+coverage check knows which fonts have which glyphs. A text-presentation glyph means a glyph
+in one of the manifest's monochrome text fonts. The manifest contains no emoji fonts, not
+even the monochrome Noto Emoji. Every character without a glyph in any manifest font is
+dropped there, so the emoji rule is a special case of the coverage filter.
+
+**Alternatives.** Counting monochrome Noto Emoji as a text font would make the rule
+meaningless, since it has a glyph for every emoji. Downloading fonts in M1 just for this
+check would duplicate M2.
