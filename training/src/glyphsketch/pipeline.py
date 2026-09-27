@@ -179,10 +179,74 @@ def run_glyphs_stage(context: StageContext) -> None:
     )
 
 
+def run_detexify_stage(context: StageContext) -> None:
+    from glyphsketch.realdata.detexify import download_detexify
+
+    download_detexify(context.output_dir)
+
+
+def run_omniglot_stage(context: StageContext) -> None:
+    from glyphsketch.realdata.omniglot import download_omniglot
+
+    download_omniglot(context.output_dir)
+
+
+def run_uji_stage(context: StageContext) -> None:
+    from glyphsketch.realdata.uji import download_uji
+
+    download_uji(context.output_dir)
+
+
+def run_realdata_stage(context: StageContext) -> None:
+    from glyphsketch.charset import CHARSET_FILE_NAME, load_charset
+    from glyphsketch.glyphs import GlyphTable
+    from glyphsketch.realdata.build import (
+        REPORT_FILE,
+        SAMPLES_FILE,
+        build_real_samples,
+        real_data_report,
+    )
+
+    table = GlyphTable.load(context.input_dir("glyphs"))
+    samples, counts = build_real_samples(
+        set(table.code_points.tolist()),
+        context.input_dir("detexify"),
+        context.input_dir("omniglot"),
+        context.input_dir("uji"),
+    )
+    samples.save(context.output_dir / SAMPLES_FILE)
+    characters = {
+        record.code_point: record
+        for record in load_charset(context.input_dir("charset") / CHARSET_FILE_NAME)
+    }
+    report = real_data_report(samples, counts, characters)
+    (context.output_dir / REPORT_FILE).write_text(report, encoding="utf-8")
+    publish_report(context.output_dir / REPORT_FILE, "real_data.md")
+    print(f"  {len(samples)} samples of {len(set(samples.code_points.tolist()))} characters")
+
+
+def run_confusables_stage(context: StageContext) -> None:
+    from glyphsketch.confusables import REPORT_FILE, build_confusable_groups, write_groups
+    from glyphsketch.glyphs import GlyphTable, load_renders
+    from glyphsketch.ucd.parse import UnicodeDatabase
+
+    ucd = UnicodeDatabase(context.input_dir("ucd"))
+    glyphs_dir = context.input_dir("glyphs")
+    groups, pairs = build_confusable_groups(
+        ucd, load_renders(glyphs_dir), GlyphTable.load(glyphs_dir)
+    )
+    names = {code_point: entry.name for code_point, entry in ucd.entries.items()}
+    write_groups(context.output_dir, groups, pairs, names)
+    publish_report(context.output_dir / REPORT_FILE, "confusable_groups.md")
+    print(f"  {len(groups.groups)} groups from {len(pairs)} candidate pairs")
+
+
 def default_stages() -> list[Stage]:
     """The stages of the full pipeline, in dependency order."""
     from glyphsketch.charset import DEFAULT_CONFIG_PATH
     from glyphsketch.fonts import DEFAULT_MANIFEST_PATH
+    from glyphsketch.realdata.detexify import MAPPING_PATH as DETEXIFY_MAPPING_PATH
+    from glyphsketch.realdata.omniglot import MAPPING_PATH as OMNIGLOT_MAPPING_PATH
     from glyphsketch.ucd.files import UNICODE_VERSION
 
     return [
@@ -211,6 +275,37 @@ def default_stages() -> list[Stage]:
             run=run_glyphs_stage,
             depends_on=("charset", "fonts"),
             version="1",
+        ),
+        Stage(
+            name="detexify",
+            description="Download the Detexify dump (ODbL) and symbol list",
+            run=run_detexify_stage,
+        ),
+        Stage(
+            name="omniglot",
+            description="Download the Omniglot stroke data (MIT)",
+            run=run_omniglot_stage,
+        ),
+        Stage(
+            name="uji",
+            description="Download UJI Pen Characters v2 (CC BY 4.0)",
+            run=run_uji_stage,
+        ),
+        Stage(
+            name="realdata",
+            description="Map real drawings to code points and report the data",
+            run=run_realdata_stage,
+            depends_on=("charset", "glyphs", "detexify", "omniglot", "uji"),
+            version="1-"
+            + file_fingerprint(DETEXIFY_MAPPING_PATH)
+            + file_fingerprint(OMNIGLOT_MAPPING_PATH),
+        ),
+        Stage(
+            name="confusables",
+            description="Group characters whose glyphs look alike",
+            run=run_confusables_stage,
+            depends_on=("ucd", "glyphs"),
+            version="2",
         ),
     ]
 
