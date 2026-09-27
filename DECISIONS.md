@@ -554,10 +554,14 @@ optimum is sharp: at 0.01 the gain is gone, and at 0.02 the prior dominates. So 
 grid is fine around it.
 
 **Tiles.** Members of a confusable group can't be told apart once drawn, so results show
-one tile per group, in the order of the group's best score. The tile shows the member in
-the keyboard language's script (from `resources/wikipedia_prior.toml`; a keyboard for
-Greek shows Α, one for English shows A), the most frequent such member if there are
-several, else the most frequent member. The other members are offered on the tile (a
+one tile per group, in the order of the group's best score. The tile shows the most
+frequent member that the keyboard types: a letter of the keyboard language's script (from
+`resources/wikipedia_prior.toml`; a keyboard for Greek shows Α, one for English shows A),
+or a digit, punctuation mark or symbol (script Common, not a letter), which every
+keyboard types. Without such a member it shows the most frequent member. Both parts of
+the rule came from the fixtures: preferring only the keyboard's script showed ɜ for a
+drawn 3 and Ʃ for ∑ on an English keyboard, and counting every Common character as typed
+let styled letters (𝐚, 𝛌) through. The other members are offered on the tile (a
 long press in Thumb-Key, a small menu in the web demo). Tiles raise the confusable-aware
 top-5 to 81.3%, because merged look-alikes free slots for other candidates.
 
@@ -570,3 +574,50 @@ in the tile's menu.
 **Alternatives.** A script chooser on every tile would cost a tap for the common case. A
 prior per keyboard language would need a table per language (18× the size) for a gain the
 script rule already gives inside groups.
+
+## D27. Export: int8 weights, PCA-reduced per-font index, JSON metadata (M8, 2026-09-27)
+
+**Index size.** Index option (a) keeps one vector per glyph render (74,085 vectors), which
+wins on accuracy (D22 results) but takes 9.5 MB at 128 dimensions in int8, over the
+budget with the model and metadata. Measured on the laptop encoder (test set, prior on):
+
+| Variant | Vectors × dims | int8 size | Top-1 | Top-5 (conf.) |
+|---------|---------------:|----------:|------:|--------------:|
+| per font, float | 74,085 × 128 | 9.5 MB | 47.3 | 79.1 |
+| per font, int8 | 74,085 × 128 | 9.5 MB | 47.3 | 79.2 |
+| per font, 4-bit | 74,085 × 128 | 4.7 MB | 46.4 | 78.7 |
+| mean per character | 6,161 × 128 | 0.8 MB | 42.9 | 74.5 |
+| greedy dedupe at cosine 0.90 | 10,889 × 128 | 1.4 MB | 39.1 | 74.7 |
+| k-means, 4 per character | 22,883 × 128 | 2.9 MB | 44.8 | 77.2 |
+| PCA to 48 dimensions | 74,085 × 48 | 3.6 MB | 47.2 | 79.1 |
+
+The embedding uses few of its 128 dimensions (46 hold 99% of the variance), so a PCA
+projection loses nothing, while every way of dropping vectors does. The projection is
+fitted on the index vectors and folded into the encoder's last linear layer, so it costs
+nothing at inference. Its size is chosen at export as the smallest of 32, 48, 64 or 96
+dimensions within 0.2 points of the full embedding on the 20,000 validation drawings
+(confusable-aware top-1 and top-5); here 48. The test set plays no part in the choice.
+
+**Model.** Batch norm is folded into the convolutions; weights are symmetric int8 per
+output channel with float32 scales and biases (541 kB). Engines dequantize at load and
+compute in float32: int8 is for size, and float arithmetic keeps the engines simple and
+their results equal to the reference. Integer arithmetic is an option for M11 if the
+Pixel 8 needs it.
+
+**Formats.** Small custom binaries (`GSKM`, `GSKI`) instead of ONNX or FlatBuffers: a
+TypeScript or Kotlin reader is about 100 lines with no dependencies, which matters for
+F-Droid. The operation list has seven kinds (`docs/export_format.md`). Metadata is JSON
+(575 kB, 79 kB gzipped), since both platforms parse it natively. The ONNX file is
+a reference for benchmarking ONNX Runtime in M11 and is not shipped: it matches the int8
+network to 2e-7.
+
+**Checks.** The export evaluates its own files, read back, on the test set: 47.2% top-1
+and 79.1% top-5 confusable-aware ranked, 81.2% tile top-5; the same as the float model.
+The shipped files total 5.02 MB. `export/fixtures.json` holds 25 synthetic drawings
+(fonts only, no dataset samples) with the expected input image, embedding, ranking and
+tiles for a Latin and a Greek keyboard. They exposed two flaws in the first tile rule
+(D26).
+
+**Not yet committed.** The files in `export/` come from the laptop's short run. They are
+committed with the final encoder from Kaggle, so the repository doesn't collect 5 MB per
+intermediate model.

@@ -275,6 +275,33 @@ def run_wikiprior_stage(context: StageContext) -> None:
         )
 
 
+def run_export_stage(context: StageContext) -> None:
+    import shutil
+
+    from glyphsketch.export.build import run_export
+
+    summary = run_export(context.output_dir)
+    destination = REPO_ROOT / "export"
+    destination.mkdir(exist_ok=True)
+    for name in [*summary["files"], "README.md"]:
+        shutil.copyfile(context.output_dir / name, destination / name)
+    print(f"  {summary['shipped_bytes'] / 1e6:.2f} MB shipped, copied to {destination}")
+
+
+def export_version() -> str:
+    """Changes with the export settings and with the encoder checkpoint they name."""
+    from glyphsketch import ranking
+    from glyphsketch.export import build, formats, ops
+
+    checkpoint = build.checkpoint_path(build.load_export_config())
+    encoder = file_fingerprint(checkpoint) if checkpoint.exists() else "no-checkpoint"
+    code = "".join(
+        file_fingerprint(Path(module.__file__ or ""))[:6]
+        for module in (build, formats, ops, ranking)
+    )
+    return f"1-{file_fingerprint(build.CONFIG_PATH)}-{encoder}-{code}"
+
+
 def run_glyphstrokes_stage(context: StageContext) -> None:
     from glyphsketch.synth.generator import GLYPH_STROKES_FILE, extract_all_strokes
 
@@ -448,6 +475,21 @@ def default_stages() -> list[Stage]:
             run=run_baselines_stage,
             depends_on=("charset", "glyphs", "realdata", "confusables"),
             version="1",
+        ),
+        Stage(
+            name="export",
+            description="Package the encoder, index and metadata for the engines (int8)",
+            run=run_export_stage,
+            depends_on=(
+                "charset",
+                "glyphs",
+                "glyphstrokes",
+                "realdata",
+                "confusables",
+                "encoderdata",
+                "wikiprior",
+            ),
+            version=export_version(),
         ),
         Stage(
             name="evalreport",

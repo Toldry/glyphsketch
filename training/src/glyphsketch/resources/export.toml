@@ -1,0 +1,15 @@
+# What the export stage packages (M8). See DECISIONS.md (D27) and docs/export_format.md.
+
+# The encoder: $DATA_DIR/experiments/<run>/encoder.pt.
+run = "synthetic-only"
+# Index option (M6): "a-per-font" (one vector per glyph render) or "a-mean".
+index = "a-per-font"
+# Ranking: score = similarity + prior_weight · log prior (tuned by model.ranking_eval).
+prior_weight = 0.002
+# Embedding dimensions after the PCA projection: "auto" picks the smallest candidate whose
+# validation accuracy is within max_validation_drop of the full embedding.
+dims = "auto"
+dims_candidates = [32, 48, 64, 96]
+max_validation_drop = 0.002
+# Parity fixtures: one synthetic drawing of each character.
+fixture_characters = "AΑАaoο0Ox×∫∑→≤∞€ßшλאب✓∂3?"
