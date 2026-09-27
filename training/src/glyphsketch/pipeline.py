@@ -258,6 +258,13 @@ def run_glyphstrokes_stage(context: StageContext) -> None:
     )
 
 
+def run_encoderdata_stage(context: StageContext) -> None:
+    from glyphsketch.model.experiments import SYNTHETIC_PER_CHARACTER, prepare_encoder_data
+
+    counts = prepare_encoder_data(context.output_dir, SYNTHETIC_PER_CHARACTER)
+    print("  " + ", ".join(f"{name}: {count}" for name, count in counts.items()))
+
+
 def load_test_set(context: StageContext) -> "TestSet":
     from glyphsketch.eval_report import TestSet
 
@@ -318,10 +325,11 @@ def default_stages() -> list[Stage]:
     from glyphsketch.fonts import DEFAULT_MANIFEST_PATH
     from glyphsketch.realdata.detexify import MAPPING_PATH as DETEXIFY_MAPPING_PATH
     from glyphsketch.realdata.omniglot import MAPPING_PATH as OMNIGLOT_MAPPING_PATH
-    from glyphsketch.synth import skeleton
+    from glyphsketch.synth import augment, skeleton
     from glyphsketch.ucd.files import UNICODE_VERSION
 
     skeleton_module_path = Path(skeleton.__file__)
+    augment_module_path = Path(augment.__file__)
     return [
         Stage(
             name="ucd",
@@ -386,6 +394,13 @@ def default_stages() -> list[Stage]:
             run=run_glyphstrokes_stage,
             depends_on=("glyphs",),
             version="1-" + file_fingerprint(skeleton_module_path),
+        ),
+        Stage(
+            name="encoderdata",
+            description="Prepare encoder training and test images (synthetic, glyphs, real)",
+            run=run_encoderdata_stage,
+            depends_on=("glyphs", "glyphstrokes", "realdata"),
+            version="1-" + file_fingerprint(augment_module_path),
         ),
         Stage(
             name="baselines",
