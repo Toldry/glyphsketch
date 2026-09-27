@@ -143,3 +143,85 @@ dropped there, so the emoji rule is a special case of the coverage filter.
 **Alternatives.** Counting monochrome Noto Emoji as a text font would make the rule
 meaningless, since it has a glyph for every emoji. Downloading fonts in M1 just for this
 check would duplicate M2.
+
+## D9. Font set: 48 text fonts, 13 of them handwriting-style (M2, 2026-09-27)
+
+**Decision.** `resources/fonts.toml` pins 48 font files (each file and its license text by
+SHA-256): 37 from a fixed commit of google/fonts (Noto, STIX Two, SIL's Andika, Charis and
+Gentium, Source, IBM Plex and 13 informal or handwriting-style fonts), plus DejaVu
+2.37, GNU FreeFont 20120503 and Libertinus 7.051 from their release archives. Styles are
+recorded so training can balance them: sans, serif, mono, handwriting, math, symbols.
+
+**Why these.** Coverage and variety of letterforms matter more than the number of fonts:
+- SIL fonts, Noto, DejaVu and FreeSerif cover the IPA and extended Latin blocks.
+- Four math fonts (Noto Sans Math, STIX Two Math, Libertinus Math, FreeSerif) cover the
+  math blocks, including all Mathematical Alphanumeric Symbols.
+- Handwriting-style fonts supply the letterforms people actually write, which print fonts
+  lack. Examples: single-storey a and g (Andika, Playpen, Caveat), Russian cursive (Bad
+  Script, Marck Script, Caveat), cursive Hebrew (Playpen Sans Hebrew uses cursive
+  letterforms), and Ruqʿah, the everyday Arabic handwriting style (Aref Ruqaa).
+- True italics (Noto Serif, STIX Two, Charis, FreeSerif, Libertinus) add cursive forms.
+  Oblique-only styles are skipped because synthetic shear covers them.
+
+**Left out.** Emoji fonts (D8). DejaVu Math TeX Gyre (mixed Bitstream, public-domain and
+AMSFonts terms, and four other math fonts cover the same characters). GNU Unifont: it is
+a 16×16 bitmap design, and the only characters it would add are brand-new ones (D12).
+Small-caps and decorative faces (Amatic SC, Libertinus Keyboard/Initials), since
+small-caps lowercase would teach wrong shapes. Bold weights, since the synthetic
+generator varies stroke width anyway.
+
+## D10. What counts as a real glyph (M2, 2026-09-27)
+
+**Decision.** A (character, font) pair is rendered only if all of these hold:
+1. The font's best cmap maps the code point to a glyph.
+2. That glyph is not glyph 0 / `.notdef`.
+3. It is not shared by more than 8 code points (a placeholder glyph).
+4. Its decomposed outline has at least one segment (not empty).
+5. Its outline differs from the `.notdef` outline (not a copy of the missing-glyph box).
+6. The render has ink.
+
+Pillow draws with the single font file it is given, using FreeType with the basic layout
+engine (no libraqm, so no shaping or font fallback). A glyph from another font can never
+appear. Variable fonts are set to weight 400 on their weight axis, other axes at their
+defaults.
+
+**Result.** Across the 48 fonts only three glyphs were rejected, all empty outlines: ARABIC
+TATWEEL in Aref Ruqaa, U+1D03 in FreeSans and U+1DB4 in Libertinus Serif Italic. The
+checks are unit-tested with fonts built by fontTools' `FontBuilder`.
+
+## D11. Render normalization: ink box scaled to 112 px in a 128 px square (M2, 2026-09-27)
+
+**Decision.** Each glyph is drawn once at 256 px/em to measure its ink box, then drawn
+again at the size that makes the longer side of the ink box exactly 112 px, and centered
+in a 128×128 grayscale image (aspect ratio kept). The ink box in em units (relative to the
+origin and baseline) is stored alongside each render.
+
+**Alternatives.** Rendering at a fixed em size keeps relative size and position (a period
+stays a small dot low on the line), but drawn input has no baseline or em box to compare
+against. People draw a character to fill the drawing area, so size normalization is the
+realistic match. Resampling a fixed-size render would blur small glyphs. Re-rendering at
+the target size keeps outlines sharp.
+
+**Consequences.** Characters that differ mainly in size or position (`.` `·` `•` `●`, or `,`
+`'`) look alike after normalization. The confusable grouping and frequency prior (M7) have
+to handle them. The stored em-unit ink boxes allow a size- and position-aware experiment
+later. The drawing preprocessing (M5, M9) must use the same 112-in-128 framing (7/8).
+
+## D12. Characters no text font covers are dropped (M2, 2026-09-27)
+
+**Decision.** 293 of the 6,454 candidates have no real glyph in any of the 48 fonts and are
+dropped, leaving **6,161 characters** and **74,085 renders** (12 fonts per character on
+average, median 48 for Basic Latin, 1–2 for some symbol and Arabic extension blocks).
+Almost all dropped characters are recent additions to Unicode (Unicode 15–18): Latin
+Extended-G (157), Cyrillic Extended-D (62), Arabic Extended-C (39), and the three currency
+signs new in Unicode 18.
+
+**Why.** No device font can display these characters yet either, so a keyboard couldn't
+show them in a candidate tile. When fonts add them, re-running the pipeline brings them
+in with no new handwriting data. That is the main property of the design.
+
+**Emoji rule outcome.** All 60 emoji-presentation characters have a text glyph in at least
+one text font (mostly Noto Sans Symbols 2, DejaVu Sans and FreeSerif), so all stay.
+
+The full per-block and per-font numbers are in `docs/reports/glyph_coverage.md`, which the
+`glyphs` stage regenerates.
