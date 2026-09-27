@@ -35,6 +35,43 @@ make lint     # ruff + mypy
 make all      # run the whole pipeline (stages are cached in $DATA_DIR)
 ```
 
+### If the laptop gets slow
+
+Pipeline stages and training runs can use many CPU cores for a long time. Everything in
+the devcontainer shares the laptop's CPU and memory, so heavy jobs can slow down
+Windows. To see what is running and pause or stop it, run this in a devcontainer
+terminal:
+
+```sh
+make slowdown
+# or: python3 training/src/glyphsketch/tools/slowdown.py
+```
+
+The script measures CPU use for a second, then lists the busy jobs with the cores and
+memory each one uses, and names the most likely cause. VS Code and Claude Code are
+listed too, but the script never touches them. Enter a job's number, then choose:
+
+| Key | Action | Effect |
+|-----|--------|--------|
+| `p` | Pause now, continue later | The job freezes and keeps its progress. It still holds its memory until it continues |
+| `r` | Stop now, restart later | Memory is freed. The same command runs again at the chosen time, in the same directory, with the same environment and log file. A pipeline run skips the stages it already finished |
+| `s` | Stop for good | The job ends. Unsaved work is lost |
+
+The script asks when the job should continue or restart. Enter a clock time such as
+`01:00` (the next time the clock shows it), or an offset such as `+2h`, `+45m` or
+`+1h30m`. Press Enter to accept the default, 01:00. A paused job can also be
+continued by hand: run the script again, pick the job and press `c`. Run the script again
+at any time to see what is scheduled, run a scheduled restart now, or cancel it.
+
+A background process carries out scheduled actions, and they are recorded in
+`$DATA_DIR/slowdown/` (`slowdown.log` lists what was done). **Keep the devcontainer running
+until then.** Closing it ends paused jobs and cancels scheduled restarts; the script will
+show those restarts as not going to happen. If the laptop sleeps past the chosen time,
+the action runs when it wakes.
+
+To print the report without any questions, run
+`python3 training/src/glyphsketch/tools/slowdown.py --list`.
+
 ## License
 
 AGPL-3.0-only (see `LICENSE`). Fonts, datasets and dependencies are listed with their

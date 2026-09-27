@@ -2,7 +2,7 @@
 
 UV_RUN = cd training && uv run
 
-.PHONY: all sync test lint format
+.PHONY: all sync test lint format slowdown
 
 all: sync
 	$(UV_RUN) python -m glyphsketch.pipeline all
@@ -21,3 +21,7 @@ lint:
 format:
 	$(UV_RUN) ruff check --fix .
 	$(UV_RUN) ruff format .
+
+# Plain python3 (standard library only), so it works even without the uv environment.
+slowdown:
+	python3 training/src/glyphsketch/tools/slowdown.py
