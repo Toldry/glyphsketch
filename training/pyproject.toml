@@ -44,6 +44,9 @@ select = [
 ]
 ignore = [
     "ANN401",  # `Any` is sometimes the honest type (e.g. JSON)
+    "RUF001",  # look-alike characters are this project's subject matter
+    "RUF002",
+    "RUF003",
 ]
 
 [tool.mypy]
