@@ -5,7 +5,11 @@ description = "Training pipeline for an offline handwritten Unicode character re
 readme = "README.md"
 license = "AGPL-3.0-only"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "fonttools>=4.55",
+    "numpy>=2",
+    "pillow>=11",
+]
 
 [dependency-groups]
 dev = [
@@ -61,6 +65,10 @@ warn_unused_ignores = true
 warn_redundant_casts = true
 warn_return_any = true
 strict_equality = true
+
+[[tool.mypy.overrides]]
+module = ["fontTools.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

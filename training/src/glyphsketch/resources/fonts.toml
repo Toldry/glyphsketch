@@ -1,0 +1,524 @@
+# Fonts used to render glyphs. Every file is pinned by SHA-256, and so is its license text.
+#
+# Google Fonts files come from a fixed commit of https://github.com/google/fonts; the OFL.txt
+# next to each family was read to confirm its license (and every METADATA.pb says "OFL").
+# DejaVu, GNU FreeFont and Libertinus come from their upstream release archives.
+#
+# `style` is used to balance training data and in reports:
+#   sans, serif, mono  - text faces
+#   handwriting        - informal or handwriting-like faces (closest to drawn input)
+#   math, symbols      - specialist coverage fonts
+#
+# Deliberately not used: emoji fonts, including the monochrome Noto Emoji (see DECISIONS.md,
+# D8); DejaVu Math TeX Gyre (mixed Bitstream/AMS terms, and four other math fonts cover the
+# same characters); GNU Unifont (a 16x16 bitmap design; the characters only it covers are
+# brand-new ones that devices can't display yet); small-caps and decorative faces.
+
+google_fonts_commit = "23e54b51ddffbc7713c583748e3bd86f62b1fa4a"
+
+[[archive]]
+id = "dejavu-2.37"
+url = "https://github.com/dejavu-fonts/dejavu-fonts/releases/download/version_2_37/dejavu-fonts-ttf-2.37.zip"
+sha256 = "7576310b219e04159d35ff61dd4a4ec4cdba4f35c00e002a136f00e96a908b0a"
+
+[[archive]]
+id = "freefont-20120503"
+url = "https://ftp.gnu.org/gnu/freefont/freefont-otf-20120503.tar.gz"
+sha256 = "3a6c51868c71b006c33c4bcde63d90927e6fcca8f51c965b8ad62d021614a860"
+
+[[archive]]
+id = "libertinus-7.051"
+url = "https://github.com/alerque/libertinus/releases/download/v7.051/Libertinus-7.051.zip"
+sha256 = "4d9be29b5cb380c35af8ba967abcc752ad1e07be1f738a9789c33e0dd7478c92"
+
+[[font]]
+id = "noto-sans"
+family = "Noto Sans"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosans/NotoSans%5Bwdth%2Cwght%5D.ttf"
+sha256 = "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosans/OFL.txt"
+license_sha256 = "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a"
+
+[[font]]
+id = "noto-serif"
+family = "Noto Serif"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserif/NotoSerif%5Bwdth%2Cwght%5D.ttf"
+sha256 = "4d8e6761424656867019081a1a01336f3cb086982682698714054fc33f782713"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserif/OFL.txt"
+license_sha256 = "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a"
+
+[[font]]
+id = "noto-serif-italic"
+family = "Noto Serif Italic"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserif/NotoSerif-Italic%5Bwdth%2Cwght%5D.ttf"
+sha256 = "e87acbc6c0efd0d9a20d6a8cbbda2b266c14be3a3a6f5af8ec9d7b2460570ad1"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserif/OFL.txt"
+license_sha256 = "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a"
+
+[[font]]
+id = "noto-sans-mono"
+family = "Noto Sans Mono"
+style = "mono"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmono/NotoSansMono%5Bwdth%2Cwght%5D.ttf"
+sha256 = "2cb2adb378a8f574213e23df697050b83c54c27df465a2015552740b2769a081"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmono/OFL.txt"
+license_sha256 = "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a"
+
+[[font]]
+id = "noto-sans-hebrew"
+family = "Noto Sans Hebrew"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshebrew/NotoSansHebrew%5Bwdth%2Cwght%5D.ttf"
+sha256 = "7ef36a2c3593758cdb622e1bdef4f84523e92fbc3ccc667438dd80ff54c2de88"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshebrew/OFL.txt"
+license_sha256 = "9b9fe028b5ba74d231659a1bbaf0ed09b11e759d1ca6a070999e16d151616b47"
+
+[[font]]
+id = "noto-serif-hebrew"
+family = "Noto Serif Hebrew"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifhebrew/NotoSerifHebrew%5Bwdth%2Cwght%5D.ttf"
+sha256 = "93caef921360788dc3b0e32136bb26f16bc57717ec482d48fc7fd43820617165"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifhebrew/OFL.txt"
+license_sha256 = "9b9fe028b5ba74d231659a1bbaf0ed09b11e759d1ca6a070999e16d151616b47"
+
+[[font]]
+id = "noto-sans-arabic"
+family = "Noto Sans Arabic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansarabic/NotoSansArabic%5Bwdth%2Cwght%5D.ttf"
+sha256 = "63111b5b2e074dd48cc67692e0a2726d86ee94c1c37fe8598257b7b4e87e869e"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansarabic/OFL.txt"
+license_sha256 = "07fc70bfeb985cc1a87a8587d0a0c80bab11c86c9dc3fd95b6f0cb332f983e96"
+
+[[font]]
+id = "noto-naskh-arabic"
+family = "Noto Naskh Arabic"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notonaskharabic/NotoNaskhArabic%5Bwght%5D.ttf"
+sha256 = "67b5a525a661b607971fbd3f96a81b89d3a768e74534fca84f18ac97e6fab72f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notonaskharabic/OFL.txt"
+license_sha256 = "a7a5a25eb188bf1cd96982030d53e23c33485c69b1044a562254226857ee13af"
+
+[[font]]
+id = "noto-sans-math"
+family = "Noto Sans Math"
+style = "math"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmath/NotoSansMath-Regular.ttf"
+sha256 = "3f495fe933c06786e4d5f6d86b8ee70b6753a68ee3b9d87528726de0f6e2c47d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmath/OFL.txt"
+license_sha256 = "403a95275b469061b7d4371c328e0ada3bc7d63328abe2e88aad5cd243b2fe21"
+
+[[font]]
+id = "noto-sans-symbols"
+family = "Noto Sans Symbols"
+style = "symbols"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssymbols/NotoSansSymbols%5Bwght%5D.ttf"
+sha256 = "f7e7e04b4a24b6c78893d50cbfd2b2f6cae49617ab047bfef668d252adb128f7"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssymbols/OFL.txt"
+license_sha256 = "b118dd41337806a5d4797052c77caf3bd096aed783e5eb21b4d11154351e1ac0"
+
+[[font]]
+id = "noto-sans-symbols-2"
+family = "Noto Sans Symbols 2"
+style = "symbols"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssymbols2/NotoSansSymbols2-Regular.ttf"
+sha256 = "7d5fb73b7ca67a6798101741f5d280a3d016a56a197afcd4199dbb57b4b82a21"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssymbols2/OFL.txt"
+license_sha256 = "b118dd41337806a5d4797052c77caf3bd096aed783e5eb21b4d11154351e1ac0"
+
+[[font]]
+id = "stix-two-text"
+family = "STIX Two Text"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/stixtwotext/STIXTwoText%5Bwght%5D.ttf"
+sha256 = "7962b8b7811e6a896c9a91a0bccbb5241047770eb24d4997c5cb5fe21d5c0df2"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/stixtwotext/OFL.txt"
+license_sha256 = "62c0967a997b9691326d35b1f90baf085a557327b711618bc4161325ce1bb1b2"
+
+[[font]]
+id = "stix-two-text-italic"
+family = "STIX Two Text Italic"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/stixtwotext/STIXTwoText-Italic%5Bwght%5D.ttf"
+sha256 = "88c0e2e316eaff56eddc9e51e4850317e2a1e490bbf758b2dec4793aedba9c74"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/stixtwotext/OFL.txt"
+license_sha256 = "62c0967a997b9691326d35b1f90baf085a557327b711618bc4161325ce1bb1b2"
+
+[[font]]
+id = "stix-two-math"
+family = "STIX Two Math"
+style = "math"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/stixtwomath/STIXTwoMath-Regular.ttf"
+sha256 = "562551b15b836e6e01d1b7350909baf3c8c8d83260c1190fbf4544333e6936de"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/stixtwomath/OFL.txt"
+license_sha256 = "0c8825913b60d858aacdb33c4ca6660a7d64b0d6464702efbb19313f5765861a"
+
+[[font]]
+id = "andika"
+family = "Andika"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/andika/Andika-Regular.ttf"
+sha256 = "202b96b1f174a4a43baefe885b40dacacb81786755efd08ed4b7704e79c45515"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/andika/OFL.txt"
+license_sha256 = "43ee152fcd7be0c6eb3468f3012e776cb75bf88f5dec548be0aa4619bf438f9e"
+
+[[font]]
+id = "charis-sil"
+family = "Charis SIL"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/charissil/CharisSIL-Regular.ttf"
+sha256 = "346337374aa347d64ee015b26d441f1970d8631914e2f3941b00e1c4761e28c5"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/charissil/OFL.txt"
+license_sha256 = "0acda775b4dedaf980821f590206a692779ee495170018ee2b9caf1c50fc136a"
+
+[[font]]
+id = "charis-sil-italic"
+family = "Charis SIL Italic"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/charissil/CharisSIL-Italic.ttf"
+sha256 = "e776e2961117b39cf924c0139de01748a77b2fcb99c437b2c77bdd9401606c13"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/charissil/OFL.txt"
+license_sha256 = "0acda775b4dedaf980821f590206a692779ee495170018ee2b9caf1c50fc136a"
+
+[[font]]
+id = "gentium-plus"
+family = "Gentium Plus"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/gentiumplus/GentiumPlus-Regular.ttf"
+sha256 = "845e06bb4673a908a5f3b3b4ac9f38841750a07faa9aa45bfcb5796893346f0b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/gentiumplus/OFL.txt"
+license_sha256 = "c309a440be606e283ccacc746662d714b9c5b5a7a0a10dd2514b90206b55ddfe"
+
+[[font]]
+id = "source-sans-3"
+family = "Source Sans 3"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/sourcesans3/SourceSans3%5Bwght%5D.ttf"
+sha256 = "042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/sourcesans3/OFL.txt"
+license_sha256 = "09746787287a289323b0ec3cff4d1a4a801331b82b7207c1e186f5d26619a392"
+
+[[font]]
+id = "source-serif-4"
+family = "Source Serif 4"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/sourceserif4/SourceSerif4%5Bopsz%2Cwght%5D.ttf"
+sha256 = "97b2d4da6e3cb494b5a1e66ae176914d852ccabef49e0c02c0df25f3e39aca0b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/sourceserif4/OFL.txt"
+license_sha256 = "5f94c3fd3a23131a417ab5a0c8452de57e70c3cfb9f604d88241f7065ebf9fd9"
+
+[[font]]
+id = "ibm-plex-sans"
+family = "IBM Plex Sans"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexsans/IBMPlexSans%5Bwdth%2Cwght%5D.ttf"
+sha256 = "3b031aa4216174205bd8471f88a49b91f093169e9e87bd5262242bc5967fe2e3"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexsans/OFL.txt"
+license_sha256 = "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+
+[[font]]
+id = "ibm-plex-mono"
+family = "IBM Plex Mono"
+style = "mono"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexmono/IBMPlexMono-Regular.ttf"
+sha256 = "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexmono/OFL.txt"
+license_sha256 = "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+
+[[font]]
+id = "ibm-plex-sans-hebrew"
+family = "IBM Plex Sans Hebrew"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexsanshebrew/IBMPlexSansHebrew-Regular.ttf"
+sha256 = "c11df42adf5e2c6e77e623dbedbe8cc23ba72196ac9ad8beb02754eebd9c400a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexsanshebrew/OFL.txt"
+license_sha256 = "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+
+[[font]]
+id = "ibm-plex-sans-arabic"
+family = "IBM Plex Sans Arabic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexsansarabic/IBMPlexSansArabic-Regular.ttf"
+sha256 = "6f611412270a132bbac838da9259d4c68569b4175f3b3b8fa3fa36a30b56dab9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/ibmplexsansarabic/OFL.txt"
+license_sha256 = "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+
+[[font]]
+id = "playpen-sans"
+family = "Playpen Sans"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/playpensans/PlaypenSans%5Bwght%5D.ttf"
+sha256 = "e083f9da8be210e08ea982ab510894641aab37590e70620d6db73f8de881ec4a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/playpensans/OFL.txt"
+license_sha256 = "59440310cc2c539b53c835306f74ac8c01f1ece58bf4c65e556fca275b80a730"
+
+[[font]]
+id = "playpen-sans-hebrew"
+family = "Playpen Sans Hebrew"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/playpensanshebrew/PlaypenSansHebrew%5Bwght%5D.ttf"
+sha256 = "0ec8a95033c5a01e1799c60b49ab76d9922a68f715a081fc1f5587e4d2bb5b69"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/playpensanshebrew/OFL.txt"
+license_sha256 = "59440310cc2c539b53c835306f74ac8c01f1ece58bf4c65e556fca275b80a730"
+
+[[font]]
+id = "playpen-sans-arabic"
+family = "Playpen Sans Arabic"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/playpensansarabic/PlaypenSansArabic%5Bwght%5D.ttf"
+sha256 = "31122f11b6aa8a36a283f95797663a575afffbe2d52b69e496f3a2440942a226"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/playpensansarabic/OFL.txt"
+license_sha256 = "59440310cc2c539b53c835306f74ac8c01f1ece58bf4c65e556fca275b80a730"
+
+[[font]]
+id = "aref-ruqaa"
+family = "Aref Ruqaa"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/arefruqaa/ArefRuqaa-Regular.ttf"
+sha256 = "ceb786d83ba92f35e96efcd8623c2858d288e0c543c8761ba35b1020989464f9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/arefruqaa/OFL.txt"
+license_sha256 = "41ac14451a624c69490e24b9aaaaa1f65dc9dc17c3f6f38172fc43d5ba654a1b"
+
+[[font]]
+id = "caveat"
+family = "Caveat"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/caveat/Caveat%5Bwght%5D.ttf"
+sha256 = "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/caveat/OFL.txt"
+license_sha256 = "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b"
+
+[[font]]
+id = "bad-script"
+family = "Bad Script"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/badscript/BadScript-Regular.ttf"
+sha256 = "40ec737eee65ec4efbc24ae636fa31d7d84d1ccca83ab54cd555edb72cb3eaf0"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/badscript/OFL.txt"
+license_sha256 = "0b742ad45c246502b6d56c62146011e37098978b8feb5970d7da313553dedd91"
+
+[[font]]
+id = "marck-script"
+family = "Marck Script"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/marckscript/MarckScript-Regular.ttf"
+sha256 = "504de8cc6f919163bc9afb67b9bc208d258230c5e8d00cb82ec52474f9fafc3b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/marckscript/OFL.txt"
+license_sha256 = "f22a2beea88d631a620b15683fd03e79f13ad3297ad97fa5e42283c0b1a3a038"
+
+[[font]]
+id = "patrick-hand"
+family = "Patrick Hand"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/patrickhand/PatrickHand-Regular.ttf"
+sha256 = "0f173b3e6cb6d1af25babf7f0057c5ac4ee11f9992b0469bb817e967ef4ad0fc"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/patrickhand/OFL.txt"
+license_sha256 = "377f4f9c19e935228552478eb68cc2ed82910988a60ba60e2ac73b09f32d02d1"
+
+[[font]]
+id = "kalam"
+family = "Kalam"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/kalam/Kalam-Regular.ttf"
+sha256 = "57cecb63d4608019371954274ae1d8c397764debd5b19d4a33c1efa4dc923c0b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/kalam/OFL.txt"
+license_sha256 = "f62ef357d3a1c3d27edd35a6e1ba350e8a8d13499797964eeadefbf0b3b15d1f"
+
+[[font]]
+id = "indie-flower"
+family = "Indie Flower"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/indieflower/IndieFlower-Regular.ttf"
+sha256 = "ccc94b22b156e9c5dfe50fd051f01b097600b252c24473e624bb43a143140a94"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/indieflower/OFL.txt"
+license_sha256 = "d9cdb075679d15a99bab2a8541b9c4fdc71347502111fbe9affd1d462219d96b"
+
+[[font]]
+id = "comic-neue"
+family = "Comic Neue"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/comicneue/ComicNeue-Regular.ttf"
+sha256 = "a0ee5a37c8b27c4db0700137d928598b1e23b0089e1546a8961909176b779360"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/comicneue/OFL.txt"
+license_sha256 = "7c38a22e5878e60fe423360553e63dd7be23d29f1f60336034935dbfc96e8320"
+
+[[font]]
+id = "pangolin"
+family = "Pangolin"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/pangolin/Pangolin-Regular.ttf"
+sha256 = "cf4f0a46704c7859d4943320fce6c6d06cc7dc450ef971c3676ef36f9f482299"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/pangolin/OFL.txt"
+license_sha256 = "b4fc1d55ce610f255c5712f8169543f9610536d002deb99bbc99bfbba9f8a560"
+
+[[font]]
+id = "klee-one"
+family = "Klee One"
+style = "handwriting"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/kleeone/KleeOne-Regular.ttf"
+sha256 = "bf4063f030cc2ae6adf0a11424a1888e5c0eb4438f1f6d02f52294af868e9b3a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/kleeone/OFL.txt"
+license_sha256 = "e376b0df8e8a2345a9533db6f0a5333a1107975569ad9d1973a7ee557161ca38"
+
+[[font]]
+id = "dejavu-sans"
+family = "DejaVu Sans"
+style = "sans"
+archive = "dejavu-2.37"
+member = "dejavu-fonts-ttf-2.37/ttf/DejaVuSans.ttf"
+sha256 = "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954"
+license = "Bitstream-Vera AND LicenseRef-Arev-Fonts (DejaVu changes: public domain)"
+license_member = "dejavu-fonts-ttf-2.37/LICENSE"
+license_sha256 = "7a083b136e64d064794c3419751e5c7dd10d2f64c108fe5ba161eae5e5958a93"
+
+[[font]]
+id = "dejavu-serif"
+family = "DejaVu Serif"
+style = "serif"
+archive = "dejavu-2.37"
+member = "dejavu-fonts-ttf-2.37/ttf/DejaVuSerif.ttf"
+sha256 = "42d1edeb7952f31b1f96d767ed7030b08a39e0c372b0071641518864e2bffb51"
+license = "Bitstream-Vera AND LicenseRef-Arev-Fonts (DejaVu changes: public domain)"
+license_member = "dejavu-fonts-ttf-2.37/LICENSE"
+license_sha256 = "7a083b136e64d064794c3419751e5c7dd10d2f64c108fe5ba161eae5e5958a93"
+
+[[font]]
+id = "dejavu-sans-mono"
+family = "DejaVu Sans Mono"
+style = "mono"
+archive = "dejavu-2.37"
+member = "dejavu-fonts-ttf-2.37/ttf/DejaVuSansMono.ttf"
+sha256 = "b4a6c3e4faab8773f4ff761d56451646409f29abedd68f05d38c2df667d3c582"
+license = "Bitstream-Vera AND LicenseRef-Arev-Fonts (DejaVu changes: public domain)"
+license_member = "dejavu-fonts-ttf-2.37/LICENSE"
+license_sha256 = "7a083b136e64d064794c3419751e5c7dd10d2f64c108fe5ba161eae5e5958a93"
+
+[[font]]
+id = "free-sans"
+family = "FreeSans"
+style = "sans"
+archive = "freefont-20120503"
+member = "freefont-20120503/FreeSans.otf"
+sha256 = "d3e9138ccf76ef516cc6af867e4e7ed8776331947235824f924c5886186b0c80"
+license = "GPL-3.0-or-later WITH Font-exception-2.0"
+license_member = "freefont-20120503/COPYING"
+license_sha256 = "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+
+[[font]]
+id = "free-serif"
+family = "FreeSerif"
+style = "serif"
+archive = "freefont-20120503"
+member = "freefont-20120503/FreeSerif.otf"
+sha256 = "aab33b5d0efd450d3ac3153b176f542315e171db79e494aa287cd940ae16231b"
+license = "GPL-3.0-or-later WITH Font-exception-2.0"
+license_member = "freefont-20120503/COPYING"
+license_sha256 = "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+
+[[font]]
+id = "free-serif-italic"
+family = "FreeSerif Italic"
+style = "serif"
+archive = "freefont-20120503"
+member = "freefont-20120503/FreeSerifItalic.otf"
+sha256 = "4c815172f18223f5ecfae908d8fae0eed5708c8f12c257cfb59150464f9b8599"
+license = "GPL-3.0-or-later WITH Font-exception-2.0"
+license_member = "freefont-20120503/COPYING"
+license_sha256 = "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+
+[[font]]
+id = "free-mono"
+family = "FreeMono"
+style = "mono"
+archive = "freefont-20120503"
+member = "freefont-20120503/FreeMono.otf"
+sha256 = "daf720e115bc462f721cdf3065697b75fea033bf46d4598d3a727fce4b036032"
+license = "GPL-3.0-or-later WITH Font-exception-2.0"
+license_member = "freefont-20120503/COPYING"
+license_sha256 = "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+
+[[font]]
+id = "libertinus-sans"
+family = "Libertinus Sans"
+style = "sans"
+archive = "libertinus-7.051"
+member = "Libertinus-7.051/static/OTF/LibertinusSans-Regular.otf"
+sha256 = "8f897bcf5b209f7c4b2a18a688dab10b723961b87690cbf54c927d7a68e0c442"
+license = "OFL-1.1"
+license_member = "Libertinus-7.051/OFL.txt"
+license_sha256 = "9aeecc8107c489ec1ec0068b0313e531a760edf3493705b32ab8ab8215a8794e"
+
+[[font]]
+id = "libertinus-serif"
+family = "Libertinus Serif"
+style = "serif"
+archive = "libertinus-7.051"
+member = "Libertinus-7.051/static/OTF/LibertinusSerif-Regular.otf"
+sha256 = "fcf06307a77367394fcb0ccb241e59eea70dba3d732be309647611224679c733"
+license = "OFL-1.1"
+license_member = "Libertinus-7.051/OFL.txt"
+license_sha256 = "9aeecc8107c489ec1ec0068b0313e531a760edf3493705b32ab8ab8215a8794e"
+
+[[font]]
+id = "libertinus-serif-italic"
+family = "Libertinus Serif Italic"
+style = "serif"
+archive = "libertinus-7.051"
+member = "Libertinus-7.051/static/OTF/LibertinusSerif-Italic.otf"
+sha256 = "9a393d63d6e05f620d3dc0190dfd35a8ede58c0808cf0fc9de7fcb9c723e4c24"
+license = "OFL-1.1"
+license_member = "Libertinus-7.051/OFL.txt"
+license_sha256 = "9aeecc8107c489ec1ec0068b0313e531a760edf3493705b32ab8ab8215a8794e"
+
+[[font]]
+id = "libertinus-math"
+family = "Libertinus Math"
+style = "math"
+archive = "libertinus-7.051"
+member = "Libertinus-7.051/static/OTF/LibertinusMath-Regular.otf"
+sha256 = "ded714b0d3808af527438ed7a85f16933133f66a12104c4a83db4cc248888011"
+license = "OFL-1.1"
+license_member = "Libertinus-7.051/OFL.txt"
+license_sha256 = "9aeecc8107c489ec1ec0068b0313e531a760edf3493705b32ab8ab8215a8794e"
+

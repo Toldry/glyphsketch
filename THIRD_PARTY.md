@@ -26,7 +26,71 @@ is pinned in `training/src/glyphsketch/ucd/files.py`.
 
 ## Fonts
 
-Added in M2.
+Used at build time only: the pipeline renders glyphs from these fonts to make training
+data and the glyph index. The font files themselves are not shipped. What ships is the
+index, a set of embedding vectors computed from the renders. Each font file and its
+license text are pinned by SHA-256 in `training/src/glyphsketch/resources/fonts.toml`,
+and the `fonts` stage saves each font's license next to it in `$DATA_DIR/fonts/licenses/`.
+
+How each license was verified:
+- Google Fonts families: the `OFL.txt` in each family's directory at the pinned commit
+  `23e54b51ddffbc7713c583748e3bd86f62b1fa4a` of https://github.com/google/fonts (every
+  `METADATA.pb` also says `license: "OFL"`).
+- DejaVu 2.37: `LICENSE` in the release archive (Bitstream Vera license and Arev fonts
+  license, DejaVu changes in the public domain).
+- GNU FreeFont 20120503: `COPYING` (GPL-3.0) and the font exception in `README`.
+- Libertinus 7.051: `OFL.txt` in the release archive.
+
+| Font | Version | License | Source | Style |
+|------|---------|---------|--------|-------|
+| Noto Sans | 2.015 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosans | sans |
+| Noto Serif | 2.015 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserif | serif |
+| Noto Serif Italic | 2.013 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserif | serif |
+| Noto Sans Mono | 2.014 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmono | mono |
+| Noto Sans Hebrew | 3.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanshebrew | sans |
+| Noto Serif Hebrew | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifhebrew | serif |
+| Noto Sans Arabic | 2.012 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansarabic | sans |
+| Noto Naskh Arabic | 2.021 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notonaskharabic | serif |
+| Noto Sans Math | 3.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmath | math |
+| Noto Sans Symbols | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssymbols | symbols |
+| Noto Sans Symbols 2 | 2.008 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssymbols2 | symbols |
+| STIX Two Text | 2.13 b171 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwotext | serif |
+| STIX Two Text Italic | 2.13 b171 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwotext | serif |
+| STIX Two Math | 2.12 b168a | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwomath | math |
+| Andika | 6.101 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/andika | sans |
+| Charis SIL | 6.101 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/charissil | serif |
+| Charis SIL Italic | 6.101 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/charissil | serif |
+| Gentium Plus | 6.101 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/gentiumplus | serif |
+| Source Sans 3 | 3.052 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/sourcesans3 | sans |
+| Source Serif 4 | 4.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/sourceserif4 | serif |
+| IBM Plex Sans | 3.201 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/ibmplexsans | sans |
+| IBM Plex Mono | 2.3 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/ibmplexmono | mono |
+| IBM Plex Sans Hebrew | 1.2 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/ibmplexsanshebrew | sans |
+| IBM Plex Sans Arabic | 1.101 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/ibmplexsansarabic | sans |
+| Playpen Sans | 2.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/playpensans | handwriting |
+| Playpen Sans Hebrew | 2.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/playpensanshebrew | handwriting |
+| Playpen Sans Arabic | 2.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/playpensansarabic | handwriting |
+| Aref Ruqaa | 1.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/arefruqaa | handwriting |
+| Caveat | 2.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/caveat | handwriting |
+| Bad Script | 2.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/badscript | handwriting |
+| Marck Script | 1.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/marckscript | handwriting |
+| Patrick Hand | 1.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/patrickhand | handwriting |
+| Kalam | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/kalam | handwriting |
+| Indie Flower | 2.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/indieflower | handwriting |
+| Comic Neue | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/comicneue | handwriting |
+| Pangolin | 1.101 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/pangolin | handwriting |
+| Klee One | 1.100 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/kleeone | handwriting |
+| DejaVu Sans | 2.37 | Bitstream-Vera AND LicenseRef-Arev-Fonts (DejaVu changes: public domain) | https://github.com/dejavu-fonts/dejavu-fonts/releases/download/version_2_37/dejavu-fonts-ttf-2.37.zip | sans |
+| DejaVu Serif | 2.37 | Bitstream-Vera AND LicenseRef-Arev-Fonts (DejaVu changes: public domain) | https://github.com/dejavu-fonts/dejavu-fonts/releases/download/version_2_37/dejavu-fonts-ttf-2.37.zip | serif |
+| DejaVu Sans Mono | 2.37 | Bitstream-Vera AND LicenseRef-Arev-Fonts (DejaVu changes: public domain) | https://github.com/dejavu-fonts/dejavu-fonts/releases/download/version_2_37/dejavu-fonts-ttf-2.37.zip | mono |
+| FreeSans | 0412.2268 | GPL-3.0-or-later WITH Font-exception-2.0 | https://ftp.gnu.org/gnu/freefont/freefont-otf-20120503.tar.gz | sans |
+| FreeSerif | 0412.2263 | GPL-3.0-or-later WITH Font-exception-2.0 | https://ftp.gnu.org/gnu/freefont/freefont-otf-20120503.tar.gz | serif |
+| FreeSerif Italic | 0412.2268 | GPL-3.0-or-later WITH Font-exception-2.0 | https://ftp.gnu.org/gnu/freefont/freefont-otf-20120503.tar.gz | serif |
+| FreeMono | 0412.2268 | GPL-3.0-or-later WITH Font-exception-2.0 | https://ftp.gnu.org/gnu/freefont/freefont-otf-20120503.tar.gz | mono |
+| Libertinus Sans | 7.051 | OFL-1.1 | https://github.com/alerque/libertinus/releases/download/v7.051/Libertinus-7.051.zip | sans |
+| Libertinus Serif | 7.051 | OFL-1.1 | https://github.com/alerque/libertinus/releases/download/v7.051/Libertinus-7.051.zip | serif |
+| Libertinus Serif Italic | 7.051 | OFL-1.1 | https://github.com/alerque/libertinus/releases/download/v7.051/Libertinus-7.051.zip | serif |
+| Libertinus Math | 7.051 | OFL-1.1 | https://github.com/alerque/libertinus/releases/download/v7.051/Libertinus-7.051.zip | math |
 
 ## Datasets
 
@@ -41,12 +105,15 @@ None of these are shipped. They run the pipeline that produces the exported file
 |---------|---------|---------|--------|-----|
 | `ast-serialize` | 0.11.2 | MIT | https://github.com/mypyc/ast_serialize | dev: type checking (mypy) |
 | `colorama` | 0.4.6 | BSD-3-Clause | https://github.com/tartley/colorama | dev: pytest on Windows only |
+| `fonttools` | 4.66.0 | MIT | https://github.com/fonttools/fonttools | pipeline: cmap and outline checks |
 | `iniconfig` | 2.3.0 | MIT | https://github.com/pytest-dev/iniconfig | dev: tests (pytest) |
 | `librt` | 0.15.0 | MIT | https://github.com/mypyc/librt | dev: type checking (mypy) |
 | `mypy` | 2.3.1 | MIT (bundled typeshed: Apache-2.0 and MIT) | https://github.com/python/mypy | dev: type checking |
 | `mypy-extensions` | 1.1.0 | MIT | https://github.com/python/mypy_extensions | dev: type checking (mypy) |
+| `numpy` | 2.5.3 | BSD-3-Clause (wheel also bundles OpenBLAS: BSD-3-Clause; libgfortran: GPL-3.0-or-later WITH GCC-exception-3.1; libquadmath: LGPL-2.1-or-later) | https://github.com/numpy/numpy | pipeline: arrays |
 | `packaging` | 26.3 | Apache-2.0 OR BSD-2-Clause | https://github.com/pypa/packaging | dev: tests (pytest) |
 | `pathspec` | 1.1.1 | MPL-2.0 | https://github.com/cpburnz/python-pathspec | dev: type checking (mypy) |
+| `pillow` | 12.3.0 | MIT-CMU (wheel also bundles FreeType: FTL OR GPL-2.0-or-later, HarfBuzz: MIT, and image codecs under permissive licenses) | https://github.com/python-pillow/Pillow | pipeline: glyph rendering |
 | `pluggy` | 1.6.0 | MIT | https://github.com/pytest-dev/pluggy | dev: tests (pytest) |
 | `pygments` | 2.21.0 | BSD-2-Clause | https://github.com/pygments/pygments | dev: tests (pytest) |
 | `pytest` | 9.1.1 | MIT | https://github.com/pytest-dev/pytest | dev: tests |
