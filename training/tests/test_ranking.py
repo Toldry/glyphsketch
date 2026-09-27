@@ -47,3 +47,25 @@ def test_tile_representatives_pad_when_there_are_few_groups() -> None:
 def test_keyboard_scripts_fall_back_to_latin_for_symbols() -> None:
     assert keyboard_scripts_for(GREEK_ALPHA, SCRIPT_OF) == ("Greek",)
     assert keyboard_scripts_for(RARE, SCRIPT_OF) == ("Latin",)
+
+
+def test_symbols_compete_with_the_keyboard_script_on_frequency() -> None:
+    three, reversed_open_e = 0x33, 0x25C
+    ranker = Ranker(
+        np.array([three, reversed_open_e]),
+        {three: -4.0, reversed_open_e: -14.0},
+        0.0,
+        {three: three, reversed_open_e: three},
+        {three: "Common", reversed_open_e: "Latin"},
+        frozenset({three}),
+    )
+    tiles = ranker.tiles(np.array([0.5, 0.6], dtype=np.float32), 1, ("Latin",))
+    assert tiles[0].members == (three, reversed_open_e)
+
+
+def test_only_non_letters_of_script_common_count_as_typed_everywhere() -> None:
+    from glyphsketch.ranking import on_every_keyboard
+
+    assert on_every_keyboard("Common", "Nd") and on_every_keyboard("Common", "Sm")
+    assert not on_every_keyboard("Common", "Ll")  # 𝐚 MATHEMATICAL BOLD SMALL A
+    assert not on_every_keyboard("Latin", "Ll")

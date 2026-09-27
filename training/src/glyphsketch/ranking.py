@@ -8,10 +8,11 @@ saw (``model.ranking_eval``).
 **Tiles.** Members of a confusable group look the same once drawn (Latin A, Greek Α,
 Cyrillic А), so results are shown as one tile per group, in the order of each group's best
 score. A tile shows one representative and offers the others (for example on long press).
-The representative is the member whose script the keyboard's language uses, the most
-frequent such member when there are several, and otherwise the most frequent member
-overall. The ranking is plain array arithmetic, so the TypeScript and Kotlin engines can
-reproduce it exactly.
+The representative is the most frequent member that the keyboard types: one in a script
+of the keyboard's language, or a digit or symbol (script Common), which every keyboard
+types (letters of script Common, such as 𝐚, don't count). Without such a member, it is
+the most frequent member overall. The ranking is
+plain array arithmetic, so the TypeScript and Kotlin engines can reproduce it exactly.
 """
 
 from collections import defaultdict
@@ -20,7 +21,16 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from glyphsketch.charset import CharacterRecord
+
 CANDIDATES_PER_TILE = 8
+SCRIPTS_ON_EVERY_KEYBOARD = frozenset({"Common", "Inherited"})
+
+
+def on_every_keyboard(script: str, general_category: str) -> bool:
+    """Digits, punctuation and symbols are typed with every keyboard, so they compete with
+    the keyboard's letters on frequency alone. Letters of script Common (𝐚, ℵ) are not."""
+    return script in SCRIPTS_ON_EVERY_KEYBOARD and not general_category.startswith("L")
 
 
 @dataclass(frozen=True)
@@ -38,8 +48,10 @@ class Ranker:
         weight: float,
         group_of: dict[int, int],
         script_of: dict[int, str],
+        typed_everywhere: frozenset[int] = frozenset(),
     ) -> None:
-        """``code_points`` are the index's characters, in its column order."""
+        """``code_points`` are the index's characters, in its column order;
+        ``typed_everywhere`` holds those ``on_every_keyboard``."""
         self.code_points = np.asarray(code_points, dtype=np.int64)
         floor = min(log_prior.values()) if log_prior else 0.0
         self.log_prior = np.array(
@@ -47,6 +59,7 @@ class Ranker:
         )
         self.weight = weight
         self.script_of = script_of
+        self.typed_everywhere = typed_everywhere
         self.group_ids = np.array(
             [group_of.get(int(cp), int(cp)) for cp in self.code_points], dtype=np.int64
         )
@@ -68,10 +81,17 @@ class Ranker:
         """Code points of a group, representative first."""
         key = (group, scripts)
         if key not in self._chooser_cache:
+
+            def typed(code_point: int) -> bool:
+                return (
+                    self.script_of.get(code_point, "") in scripts
+                    or code_point in self.typed_everywhere
+                )
+
             columns = sorted(
                 self.members[group],
                 key=lambda column: (
-                    self.script_of.get(int(self.code_points[column]), "") not in scripts,
+                    not typed(int(self.code_points[column])),
                     -self.log_prior[column],
                     int(self.code_points[column]),
                 ),
@@ -120,6 +140,14 @@ def _top_columns(scores: np.ndarray, k: int) -> np.ndarray:
     top = np.argpartition(-scores, count - 1, axis=1)[:, :count]
     order = np.argsort(-np.take_along_axis(scores, top, axis=1), axis=1, kind="stable")
     return np.take_along_axis(top, order, axis=1)
+
+
+def typed_on_every_keyboard(characters: Sequence[CharacterRecord]) -> frozenset[int]:
+    return frozenset(
+        record.code_point
+        for record in characters
+        if on_every_keyboard(record.script, record.general_category)
+    )
 
 
 KEYBOARD_SCRIPTS = ("Latin", "Greek", "Cyrillic", "Hebrew", "Arabic")

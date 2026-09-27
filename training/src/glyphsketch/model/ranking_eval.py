@@ -32,7 +32,7 @@ from glyphsketch.model.train import CHECKPOINT_FILE, LOG_FILE, embed_uint8_image
 from glyphsketch.parallel import default_workers
 from glyphsketch.paths import data_dir, stage_dir
 from glyphsketch.prior.build import PRIOR_FILE, FrequencyPrior
-from glyphsketch.ranking import Ranker, keyboard_scripts_for
+from glyphsketch.ranking import Ranker, keyboard_scripts_for, typed_on_every_keyboard
 from glyphsketch.realdata.build import SAMPLES_FILE
 from glyphsketch.realdata.images import rasterize_samples
 from glyphsketch.realdata.samples import SampleSet
@@ -79,13 +79,16 @@ def tune_weight(
     prior: FrequencyPrior,
     group_of: dict[int, int],
     script_of: dict[int, str],
+    typed_everywhere: frozenset[int],
     scores: np.ndarray,
     labels: np.ndarray,
 ) -> tuple[float, list[dict[str, float]]]:
     """The grid weight with the best confusable-aware top-1 (then top-5) on validation."""
     curve = []
     for weight in WEIGHT_GRID:
-        ranker = Ranker(index.code_points, prior.log_prior, weight, group_of, script_of)
+        ranker = Ranker(
+            index.code_points, prior.log_prior, weight, group_of, script_of, typed_everywhere
+        )
         hits = score_predictions(ranked_predictions(ranker, scores), labels, group_of)
         curve.append(
             {
@@ -131,6 +134,7 @@ def run(run_name: str, option: str, weight: float | None) -> dict[str, Any]:
     prior = FrequencyPrior.load(stage_dir("wikiprior") / PRIOR_FILE)
     characters = load_charset(stage_dir("charset") / CHARSET_FILE_NAME)
     script_of = {record.code_point: record.script for record in characters}
+    typed_everywhere = typed_on_every_keyboard(characters)
     block_of = {record.code_point: record.block for record in characters}
     test_set = TestSet.load(stage_dir("realdata"), stage_dir("charset"), stage_dir("confusables"))
     group_of = test_set.group_of
@@ -142,12 +146,16 @@ def run(run_name: str, option: str, weight: float | None) -> dict[str, Any]:
             index, embed_uint8_images(model, validation_images, device)
         )
         labels = validation.code_points.astype(np.int64)
-        weight, curve = tune_weight(index, prior, group_of, script_of, validation_scores, labels)
+        weight, curve = tune_weight(
+            index, prior, group_of, script_of, typed_everywhere, validation_scores, labels
+        )
         print(f"  chosen weight {weight}", flush=True)
 
     test_images = np.load(stage_dir("encoderdata") / TEST_IMAGES)
     test_scores = similarities(index, embed_uint8_images(model, test_images, device))
-    ranker = Ranker(index.code_points, prior.log_prior, weight, group_of, script_of)
+    ranker = Ranker(
+        index.code_points, prior.log_prior, weight, group_of, script_of, typed_everywhere
+    )
     labels = test_set.samples.code_points.astype(np.int64)
     scripts = [keyboard_scripts_for(int(label), script_of) for label in labels]
     results: dict[str, Any] = {"weight": weight, "curve": curve}
