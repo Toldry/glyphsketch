@@ -8,6 +8,8 @@ requires-python = ">=3.12"
 dependencies = [
     "fonttools>=4.55",
     "numpy>=2",
+    "onnx>=1.17",
+    "onnxruntime>=1.20",
     "pillow>=11",
     "scikit-image>=0.25",
     "scipy>=1.14",
