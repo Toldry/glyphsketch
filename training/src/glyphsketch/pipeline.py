@@ -23,7 +23,7 @@ from typing import TYPE_CHECKING, Any
 
 import numpy as np
 
-from glyphsketch.paths import REPO_ROOT, stage_dir
+from glyphsketch.paths import REPO_ROOT, data_dir, stage_dir
 
 if TYPE_CHECKING:
     from glyphsketch.eval_report import TestSet
@@ -246,6 +246,35 @@ def run_confusables_stage(context: StageContext) -> None:
     print(f"  {len(groups.groups)} groups from {len(pairs)} candidate pairs")
 
 
+def run_wikiprior_stage(context: StageContext) -> None:
+    from glyphsketch.charset import CHARSET_FILE_NAME, load_charset
+    from glyphsketch.glyphs import GlyphTable
+    from glyphsketch.prior.build import PRIOR_FILE, REPORT_FILE, build_prior, render_report
+    from glyphsketch.prior.sample import load_prior_config
+
+    covered = set(GlyphTable.load(context.input_dir("glyphs")).code_points.tolist())
+    characters = [
+        record
+        for record in load_charset(context.input_dir("charset") / CHARSET_FILE_NAME)
+        if record.code_point in covered
+    ]
+    config = load_prior_config()
+    cache_dir = data_dir() / "wikipedia-samples" / config.dump_date
+    prior = build_prior(config, characters, cache_dir)
+    (context.output_dir / PRIOR_FILE).write_text(
+        json.dumps(prior, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
+    )
+    (context.output_dir / REPORT_FILE).write_text(
+        render_report(prior, characters), encoding="utf-8"
+    )
+    publish_report(context.output_dir / REPORT_FILE, REPORT_FILE)
+    for language in prior["languages"]:
+        print(
+            f"  {language['code']}: {language['pages']:,} articles, "
+            f"{language['characters']:,} characters"
+        )
+
+
 def run_glyphstrokes_stage(context: StageContext) -> None:
     from glyphsketch.synth.generator import GLYPH_STROKES_FILE, extract_all_strokes
 
@@ -323,6 +352,8 @@ def default_stages() -> list[Stage]:
     """The stages of the full pipeline, in dependency order."""
     from glyphsketch.charset import DEFAULT_CONFIG_PATH
     from glyphsketch.fonts import DEFAULT_MANIFEST_PATH
+    from glyphsketch.prior import wikitext
+    from glyphsketch.prior.sample import DEFAULT_CONFIG_PATH as PRIOR_CONFIG_PATH
     from glyphsketch.realdata.detexify import MAPPING_PATH as DETEXIFY_MAPPING_PATH
     from glyphsketch.realdata.omniglot import MAPPING_PATH as OMNIGLOT_MAPPING_PATH
     from glyphsketch.synth import augment, skeleton
@@ -387,6 +418,15 @@ def default_stages() -> list[Stage]:
             run=run_confusables_stage,
             depends_on=("ucd", "glyphs"),
             version="2",
+        ),
+        Stage(
+            name="wikiprior",
+            description="Sample Wikipedia dumps and build the character-frequency prior",
+            run=run_wikiprior_stage,
+            depends_on=("charset", "glyphs"),
+            version="1-"
+            + file_fingerprint(PRIOR_CONFIG_PATH)
+            + file_fingerprint(Path(wikitext.__file__)),
         ),
         Stage(
             name="glyphstrokes",

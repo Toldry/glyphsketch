@@ -24,6 +24,20 @@ permission notice to accompany copies, so the full text is kept in
 `LICENSES/Unicode-3.0.txt` and will ship with the exported metadata. Each file's SHA-256
 is pinned in `training/src/glyphsketch/ucd/files.py`.
 
+## Wikipedia (character-frequency prior)
+
+| Component | Version | License | Source | Use |
+|-----------|---------|---------|--------|-----|
+| Wikipedia pages-articles-multistream dumps of 18 languages (en, de, fr, es, it, pt, pl, cs, tr, vi, ru, uk, bg, sr, el, he, ar, fa), sampled: 24 byte ranges of 4 MiB per language | 2026-09-01 | CC-BY-SA-4.0 and GFDL (text) | https://dumps.wikimedia.org/ | Character counts only. The per-character log prior derived from them is **shipped**; no text is |
+
+The license was read from https://dumps.wikimedia.org/legal.html ("all original textual
+content is licensed under the GNU Free Documentation License (GFDL) and the Creative
+Commons Attribution-Share-Alike 4.0 License"). What ships is one number per character, an
+aggregate statistic over hundreds of millions of characters, not any of the text. The
+exported metadata still credits Wikipedia as the source. The byte ranges and each chunk's
+SHA-256 are recorded in `$DATA_DIR/wikiprior/prior.json`; the method is in DECISIONS.md
+(D25) and `docs/reports/frequency_prior.md`.
+
 ## Fonts
 
 Used at build time only: the pipeline renders glyphs from these fonts to make training

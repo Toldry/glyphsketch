@@ -1,0 +1,84 @@
+# Character-frequency prior (M7): which Wikipedia dumps are sampled, and how much.
+#
+# From each language's pages-articles-multistream dump of `dump_date`, `chunks_per_language`
+# byte ranges of `chunk_bytes` are fetched, evenly spaced over the dump. The complete bz2
+# streams inside each range (100 pages each) are counted; the rest is discarded.
+# `scripts` (ISO 15924 names, as in the UCD) are the scripts a keyboard in that language
+# types. The result tiles use them to choose a confusable group's representative.
+
+dump_date = "20260901"
+chunks_per_language = 24
+chunk_bytes = 4194304
+smoothing = 0.5
+
+[[language]]
+code = "en"
+scripts = ["Latin"]
+
+[[language]]
+code = "de"
+scripts = ["Latin"]
+
+[[language]]
+code = "fr"
+scripts = ["Latin"]
+
+[[language]]
+code = "es"
+scripts = ["Latin"]
+
+[[language]]
+code = "it"
+scripts = ["Latin"]
+
+[[language]]
+code = "pt"
+scripts = ["Latin"]
+
+[[language]]
+code = "pl"
+scripts = ["Latin"]
+
+[[language]]
+code = "cs"
+scripts = ["Latin"]
+
+[[language]]
+code = "tr"
+scripts = ["Latin"]
+
+[[language]]
+code = "vi"
+scripts = ["Latin"]
+
+[[language]]
+code = "ru"
+scripts = ["Cyrillic"]
+
+[[language]]
+code = "uk"
+scripts = ["Cyrillic"]
+
+[[language]]
+code = "bg"
+scripts = ["Cyrillic"]
+
+[[language]]
+code = "sr"
+scripts = ["Cyrillic", "Latin"]
+
+[[language]]
+code = "el"
+scripts = ["Greek"]
+
+[[language]]
+code = "he"
+scripts = ["Hebrew"]
+
+[[language]]
+code = "ar"
+scripts = ["Arabic"]
+
+[[language]]
+code = "fa"
+scripts = ["Arabic"]
