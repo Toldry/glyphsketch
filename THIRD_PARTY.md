@@ -132,10 +132,13 @@ None of these are shipped. They run the pipeline that produces the exported file
 | `ast-serialize` | 0.11.2 | MIT | https://github.com/mypyc/ast_serialize | dev: type checking (mypy) |
 | `colorama` | 0.4.6 | BSD-3-Clause | https://github.com/tartley/colorama | dev: pytest on Windows only |
 | `fonttools` | 4.66.0 | MIT | https://github.com/fonttools/fonttools | pipeline: cmap and outline checks |
+| `imageio` | 2.37.4 | BSD-2-Clause | https://github.com/imageio/imageio | pipeline: dependency of scikit-image |
 | `iniconfig` | 2.3.0 | MIT | https://github.com/pytest-dev/iniconfig | dev: tests (pytest) |
+| `lazy-loader` | 0.6 | BSD-3-Clause | https://github.com/scientific-python/lazy-loader | pipeline: dependency of scikit-image |
 | `librt` | 0.15.0 | MIT | https://github.com/mypyc/librt | dev: type checking (mypy) |
 | `mypy` | 2.3.1 | MIT (bundled typeshed: Apache-2.0 and MIT) | https://github.com/python/mypy | dev: type checking |
 | `mypy-extensions` | 1.1.0 | MIT | https://github.com/python/mypy_extensions | dev: type checking (mypy) |
+| `networkx` | 3.7 | BSD-3-Clause | https://github.com/networkx/networkx | pipeline: dependency of scikit-image |
 | `numpy` | 2.5.3 | BSD-3-Clause (wheel also bundles OpenBLAS: BSD-3-Clause; libgfortran: GPL-3.0-or-later WITH GCC-exception-3.1; libquadmath: LGPL-2.1-or-later) | https://github.com/numpy/numpy | pipeline: arrays |
 | `packaging` | 26.3 | Apache-2.0 OR BSD-2-Clause | https://github.com/pypa/packaging | dev: tests (pytest) |
 | `pathspec` | 1.1.1 | MPL-2.0 | https://github.com/cpburnz/python-pathspec | dev: type checking (mypy) |
@@ -144,6 +147,9 @@ None of these are shipped. They run the pipeline that produces the exported file
 | `pygments` | 2.21.0 | BSD-2-Clause | https://github.com/pygments/pygments | dev: tests (pytest) |
 | `pytest` | 9.1.1 | MIT | https://github.com/pytest-dev/pytest | dev: tests |
 | `ruff` | 0.16.9 | MIT | https://github.com/astral-sh/ruff | dev: lint and formatting |
+| `scikit-image` | 0.26.0 | BSD-3-Clause (a few files BSD-2-Clause or MIT) | https://github.com/scikit-image/scikit-image | pipeline: skeletonization |
+| `scipy` | 1.18.1 | BSD-3-Clause (wheel also bundles OpenBLAS: BSD-3-Clause; libgfortran: GPL-3.0-or-later WITH GCC-exception-3.1; libquadmath: LGPL-2.1-or-later) | https://github.com/scipy/scipy | pipeline: image filtering |
+| `tifffile` | 2026.9.20 | BSD-3-Clause | https://github.com/cgohlke/tifffile | pipeline: dependency of scikit-image |
 | `typing-extensions` | 4.16.0 | PSF-2.0 | https://github.com/python/typing_extensions | dev: type checking (mypy) |
 <!-- python-packages:end -->
 

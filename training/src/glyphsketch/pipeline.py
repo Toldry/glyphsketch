@@ -19,9 +19,12 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from glyphsketch.paths import REPO_ROOT, stage_dir
+
+if TYPE_CHECKING:
+    from glyphsketch.eval_report import TestSet
 
 STAMP_FILE_NAME = ".stage-complete.json"
 
@@ -241,6 +244,60 @@ def run_confusables_stage(context: StageContext) -> None:
     print(f"  {len(groups.groups)} groups from {len(pairs)} candidate pairs")
 
 
+def load_test_set(context: StageContext) -> "TestSet":
+    from glyphsketch.eval_report import TestSet
+
+    return TestSet.load(
+        context.input_dir("realdata"),
+        context.input_dir("charset"),
+        context.input_dir("confusables"),
+    )
+
+
+def run_baselines_stage(context: StageContext) -> None:
+    from glyphsketch.baselines import (
+        HOG_IMAGE_SIZE,
+        PIXEL_IMAGE_SIZE,
+        QUERY_PEN_WIDTH_FRACTION,
+        hog_recognizer,
+        pixel_recognizer,
+    )
+    from glyphsketch.eval_report import run_and_save
+    from glyphsketch.glyphs import GlyphTable, load_renders
+
+    test_set = load_test_set(context)
+    glyphs_dir = context.input_dir("glyphs")
+    table = GlyphTable.load(glyphs_dir)
+    renders = load_renders(glyphs_dir, memory_map=False)
+    pen = f"drawings rasterized with a pen {QUERY_PEN_WIDTH_FRACTION:.0%} of the image wide"
+    for slug, name, build, note in (
+        (
+            "pixels",
+            "Baseline: nearest render, raw pixels",
+            pixel_recognizer,
+            f"Cosine similarity of blurred {PIXEL_IMAGE_SIZE}×{PIXEL_IMAGE_SIZE} images; {pen}.",
+        ),
+        (
+            "hog",
+            "Baseline: nearest render, HOG",
+            hog_recognizer,
+            f"Cosine similarity of HOG descriptors of {HOG_IMAGE_SIZE}×{HOG_IMAGE_SIZE} images "
+            f"(9 orientations, 8 px cells, 2×2 blocks); {pen}.",
+        ),
+    ):
+        report = run_and_save(build(renders, table), name, slug, test_set, [note])
+        print(f"  {name}: top-1 {report.overall.top1:.3f}, top-5 {report.overall.top5:.3f}")
+
+
+def run_evalreport_stage(context: StageContext) -> None:
+    from glyphsketch.eval_report import load_saved_reports, render_eval_markdown, test_data_summary
+
+    test_set = load_test_set(context)
+    markdown = render_eval_markdown(load_saved_reports(), test_data_summary(test_set))
+    (context.output_dir / "EVAL.md").write_text(markdown, encoding="utf-8")
+    (REPO_ROOT / "EVAL.md").write_text(markdown, encoding="utf-8")
+
+
 def default_stages() -> list[Stage]:
     """The stages of the full pipeline, in dependency order."""
     from glyphsketch.charset import DEFAULT_CONFIG_PATH
@@ -306,6 +363,20 @@ def default_stages() -> list[Stage]:
             run=run_confusables_stage,
             depends_on=("ucd", "glyphs"),
             version="2",
+        ),
+        Stage(
+            name="baselines",
+            description="Evaluate the raw-pixel and HOG nearest-render baselines",
+            run=run_baselines_stage,
+            depends_on=("charset", "glyphs", "realdata", "confusables"),
+            version="1",
+        ),
+        Stage(
+            name="evalreport",
+            description="Write EVAL.md from the saved evaluation reports",
+            run=run_evalreport_stage,
+            depends_on=("realdata", "confusables", "baselines"),
+            version="1",
         ),
     ]
 
