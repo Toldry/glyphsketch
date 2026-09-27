@@ -1,8 +1,8 @@
 # glyphsketch: plan
 
 Status: **approved 2026-09-27**, including every change to the approach in section 1.
-Only the devcontainer (part of M0) has been implemented. Keep this file current as milestones
-complete.
+Keep this file current as milestones complete. The Status column of the milestone table
+shows where each milestone stands.
 
 ## 1. Changes to the approach
 
@@ -40,21 +40,21 @@ following:
 
 Each milestone ends with tests passing, an entry in DECISIONS.md and focused commits.
 
-| # | Milestone | Exit criteria |
-|---|-----------|---------------|
-| M0 | **Devcontainer + skeleton** (devcontainer done) | Container builds; `LICENSE` (AGPL-3.0), `THIRD_PARTY.md`, `DECISIONS.md`, directory layout, GitHub Actions CI (Python tests + lint) |
-| M1 | **Charset builder** | UCD pinned to the latest release. Exclude Cn/Co/Cc/Cf/Zs/Zl/Zp/Cs and combining marks (Mn/Me). v0 block list. Keep only emoji-presentation characters that have a text-presentation glyph in a free font. `charset.json` with code point, name, block, script, general category. Tests |
-| M2 | **Fonts + renderer** | Pinned font downloads with checksums. fontTools cmap check (never `.notdef` or fallback). Several fonts per character. Coverage report per block. Tests |
-| M3 | **Real data + eval harness** | Detexify loader with a LaTeX→Unicode mapping. Omniglot alphabets in scope hand-mapped to code points, with the mapping in the repo. Held-out test split by writer. Top-1/top-5 metrics per block, plain and confusable-aware. Tests |
-| M4 | **Trivial baselines** | Raw-pixel and HOG nearest neighbour against the glyph renders. First EVAL.md numbers |
-| M5 | **Synthetic handwriting generator** | Skeletonize, extract strokes, pen trajectories, variable width, elastic/affine jitter. Visual gallery. Tests. Deterministic from a seed |
-| M6 | **Contrastive encoder** | Small CNN, 128-d L2-normalized output, InfoNCE with confusable-masked hard negatives. Ablations: synthetic-only vs. synthetic + real, and index option (a) vs. (b). Zero-shot split reported |
-| M7 | **Ranking + homoglyphs** | Score = similarity + λ·log(prior). Prior computed from Wikipedia dump character counts, source and dump date documented. Confusable groups from `confusables.txt`. Result-tile design: one tile per group, script chosen from the keyboard language |
-| M8 | **Export** | int8 per-channel quantization. Compact binary weights, int8 index, charset metadata, ONNX reference. Parity fixtures (input → expected output) for the engines. Size ≤ 10 MB |
-| M9 | **Web library + demo** | TypeScript engine with parity tests. Canvas demo (Vite) that shows candidates, per-query latency, and a local labelled-drawing export |
-| M10 | **EVAL.md + Detypify comparison** | Full report. Comparison with Detypify on its symbol set, with a warning about possible overlap with Detexify training data |
-| M11 | **Android library + demo (last)** | Pure-Kotlin engine with unit tests against the parity fixtures. ONNX Runtime benchmarked on the Pixel 8 (over Wi-Fi `adb`). Written recommendation. Compose demo. minSdk 24 (matches Thumb-Key) |
-| M12 | **Later, to be decided** | Combining marks (e.g. drawn on a dotted circle ◌́). CJK as an optional index pack |
+| # | Milestone | Exit criteria | Status |
+|---|-----------|---------------|--------|
+| M0 | **Devcontainer + skeleton** | Container builds; `LICENSE` (AGPL-3.0), `THIRD_PARTY.md`, `DECISIONS.md`, directory layout, GitHub Actions CI (Python tests + lint) | Done 2026-09-27 (CI runs once a remote exists) |
+| M1 | **Charset builder** | UCD pinned to the latest release. Exclude Cn/Co/Cc/Cf/Zs/Zl/Zp/Cs and combining marks (Mn/Me). v0 block list. Keep only emoji-presentation characters that have a text-presentation glyph in a free font. `charset.json` with code point, name, block, script, general category. Tests | Not started |
+| M2 | **Fonts + renderer** | Pinned font downloads with checksums. fontTools cmap check (never `.notdef` or fallback). Several fonts per character. Coverage report per block. Tests | Not started |
+| M3 | **Real data + eval harness** | Detexify loader with a LaTeX→Unicode mapping. Omniglot alphabets in scope hand-mapped to code points, with the mapping in the repo. Held-out test split by writer. Top-1/top-5 metrics per block, plain and confusable-aware. Tests | Not started |
+| M4 | **Trivial baselines** | Raw-pixel and HOG nearest neighbour against the glyph renders. First EVAL.md numbers | Not started |
+| M5 | **Synthetic handwriting generator** | Skeletonize, extract strokes, pen trajectories, variable width, elastic/affine jitter. Visual gallery. Tests. Deterministic from a seed | Not started |
+| M6 | **Contrastive encoder** | Small CNN, 128-d L2-normalized output, InfoNCE with confusable-masked hard negatives. Ablations: synthetic-only vs. synthetic + real, and index option (a) vs. (b). Zero-shot split reported | Not started |
+| M7 | **Ranking + homoglyphs** | Score = similarity + λ·log(prior). Prior computed from Wikipedia dump character counts, source and dump date documented. Confusable groups from `confusables.txt`. Result-tile design: one tile per group, script chosen from the keyboard language | Not started |
+| M8 | **Export** | int8 per-channel quantization. Compact binary weights, int8 index, charset metadata, ONNX reference. Parity fixtures (input → expected output) for the engines. Size ≤ 10 MB | Not started |
+| M9 | **Web library + demo** | TypeScript engine with parity tests. Canvas demo (Vite) that shows candidates, per-query latency, and a local labelled-drawing export | Not started |
+| M10 | **EVAL.md + Detypify comparison** | Full report. Comparison with Detypify on its symbol set, with a warning about possible overlap with Detexify training data | Not started |
+| M11 | **Android library + demo (last)** | Pure-Kotlin engine with unit tests against the parity fixtures. ONNX Runtime benchmarked on the Pixel 8 (over Wi-Fi `adb`). Written recommendation. Compose demo. minSdk 24 (matches Thumb-Key) | Not started |
+| M12 | **Later, to be decided** | Combining marks (e.g. drawn on a dotted circle ◌́). CJK as an optional index pack | Not started |
 
 `training/` runs end to end with one command (`uv run python -m glyphsketch.pipeline all`,
 or a `make all` wrapper). Each stage caches its output in `$DATA_DIR`.
