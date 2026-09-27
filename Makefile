@@ -2,7 +2,7 @@
 
 UV_RUN = cd training && uv run
 
-.PHONY: all sync test lint format slowdown
+.PHONY: all sync test lint format slowdown web-test web-serve
 
 all: sync
 	$(UV_RUN) python -m glyphsketch.pipeline all
@@ -25,3 +25,9 @@ format:
 # Plain python3 (standard library only), so it works even without the uv environment.
 slowdown:
 	python3 training/src/glyphsketch/tools/slowdown.py
+
+web-test:
+	cd web && npm ci && npm run typecheck && npm test
+
+web-serve:
+	cd web && npm run serve

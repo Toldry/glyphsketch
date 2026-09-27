@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>glyphsketch demo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>glyphsketch</h1>
+      <p>Draw a character. Everything runs in this page; nothing is sent anywhere.</p>
+    </header>
+    <main>
+      <section class="drawing">
+        <canvas id="pad" width="320" height="320" aria-label="Drawing area"></canvas>
+        <div class="controls">
+          <button id="undo" type="button">Undo stroke</button>
+          <button id="clear" type="button">Clear</button>
+          <label>Keyboard <select id="language"></select></label>
+        </div>
+        <div class="tiles" id="tiles" aria-live="polite"></div>
+        <p class="hint">Tap a tile to type it; long-press or right-click for its look-alikes.</p>
+        <label class="output">Text <input id="output" type="text" autocomplete="off" /></label>
+      </section>
+      <section class="details">
+        <h2>Candidates</h2>
+        <ol id="candidates"></ol>
+        <p id="timings" class="timings">Loading the model…</p>
+        <div class="input-image">
+          <canvas id="input" width="64" height="64" aria-label="Encoder input"></canvas>
+          <span>Encoder input (64×64)</span>
+        </div>
+        <h2>Labelled drawings</h2>
+        <p>Save drawings with their intended character to build a personal test set. They stay in
+          this browser until you export them.</p>
+        <div class="controls">
+          <input id="label" type="text" maxlength="4" placeholder="Label" aria-label="Label" />
+          <button id="save" type="button">Save drawing</button>
+          <button id="export" type="button">Export JSON</button>
+          <button id="forget" type="button">Delete saved</button>
+        </div>
+        <p id="saved"></p>
+      </section>
+    </main>
+    <div id="chooser" class="chooser" hidden></div>
+    <footer id="attribution"></footer>
+    <script type="module" src="../dist/demo/demo.js"></script>
+  </body>
+</html>

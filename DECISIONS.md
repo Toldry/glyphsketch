@@ -621,3 +621,34 @@ tiles for a Latin and a Greek keyboard. They exposed two flaws in the first tile
 **Not yet committed.** The files in `export/` come from the laptop's short run. They are
 committed with the final encoder from Kaggle, so the repository doesn't collect 5 MB per
 intermediate model.
+
+## D28. TypeScript engine and demo without a bundler (M9, 2026-09-27)
+
+**Engine.** `web/src/` implements `docs/export_format.md` with no runtime dependencies:
+the rasterizer (double precision, then NumPy's float32 multiply and round-half-to-even,
+so images match byte for byte), the model reader and forward pass (float32, weights
+dequantized at load), index scoring, ranking and tiles. All 25 export fixtures pass:
+images identical, embeddings and scores within 1e-4, identical top-10 and tiles.
+
+**Speed.** In Node 24 on the laptop, a query takes 20 ms (median; 28 ms p95): 0.7 ms to
+rasterize, 13 ms to encode, 6 ms to score 74,085 index vectors and rank. The first
+version took 42 ms, 32 ms of it in 1×1 convolutions. Blocking those as 4 outputs × 4
+inputs, so each loaded value feeds four accumulators, cut them to 9 ms. Depthwise
+convolutions skip bounds checks for interior pixels, and a query ranks once instead of
+twice.
+
+**Tooling: no Vite, no test framework.** PLAN.md named Vite for the demo. The demo is one
+static page, and modern browsers load ES modules directly, so `tsc` output is enough.
+Tests use Node's built-in runner, which runs TypeScript directly now that Node strips
+types. The only dev dependencies are the TypeScript compiler and Node's type definitions
+(23 locked packages, 20 of them per-platform compiler binaries), instead of the dozens
+that Vite and Vitest pull in, each of which THIRD_PARTY.md would have to record.
+`web/scripts/serve.ts` is a 50-line static server restricted to `web/` and `export/`.
+
+**Demo.** `web/demo/` shows five tiles (tap to type, long-press or right-click for the
+look-alikes), the ten ranked candidates with names and scores, the timings and the 64×64
+input image. A keyboard selector covers the 18 prior languages. Labelled drawings are
+saved to local storage and exported as JSON for a personal test set (PLAN.md, section 1,
+change 6). The page was checked through its server with curl. A headless browser needs
+system libraries the container lacks (it has no root), so the interaction was not
+tested automatically; the engine under it is.

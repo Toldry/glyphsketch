@@ -1,0 +1,95 @@
+:root {
+  --ink: #1d1d1f;
+  --muted: #6b6b70;
+  --paper: #ffffff;
+  --panel: #f4f4f6;
+  --accent: #2f5bd3;
+  --line: #d6d6db;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #ececf0;
+    --muted: #a0a0a8;
+    --paper: #16161a;
+    --panel: #222228;
+    --accent: #7e9bff;
+    --line: #3a3a42;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  max-width: 980px;
+  padding: 16px;
+  font: 15px/1.45 system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+h1 { margin: 0; font-size: 1.5rem; }
+h2 { font-size: 1.05rem; margin: 1.2rem 0 0.4rem; }
+header p, .hint, .timings, footer, #saved { color: var(--muted); }
+main { display: flex; flex-wrap: wrap; gap: 24px; }
+.drawing { flex: 0 1 340px; }
+.details { flex: 1 1 320px; min-width: 0; }
+#pad {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  touch-action: none;
+  cursor: crosshair;
+}
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; align-items: center; }
+button, select, input {
+  font: inherit;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+button:hover { border-color: var(--accent); }
+.tiles { display: flex; gap: 6px; min-height: 64px; }
+.tile {
+  flex: 1;
+  min-width: 0;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 10px 0;
+  position: relative;
+}
+.tile .more {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.output input { width: 100%; font-size: 1.3rem; margin-top: 4px; }
+#candidates { padding-left: 1.6rem; margin: 0; }
+#candidates li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#candidates .char { display: inline-block; width: 1.8rem; font-size: 1.2rem; }
+#candidates .code, #candidates .score { color: var(--muted); font-size: 0.85rem; }
+.input-image { display: flex; align-items: center; gap: 10px; color: var(--muted); }
+#input { width: 96px; height: 96px; image-rendering: pixelated; border: 1px solid var(--line); }
+#label { width: 5rem; }
+.chooser {
+  position: fixed;
+  z-index: 10;
+  max-width: min(360px, calc(100vw - 32px));
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.2);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.chooser button { display: flex; gap: 10px; align-items: baseline; text-align: left; border: none; }
+.chooser .char { font-size: 1.5rem; width: 2rem; }
+.chooser .name { font-size: 0.8rem; color: var(--muted); }
+footer { margin-top: 32px; font-size: 0.8rem; }

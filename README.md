@@ -33,6 +33,8 @@ make sync     # install the locked Python environment
 make test     # run the tests
 make lint     # ruff + mypy
 make all      # run the whole pipeline (stages are cached in $DATA_DIR)
+make web-test   # TypeScript engine: type-check and parity tests
+make web-serve  # demo page at http://localhost:5173/web/demo/
 ```
 
 ### If the laptop gets slow
