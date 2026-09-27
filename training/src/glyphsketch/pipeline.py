@@ -21,7 +21,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from glyphsketch.paths import stage_dir
+from glyphsketch.paths import REPO_ROOT, stage_dir
 
 STAMP_FILE_NAME = ".stage-complete.json"
 
@@ -130,6 +130,13 @@ def file_fingerprint(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
 
 
+def publish_report(report_path: Path, name: str) -> None:
+    """Copy a small Markdown report into ``docs/reports/`` so it is versioned with the code."""
+    destination = REPO_ROOT / "docs" / "reports" / name
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(report_path.read_text(encoding="utf-8"), encoding="utf-8")
+
+
 def run_ucd_stage(context: StageContext) -> None:
     from glyphsketch.ucd.files import download_ucd
 
@@ -150,9 +157,32 @@ def run_charset_stage(context: StageContext) -> None:
     print(f"  {len(build.characters)} characters; excluded: {dict(build.exclusion_counts)}")
 
 
+def run_fonts_stage(context: StageContext) -> None:
+    from glyphsketch.fonts import download_fonts, load_font_manifest
+
+    download_fonts(context.output_dir, load_font_manifest())
+
+
+def run_glyphs_stage(context: StageContext) -> None:
+    from glyphsketch.charset import CHARSET_FILE_NAME, load_charset
+    from glyphsketch.fonts import load_font_manifest
+    from glyphsketch.glyphs import COVERAGE_REPORT_FILE, render_all_fonts, write_glyph_outputs
+
+    characters = load_charset(context.input_dir("charset") / CHARSET_FILE_NAME)
+    manifest = load_font_manifest()
+    results = render_all_fonts(characters, manifest, context.input_dir("fonts"))
+    summary = write_glyph_outputs(context.output_dir, characters, manifest, results)
+    publish_report(context.output_dir / COVERAGE_REPORT_FILE, "glyph_coverage.md")
+    print(
+        f"  {len(summary['characters'])} characters covered, "
+        f"{len(summary['dropped_characters'])} dropped, {summary['render_count']} renders"
+    )
+
+
 def default_stages() -> list[Stage]:
     """The stages of the full pipeline, in dependency order."""
     from glyphsketch.charset import DEFAULT_CONFIG_PATH
+    from glyphsketch.fonts import DEFAULT_MANIFEST_PATH
     from glyphsketch.ucd.files import UNICODE_VERSION
 
     return [
@@ -168,6 +198,19 @@ def default_stages() -> list[Stage]:
             run=run_charset_stage,
             depends_on=("ucd",),
             version="1-" + file_fingerprint(DEFAULT_CONFIG_PATH),
+        ),
+        Stage(
+            name="fonts",
+            description="Download the pinned fonts and their licenses",
+            run=run_fonts_stage,
+            version="1-" + file_fingerprint(DEFAULT_MANIFEST_PATH),
+        ),
+        Stage(
+            name="glyphs",
+            description="Render every covered (character, font) pair and report coverage",
+            run=run_glyphs_stage,
+            depends_on=("charset", "fonts"),
+            version="1",
         ),
     ]
 
