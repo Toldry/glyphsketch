@@ -15,7 +15,6 @@ Emoji_Presentation character survives only if a text font has a glyph for it.
 """
 
 import json
-import multiprocessing
 from collections import Counter, defaultdict
 from collections.abc import Sequence
 from dataclasses import dataclass, field
@@ -26,6 +25,7 @@ import numpy as np
 
 from glyphsketch.charset import CharacterRecord, format_code_point
 from glyphsketch.fonts import FontManifest, font_file_path
+from glyphsketch.parallel import default_workers, single_threaded_pool
 from glyphsketch.render import CONTENT_SIZE, IMAGE_SIZE, GlyphChecker, GlyphRenderer
 
 RENDERS_FILE = "renders.npy"
@@ -90,10 +90,10 @@ def render_all_fonts(
 ) -> list[FontRenderResult]:
     code_points = [record.code_point for record in characters]
     tasks = [(spec.id, font_file_path(fonts_dir, spec), code_points) for spec in manifest.fonts]
-    workers = workers or min(len(tasks), multiprocessing.cpu_count())
+    workers = workers or default_workers(len(tasks))
     if workers <= 1:
         return [_render_font_task(task) for task in tasks]
-    with multiprocessing.get_context("spawn").Pool(workers) as pool:
+    with single_threaded_pool(workers) as pool:
         return pool.map(_render_font_task, tasks, chunksize=1)
 
 

@@ -7,7 +7,6 @@ and sample index seed a NumPy generator, which picks one of the character's rend
 weighted by style) and every distortion.
 """
 
-import multiprocessing
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -15,6 +14,7 @@ from pathlib import Path
 import numpy as np
 
 from glyphsketch.glyphs import GlyphTable, load_renders
+from glyphsketch.parallel import default_workers, single_threaded_pool
 from glyphsketch.strokes import rasterize
 from glyphsketch.synth.augment import AugmentationConfig, augment_strokes, pen_width_for
 from glyphsketch.synth.skeleton import glyph_strokes
@@ -99,8 +99,8 @@ def extract_all_strokes(glyphs_dir: Path, workers: int | None = None) -> GlyphSt
     tasks = [
         (str(glyphs_dir), start, min(start + chunk, count)) for start in range(0, count, chunk)
     ]
-    workers = workers or max(1, multiprocessing.cpu_count() - 2)
-    with multiprocessing.get_context("spawn").Pool(workers) as pool:
+    workers = workers or default_workers()
+    with single_threaded_pool(workers) as pool:
         chunks = pool.map(_extract_rows, tasks, chunksize=1)
     return GlyphStrokeTable.from_stroke_lists([strokes for part in chunks for strokes in part])
 
@@ -186,11 +186,9 @@ def generate_images(
     chunk: int = 256,
 ) -> np.ndarray:
     """``generator.images`` spread over worker processes; same output as a single process."""
-    workers = workers or max(1, multiprocessing.cpu_count() - 2)
+    workers = workers or default_workers()
     if workers == 1 or len(requests) <= chunk:
         return generator.images(requests)
     parts = [list(requests[start : start + chunk]) for start in range(0, len(requests), chunk)]
-    with multiprocessing.get_context("spawn").Pool(
-        workers, initializer=_initialize_worker, initargs=(generator,)
-    ) as pool:
+    with single_threaded_pool(workers, _initialize_worker, (generator,)) as pool:
         return np.concatenate(pool.map(_generate_chunk, parts, chunksize=1))
