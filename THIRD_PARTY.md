@@ -13,7 +13,16 @@ update the table.
 
 ## Unicode data
 
-Added in M1.
+| Component | Version | License | Source | Use |
+|-----------|---------|---------|--------|-----|
+| Unicode Character Database: `UnicodeData.txt`, `Blocks.txt`, `Scripts.txt`, `ScriptExtensions.txt`, `PropertyValueAliases.txt`, `DerivedAge.txt`, `PropList.txt`, `emoji/emoji-data.txt`, `emoji/emoji-variation-sequences.txt` | 18.0.0 | Unicode-3.0 (Unicode License V3) | https://www.unicode.org/Public/18.0.0/ucd/ | Character selection. Names, blocks and scripts derived from it are **shipped** in the charset metadata |
+| Unicode security data (UTS #39): `confusables.txt`, `intentional.txt` | 18.0.0 | Unicode-3.0 (Unicode License V3) | https://www.unicode.org/Public/18.0.0/security/ | Confusable groups, **shipped** in derived form |
+
+The license was read from https://www.unicode.org/license.txt, which the file headers
+point to through https://www.unicode.org/terms_of_use.html. It requires the copyright and
+permission notice to accompany copies, so the full text is kept in
+`LICENSES/Unicode-3.0.txt` and will ship with the exported metadata. Each file's SHA-256
+is pinned in `training/src/glyphsketch/ucd/files.py`.
 
 ## Fonts
 

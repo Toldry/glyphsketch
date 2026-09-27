@@ -1,0 +1,112 @@
+# The v0 character set: which Unicode blocks the recognizer covers.
+#
+# Block names are spelled exactly as in Blocks.txt. Inside these blocks the builder drops
+# every code point whose general category is excluded below, every character with the
+# Deprecated property, and the explicit exclusions at the end of this file. Characters
+# that no font in the manifest can render are dropped later by the font coverage stage,
+# which also applies the emoji rule: an Emoji_Presentation character stays only if a
+# (non-emoji) text font has a glyph for it.
+#
+# Deliberately left out of v0: Box Drawing, Block Elements and Braille Patterns (grids of
+# near-identical shapes that nobody draws by hand), presentation-form and
+# halfwidth/fullwidth compatibility blocks, the emoji pictograph blocks, and CJK (a later,
+# optional index pack; see PLAN.md, M12).
+
+name = "v0"
+
+excluded_general_categories = ["Cn", "Co", "Cc", "Cf", "Zs", "Zl", "Zp", "Cs", "Mn", "Me"]
+exclude_deprecated = true
+
+[[group]]
+name = "Latin"
+blocks = [
+    "Basic Latin",
+    "Latin-1 Supplement",
+    "Latin Extended-A",
+    "Latin Extended-B",
+    "IPA Extensions",
+    "Spacing Modifier Letters",
+    "Phonetic Extensions",
+    "Phonetic Extensions Supplement",
+    "Latin Extended Additional",
+    "Latin Extended-C",
+    "Latin Extended-D",
+    "Latin Extended-E",
+    "Latin Extended-F",
+    "Latin Extended-G",
+]
+
+[[group]]
+name = "Greek"
+blocks = ["Greek and Coptic", "Greek Extended"]
+
+[[group]]
+name = "Cyrillic"
+blocks = [
+    "Cyrillic",
+    "Cyrillic Supplement",
+    "Cyrillic Extended-A",
+    "Cyrillic Extended-B",
+    "Cyrillic Extended-C",
+    "Cyrillic Extended-D",
+]
+
+[[group]]
+name = "Hebrew"
+blocks = ["Hebrew"]
+
+[[group]]
+name = "Arabic"
+blocks = [
+    "Arabic",
+    "Arabic Supplement",
+    "Arabic Extended-A",
+    "Arabic Extended-B",
+    "Arabic Extended-C",
+]
+
+[[group]]
+name = "Punctuation and letterlike"
+blocks = [
+    "General Punctuation",
+    "Supplemental Punctuation",
+    "Superscripts and Subscripts",
+    "Currency Symbols",
+    "Letterlike Symbols",
+    "Number Forms",
+    "Enclosed Alphanumerics",
+]
+
+[[group]]
+name = "Mathematics"
+blocks = [
+    "Mathematical Operators",
+    "Supplemental Mathematical Operators",
+    "Miscellaneous Mathematical Symbols-A",
+    "Miscellaneous Mathematical Symbols-B",
+    "Mathematical Alphanumeric Symbols",
+]
+
+[[group]]
+name = "Arrows"
+blocks = [
+    "Arrows",
+    "Supplemental Arrows-A",
+    "Supplemental Arrows-B",
+    "Miscellaneous Symbols and Arrows",
+]
+
+[[group]]
+name = "Symbols"
+blocks = [
+    "Miscellaneous Technical",
+    "Geometric Shapes",
+    "Miscellaneous Symbols",
+    "Dingbats",
+]
+
+# Characters outside the blocks above that belong in v0.
+[[include]]
+code_point = "U+FDFC"
+group = "Punctuation and letterlike"
+reason = "RIAL SIGN is a currency sign encoded in Arabic Presentation Forms-A"

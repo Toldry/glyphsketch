@@ -10,6 +10,7 @@ invalidates everything downstream of it.
 """
 
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -124,9 +125,51 @@ class Pipeline:
         return executed
 
 
+def file_fingerprint(path: Path) -> str:
+    """Short content hash, for stage versions that must change when an input file changes."""
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
+
+
+def run_ucd_stage(context: StageContext) -> None:
+    from glyphsketch.ucd.files import download_ucd
+
+    download_ucd(context.output_dir)
+
+
+def run_charset_stage(context: StageContext) -> None:
+    from glyphsketch.charset import (
+        CHARSET_FILE_NAME,
+        build_charset,
+        load_charset_config,
+        write_charset,
+    )
+    from glyphsketch.ucd.parse import UnicodeDatabase
+
+    build = build_charset(UnicodeDatabase(context.input_dir("ucd")), load_charset_config())
+    write_charset(build, context.output_dir / CHARSET_FILE_NAME)
+    print(f"  {len(build.characters)} characters; excluded: {dict(build.exclusion_counts)}")
+
+
 def default_stages() -> list[Stage]:
     """The stages of the full pipeline, in dependency order."""
-    return []
+    from glyphsketch.charset import DEFAULT_CONFIG_PATH
+    from glyphsketch.ucd.files import UNICODE_VERSION
+
+    return [
+        Stage(
+            name="ucd",
+            description=f"Download the pinned Unicode {UNICODE_VERSION} data files",
+            run=run_ucd_stage,
+            version=UNICODE_VERSION,
+        ),
+        Stage(
+            name="charset",
+            description="Select the candidate characters from the UCD",
+            run=run_charset_stage,
+            depends_on=("ucd",),
+            version="1-" + file_fingerprint(DEFAULT_CONFIG_PATH),
+        ),
+    ]
 
 
 def main(argv: Sequence[str] | None = None) -> int:
