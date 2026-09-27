@@ -377,3 +377,51 @@ These are the gaps the encoder has to close.
 **Why these two.** They set a floor for M6 and show how much of the task plain template
 matching already solves. Zero-shot and seen characters score the same, as expected for
 methods without training.
+
+## D21. Synthetic handwriting from glyph skeletons (M5, 2026-09-27)
+
+**Decision.** Synthetic drawings are made in stroke space, not pixel space:
+
+1. **Strokes from glyphs** (`synth/skeleton.py`, run once by the `glyphstrokes` stage for
+   all 74,085 renders, median 3 strokes each).
+   - Each render is skeletonized and the skeleton traced as a graph. Junction pixel
+     clusters form single nodes, and diagonal shortcuts past an orthogonal neighbour are
+     ignored.
+   - Spurs shorter than 9% of the glyph are pruned. All spurs at a junction go at once, as
+     long as a longer branch remains there.
+   - Branches are joined through corners, and through junctions where they continue
+     within 50°. A T becomes a bar and a stem, an A an inverted V and a bar.
+   - Two special cases. Large filled shapes (■ ● ★ ♥ ⬅) use their outline contours, since
+     people draw outlines and a skeleton would give spokes. Small blobs (. · •) become a
+     single point, since people tap them.
+2. **Distortion** (`synth/augment.py`, in normalized coordinates, all amounts relative to
+   the drawing size):
+   - closed loops are cut open at a random point 60% of the time;
+   - per-stroke shift ±2.5%, rotation ±5° and scale ±8%;
+   - end points extended or trimmed by up to 4%, leaving the gaps and overlaps real
+     drawings have;
+   - perpendicular wobble up to 0.8%;
+   - corner rounding (Gaussian, σ up to 2.5%);
+   - a 3-component low-frequency elastic field (amplitude 3.5%);
+   - global rotation ±9°, shear ±0.22 and aspect ±25%;
+   - pen width 1.4–4.2 px at 64 px (log-uniform).
+3. **Rasterization** with the same rasterizer and framing as real input (D18).
+4. **Font choice by style.** For each character a render is picked with weights
+   handwriting 3, sans 2, symbols 1.5, serif/mono/math 1. Serif skeletons keep their
+   serifs as short strokes (they are as long as real parts of other glyphs, so no
+   threshold removes them safely), so serif fonts are sampled less often.
+
+**Determinism.** Each sample is fully determined by (seed, code point, sample index), which
+seed a NumPy generator. The training data uses seed 1. Index prototypes (option (b)) use
+sample indices from 1,000,003 on, so they never coincide with training samples.
+
+**Checks.** `docs/images/synthetic_gallery.png` shows, per character, a glyph, ten
+synthetic drawings and five real drawings. Letters, digits, Greek, math operators,
+Cyrillic, Hebrew, Arabic, symbols and filled shapes look like the real ones. The visible
+gap is ornate styles: synthetic 𝒜 keeps the script font's flourishes, while people draw a
+plain A with a curl. Real training data (M6) is the way to close it.
+
+**Alternatives.** Distorting the rendered glyph image directly (elastic warps plus
+thickness changes) can't separate strokes, so it can't move them independently or
+misjoin them. A learned model of handwriting would need handwriting for every
+character, which is exactly what the design avoids.
