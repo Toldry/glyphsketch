@@ -21,6 +21,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
+import numpy as np
+
 from glyphsketch.paths import REPO_ROOT, stage_dir
 
 if TYPE_CHECKING:
@@ -244,6 +246,18 @@ def run_confusables_stage(context: StageContext) -> None:
     print(f"  {len(groups.groups)} groups from {len(pairs)} candidate pairs")
 
 
+def run_glyphstrokes_stage(context: StageContext) -> None:
+    from glyphsketch.synth.generator import GLYPH_STROKES_FILE, extract_all_strokes
+
+    table = extract_all_strokes(context.input_dir("glyphs"))
+    table.save(context.output_dir / GLYPH_STROKES_FILE)
+    counts = np.diff(table.render_offsets)
+    print(
+        f"  {len(table)} renders, {int((counts == 0).sum())} without strokes, "
+        f"median {int(np.median(counts))} strokes per render"
+    )
+
+
 def load_test_set(context: StageContext) -> "TestSet":
     from glyphsketch.eval_report import TestSet
 
@@ -304,8 +318,10 @@ def default_stages() -> list[Stage]:
     from glyphsketch.fonts import DEFAULT_MANIFEST_PATH
     from glyphsketch.realdata.detexify import MAPPING_PATH as DETEXIFY_MAPPING_PATH
     from glyphsketch.realdata.omniglot import MAPPING_PATH as OMNIGLOT_MAPPING_PATH
+    from glyphsketch.synth import skeleton
     from glyphsketch.ucd.files import UNICODE_VERSION
 
+    skeleton_module_path = Path(skeleton.__file__)
     return [
         Stage(
             name="ucd",
@@ -363,6 +379,13 @@ def default_stages() -> list[Stage]:
             run=run_confusables_stage,
             depends_on=("ucd", "glyphs"),
             version="2",
+        ),
+        Stage(
+            name="glyphstrokes",
+            description="Extract pen strokes from every glyph render (skeletons)",
+            run=run_glyphstrokes_stage,
+            depends_on=("glyphs",),
+            version="1-" + file_fingerprint(skeleton_module_path),
         ),
         Stage(
             name="baselines",
