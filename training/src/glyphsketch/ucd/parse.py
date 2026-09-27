@@ -111,6 +111,8 @@ class UnicodeDataEntry:
     name: str
     general_category: str
     decomposition: str
+    simple_uppercase: int | None = None
+    simple_lowercase: int | None = None
 
 
 def parse_unicode_data(path: Path) -> dict[int, UnicodeDataEntry]:
@@ -138,7 +140,14 @@ def parse_unicode_data(path: Path) -> dict[int, UnicodeDataEntry]:
                 continue
             if name == "<control>":
                 name = f"<control-{code_point:04X}>"
-            entries[code_point] = UnicodeDataEntry(code_point, name, category, decomposition)
+            entries[code_point] = UnicodeDataEntry(
+                code_point,
+                name,
+                category,
+                decomposition,
+                simple_uppercase=int(fields[12], 16) if fields[12] else None,
+                simple_lowercase=int(fields[13], 16) if fields[13] else None,
+            )
     return entries
 
 
