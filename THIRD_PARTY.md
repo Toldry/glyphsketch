@@ -180,9 +180,22 @@ None of these are shipped. They run the pipeline that produces the exported file
 | `typing-extensions` | 4.16.0 | PSF-2.0 | https://github.com/python/typing_extensions | dev: type checking (mypy); pipeline: dependency of torch |
 <!-- python-packages:end -->
 
-## Web library and demo
+## Web library and demo (npm)
 
-Added in M9.
+The library and demo have no runtime dependencies: nothing below is shipped. These are
+development tools only (type-checking and building the demo). Tests use Node's built-in
+test runner. `training/tests/test_third_party_record.py` checks this table against
+`web/package-lock.json`; a `*` in a name covers a family of packages with the same
+version and license.
+
+<!-- npm-packages:start -->
+| Package | Version | License | Source | Use |
+|---------|---------|---------|--------|-----|
+| `typescript` | 7.0.2 | Apache-2.0 (bundled library type definitions carry the notices in its `NOTICE.txt`: MIT, W3C, CC-BY-4.0 and others) | https://github.com/microsoft/TypeScript | dev: type-checking and compiling |
+| `@typescript/typescript-*` | 7.0.2 | Apache-2.0 | https://github.com/microsoft/TypeScript | dev: the compiler binary for each platform (optional; npm installs the one it needs) |
+| `@types/node` | 24.19.0 | MIT | https://github.com/DefinitelyTyped/DefinitelyTyped | dev: Node type definitions for tests and scripts |
+| `undici-types` | 7.24.6 | MIT | https://github.com/nodejs/undici | dev: dependency of `@types/node` |
+<!-- npm-packages:end -->
 
 ## Android library and demo
 

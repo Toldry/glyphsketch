@@ -1,0 +1,23 @@
+{
+  "name": "glyphsketch",
+  "version": "0.1.0",
+  "description": "Offline recognizer for hand-drawn Unicode characters: TypeScript engine and demo",
+  "license": "AGPL-3.0-only",
+  "private": true,
+  "type": "module",
+  "exports": "./dist/src/index.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test \"test/**/*.test.ts\"",
+    "serve": "npm run build && node scripts/serve.ts",
+    "bench": "node scripts/bench.ts"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.0",
+    "typescript": "7.0.2"
+  }
+}
