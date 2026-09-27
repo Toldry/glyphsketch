@@ -349,3 +349,31 @@ and confusable-aware (any member of the label's group counts). It reports per sa
 per character (macro), and breaks results down by dataset, Unicode block, and seen versus
 zero-shot characters. The macro figure matters because ∫, ∑ and α alone have thousands of
 Detexify samples each.
+
+## D20. Trivial baselines: nearest glyph render by pixels or HOG (M4, 2026-09-27)
+
+**Decision.** Two training-free recognizers compare a drawing with all 74,085 glyph renders
+and score each character by its best-matching render (cosine similarity):
+- **raw pixels:** 32×32 images, Gaussian blur σ = 1 px, mean-centered;
+- **HOG:** 64×64 images, 9 unsigned orientations, 8 px cells, 2×2-cell blocks, L2-Hys.
+
+Drawings are rasterized with a pen 7% of the image wide, closer to font stroke weights than
+the encoder's default. HOG is our own batched NumPy implementation. It matches
+scikit-image's `hog` exactly (cosine 1.0) and is 3× faster, since scikit-image needs
+6.9 ms per image.
+
+**Results on the 39,943 test drawings** (full tables in EVAL.md):
+
+| Baseline | Top-1 | Top-5 | Top-1 (conf.) | Top-5 (conf.) |
+|----------|------:|------:|--------------:|--------------:|
+| Raw pixels | 19.5 | 36.3 | 24.0 | 40.3 |
+| HOG | 24.7 | 47.7 | 29.9 | 51.5 |
+
+Chance is below 0.1% with 6,161 candidates. The baselines do worst where the glyph and
+the drawing differ most: Mathematical Alphanumeric Symbols (HOG top-5 under 25%, since
+drawn 𝒜 and 𝔄 look nothing like the ornate font glyphs), Greek, and UJI's Latin letters.
+These are the gaps the encoder has to close.
+
+**Why these two.** They set a floor for M6 and show how much of the task plain template
+matching already solves. Zero-shot and seen characters score the same, as expected for
+methods without training.
