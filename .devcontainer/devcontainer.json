@@ -1,0 +1,101 @@
+// Dev container for running AI agents on this repo without risk to the host.
+// Format is JSONC (JSON with comments).
+{
+    "name": "${localWorkspaceFolderBasename} Safe Sandbox",
+
+    // Build from .devcontainer/Dockerfile (pinned ubuntu-24.04 base + root-only setup).
+    // Root steps live there because sudo is disabled at runtime (see runArgs).
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+
+    // Non-root user that VS Code, terminals and agents run as.
+    "remoteUser": "vscode",
+
+    // No dev container features and no postCreateCommand: toolchains are installed in the
+    // Dockerfile so they are cached as ordinary image layers.
+    // Deliberately NO docker-in-docker / docker-outside-of-docker: both would let the container
+    // escape to the host.
+
+    // Environment variables set on the container itself.
+    "containerEnv": {
+        // Mark the workspace as a safe git directory (its owner differs from the container user).
+        "GIT_CONFIG_COUNT": "1",
+        "GIT_CONFIG_KEY_0": "safe.directory",
+        "GIT_CONFIG_VALUE_0": "${containerWorkspaceFolder}",
+        // Keep all Claude Code state (incl. .claude.json) inside the persistent volume below.
+        "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
+        // Downloaded fonts/datasets, rendered glyphs, synthetic data and checkpoints go here
+        // (a Linux volume), not into the Windows bind mount, which is slow for many small files.
+        "DATA_DIR": "/data",
+        // Keep the uv-managed virtualenv on the Linux filesystem too.
+        "UV_PROJECT_ENVIRONMENT": "/home/vscode/.cache/venvs/training",
+        "UV_LINK_MODE": "copy"
+    },
+
+    "customizations": {
+        "vscode": {
+            // Applied as remote settings, so they take effect only in container windows.
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "files.eol": "\n",
+                "editor.rulers": [100],
+                "python.defaultInterpreterPath": "/home/vscode/.cache/venvs/training/bin/python",
+
+                // Visual indicator: this window is inside the dev container.
+                "window.title": "🔒 DEV CONTAINER — ${rootName}${separator}${activeEditorShort}",
+                "workbench.colorCustomizations": {
+                    "titleBar.activeBackground": "#7a1fa2",
+                    "titleBar.activeForeground": "#ffffff",
+                    "titleBar.inactiveBackground": "#4a1363",
+                    "titleBar.inactiveForeground": "#dddddd",
+                    "statusBar.background": "#7a1fa2",
+                    "statusBar.foreground": "#ffffff",
+                    "statusBarItem.remoteBackground": "#ff9800",
+                    "statusBarItem.remoteForeground": "#000000",
+                    "activityBar.activeBorder": "#ff9800"
+                }
+            },
+            // Installed into the container on every (re)build. The Claude Code extension bundles
+            // Claude Code itself.
+            "extensions": [
+                "anthropic.claude-code",
+                "ms-python.python",
+                "charliermarsh.ruff",
+                "fwcd.kotlin",
+                "dbaeumer.vscode-eslint"
+            ]
+        }
+    },
+
+    // Extra `docker run` arguments.
+    "runArgs": [
+        // Blocks privilege escalation via setuid binaries (so sudo won't work): hardening for
+        // agents.
+        "--security-opt=no-new-privileges:true",
+        // Fixed, readable container name.
+        "--name=dev_container_${localWorkspaceFolderBasename}",
+        // PyTorch DataLoader workers pass batches through /dev/shm; Docker's 64 MB default
+        // crashes multi-worker loading.
+        "--shm-size=8g",
+        // Secrets (e.g. GH_TOKEN) read from the host at container start; never stored in the
+        // repo. The file must exist (it may be empty).
+        "--env-file",
+        "${localEnv:USERPROFILE}/.secrets/${localWorkspaceFolderBasename}.env"
+    ],
+
+    "mounts": [
+        // Host git identity. HOME + USERPROFILE: whichever is set (Linux/macOS vs Windows) forms
+        // the path.
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vscode/.gitconfig,type=bind",
+        // Named volumes survive rebuilds and stay isolated from the host.
+        // Claude Code history and login (separate from the host's ~/.claude).
+        "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+        // uv/pip/npm caches and the training virtualenv.
+        "source=user-cache-${devcontainerId},target=/home/vscode/.cache,type=volume",
+        // Gradle distributions and dependency cache.
+        "source=gradle-cache-${devcontainerId},target=/home/vscode/.gradle,type=volume",
+        // Datasets, fonts, rendered/synthetic data, checkpoints (see DATA_DIR).
+        "source=project-data-${devcontainerId},target=/data,type=volume"
+    ]
+}

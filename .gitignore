@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+
+# Android / Gradle
+.gradle/
+build/
+local.properties
+*.apk
+*.aab
+
+# Local data (the real data lives in $DATA_DIR, outside the repo)
+/data/
+
+# Editors / OS
+.idea/
+.DS_Store
+Thumbs.db
