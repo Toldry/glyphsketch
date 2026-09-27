@@ -94,7 +94,33 @@ How each license was verified:
 
 ## Datasets
 
-Added in M3.
+Used for training and evaluation. None of the data is redistributed: the pipeline
+downloads it (checksums pinned in `training/src/glyphsketch/realdata/`), and only the
+trained model and the label mappings in `training/src/glyphsketch/resources/` are
+published.
+
+| Dataset | Version | License | Source | Use |
+|---------|---------|---------|--------|-----|
+| Detexify training data (`detexify.sql.gz`, `symbols.json`) | dump of 2016-09-17 (210,454 samples, 1,098 symbols) | ODbL-1.0 | https://github.com/kirel/detexify-data (links the Google Drive folder with the files) | Training and evaluation |
+| Omniglot stroke data (`strokes_background.zip`, `strokes_evaluation.zip`) | commit `057f034` (2019-02-13) | MIT | https://github.com/brendenlake/omniglot | Training and evaluation (6 in-scope alphabets) |
+| UJI Pen Characters, version 2 | UCI dataset 177 (2008) | CC-BY-4.0 | https://archive.ics.uci.edu/dataset/177/uji+pen+characters+version+2 | Training and evaluation |
+| XML Entity Definitions for Characters (`unicode.xml`) | 2015 (David Carlisle, W3C Math WG) | W3C Software Notice and License (2002) | https://www.w3.org/2003/entities/2007xml/unicode.xml | LaTeX→Unicode rows of `detexify_unicode.tsv`, which is **shipped** in the repo (notice in `LICENSES/W3C-20021231.txt`) |
+
+How each license was verified: the Detexify README and `odbl-10.txt` in
+kirel/detexify-data; Omniglot's `LICENSE` at the pinned commit; the UJI dataset page on
+the UCI repository ("licensed under a Creative Commons Attribution 4.0 International (CC BY
+4.0) license"); the header of `unicode.xml`.
+
+**Obligations for what we ship.** The trained model counts as a Produced Work under the
+ODbL (see `PLAN.md`, decisions made), so it must carry a notice. The export (M8) and both
+apps will include this text:
+
+> This recognizer was trained in part on data from Detexify
+> (http://detexify.kirelabs.org), made available under the Open Database License 1.0
+> (https://opendatacommons.org/licenses/odbl/1-0/); on Omniglot (Brenden Lake, MIT
+> License, https://github.com/brendenlake/omniglot); and on UJI Pen Characters v2
+> (F. Prat, M. J. Castro, D. Llorens, A. Marzal and J. M. Vilar, CC BY 4.0,
+> https://archive.ics.uci.edu/dataset/177).
 
 ## Python packages (training pipeline)
 
