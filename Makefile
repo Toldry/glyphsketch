@@ -2,7 +2,7 @@
 
 UV_RUN = cd training && uv run
 
-.PHONY: all sync test lint format slowdown web-test web-serve
+.PHONY: all sync test lint format slowdown web-test web-serve web-site
 
 all: sync
 	$(UV_RUN) python -m glyphsketch.pipeline all
@@ -31,3 +31,6 @@ web-test:
 
 web-serve:
 	cd web && npm run serve
+
+web-site:
+	cd web && npm run site

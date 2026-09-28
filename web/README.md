@@ -47,3 +47,11 @@ ranked candidates (10 to 100 of them), the time per query and the encoder's inpu
 To build a personal test set, label a drawing (the top tile fills the label in), press
 **Save drawing**, and later **Export JSON**. Drawings stay in the browser's local storage
 until you export or delete them.
+
+## Publishing
+
+`npm run site` builds the static site into `dist/site/`: the demo page, the compiled
+engine and the three shipped export files, laid out like the repository, plus a
+`source.json` that the page uses to link its source code (AGPL-3.0). The `Pages` workflow
+(`.github/workflows/pages.yml`) runs the tests, builds the site and force-pushes it as a
+single commit to the `gh-pages` branch, which GitHub Pages serves.

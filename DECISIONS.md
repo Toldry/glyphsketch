@@ -685,3 +685,21 @@ model. Test set: 53.4% top-1 and 86.8% top-5 (conf.) ranked; tiles 56.9% exact t
 **Caveat.** The test set is 93% Detexify (maths symbols drawn in its web app), so these
 numbers describe that mix. The per-block tables in EVAL.md and the web demo's labelled
 drawings are the check for other use.
+
+## D30. The web demo on GitHub Pages (2026-09-28)
+
+The demo is served by GitHub Pages from a `gh-pages` branch. The `Pages` workflow runs on
+pushes to `main` that touch `web/` or `export/`: it runs the web tests (so a deploy never
+breaks parity), builds the site with `web/scripts/build_site.ts`, and force-pushes it as
+one orphan commit. Keeping one commit stops the 5 MB of exported files from piling up in
+the branch's history.
+
+The site mirrors the repository layout (`web/demo/`, `web/dist/`, `export/`) so the
+demo's relative paths work unchanged, with a redirect at the root. It publishes only the
+shipped files: the ONNX reference and fixtures stay out. A hosted AGPL program must offer
+its source to users, so the build writes `source.json` (repository and commit), and the
+page links the exact commit in its footer.
+
+**Alternative.** GitHub's "Actions" Pages source (upload-pages-artifact and deploy-pages)
+needs no branch, but the user asked for a `gh-pages` branch, and a branch can be
+inspected and rolled back with plain git.

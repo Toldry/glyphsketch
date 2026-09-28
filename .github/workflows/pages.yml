@@ -1,0 +1,54 @@
+name: Pages
+
+# Builds the web demo and publishes it to the gh-pages branch, which GitHub Pages serves.
+# Each deploy replaces the branch with a single commit, so exported model files don't
+# accumulate in its history. The site layout is made by web/scripts/build_site.ts.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "export/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and publish the demo
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install the locked dependencies
+        run: npm ci
+      - name: Test (the parity tests must pass before deploying)
+        run: npm test
+      - name: Build the site
+        run: npm run site
+      - name: Publish to gh-pages
+        working-directory: web/dist/site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "Deploy ${GITHUB_SHA}"
+          git push --force -q \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages

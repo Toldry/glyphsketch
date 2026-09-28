@@ -299,6 +299,25 @@ element<HTMLButtonElement>("forget").addEventListener("click", () => {
   }
 });
 
+/** The published site has source.json (web/scripts/build_site.ts): link the source code, as
+ * the AGPL asks of a hosted program. Served locally, the file is absent and nothing shows. */
+async function showSourceLink(): Promise<void> {
+  try {
+    const response = await fetch(new URL("../../source.json", document.baseURI));
+    if (!response.ok) return;
+    const { repository, commit } = (await response.json()) as { repository: string | null; commit: string | null };
+    if (!repository) return;
+    const paragraph = document.createElement("p");
+    const link = document.createElement("a");
+    link.href = commit ? `${repository}/tree/${commit}` : repository;
+    link.textContent = repository.replace("https://", "");
+    paragraph.append("Source code (AGPL-3.0): ", link, commit ? ` at ${commit.slice(0, 7)}.` : ".");
+    element<HTMLElement>("attribution").append(paragraph);
+  } catch {
+    // No source.json: running from a local checkout.
+  }
+}
+
 async function start(): Promise<void> {
   drawPad();
   drawInputImage(null);
@@ -318,6 +337,7 @@ async function start(): Promise<void> {
   const remembered = storage<string>(LANGUAGE_KEY, "en");
   languageSelect.value = languages.includes(remembered) ? remembered : "en";
   element<HTMLElement>("attribution").textContent = recognizer.charset.attribution.join(" ");
+  void showSourceLink();
   timings.textContent = "Draw a character.";
   recognize();
 }

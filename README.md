@@ -35,7 +35,11 @@ make lint     # ruff + mypy
 make all      # run the whole pipeline (stages are cached in $DATA_DIR)
 make web-test   # TypeScript engine: type-check and parity tests
 make web-serve  # demo page at http://localhost:5173/web/demo/
+make web-site   # the static site that GitHub Pages serves, in web/dist/site/
 ```
+
+The web demo is published on GitHub Pages from the `gh-pages` branch, which the `Pages`
+workflow rebuilds on every push to `main` that touches `web/` or `export/`.
 
 ### If the laptop gets slow
 
