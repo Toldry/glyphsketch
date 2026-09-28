@@ -133,9 +133,23 @@ class GlyphRenderer:
         crop = pixels[rows[0] : rows[-1] + 1, columns[0] : columns[-1] + 1]
         return crop, int(columns[0]) - origin_x, int(rows[0]) - origin_y
 
+    def _draw_largest(self, char: str, em_pixels: int) -> tuple[np.ndarray, int, int] | None:
+        """Draw at ``em_pixels``, or at half the size while FreeType's rasterizer overflows
+        (complex glyphs at thousands of pixels); the crop is resized to the box anyway."""
+        while True:
+            try:
+                return self._draw(char, em_pixels)
+            except OSError:
+                if em_pixels <= PROBE_EM_PIXELS:
+                    return None
+                em_pixels = max(PROBE_EM_PIXELS, em_pixels // 2)
+
     def render(self, char: str) -> GlyphRender | None:
         """Render ``char`` normalized to the standard box, or None if it has no ink."""
-        probe = self._draw(char, PROBE_EM_PIXELS)
+        try:
+            probe = self._draw(char, PROBE_EM_PIXELS)
+        except OSError:  # FreeType "raster overflow" even at the probe size
+            return None
         if probe is None:
             return None
         probe_crop, probe_x, probe_y = probe
@@ -149,7 +163,7 @@ class GlyphRenderer:
         scale = CONTENT_SIZE / max(probe_width, probe_height)
         em_pixels = round(PROBE_EM_PIXELS * scale)
         em_pixels = min(max(em_pixels, 8), MAX_EM_PIXELS)
-        final = self._draw(char, em_pixels)
+        final = self._draw_largest(char, em_pixels)
         if final is None:
             return None
         crop = final[0]
