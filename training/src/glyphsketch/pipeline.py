@@ -302,6 +302,14 @@ def export_version() -> str:
     return f"1-{file_fingerprint(build.CONFIG_PATH)}-{encoder}-{code}"
 
 
+def run_detypify_stage(context: StageContext) -> None:
+    from glyphsketch.detypify import COMPARISON_FILE, compare, download_detypify
+
+    download_detypify(context.output_dir)
+    result = compare(context.output_dir)
+    (context.output_dir / COMPARISON_FILE).write_text(json.dumps(result, indent=1) + "\n")
+
+
 def run_glyphstrokes_stage(context: StageContext) -> None:
     from glyphsketch.synth.generator import GLYPH_STROKES_FILE, extract_all_strokes
 
@@ -367,10 +375,13 @@ def run_baselines_stage(context: StageContext) -> None:
 
 
 def run_evalreport_stage(context: StageContext) -> None:
+    from glyphsketch.detypify import COMPARISON_FILE
     from glyphsketch.eval_report import load_saved_reports, render_eval_markdown, test_data_summary
 
     test_set = load_test_set(context)
-    markdown = render_eval_markdown(load_saved_reports(), test_data_summary(test_set))
+    comparison_path = stage_dir("detypify") / COMPARISON_FILE
+    comparison = json.loads(comparison_path.read_text()) if comparison_path.exists() else None
+    markdown = render_eval_markdown(load_saved_reports(), test_data_summary(test_set), comparison)
     (context.output_dir / "EVAL.md").write_text(markdown, encoding="utf-8")
     (REPO_ROOT / "EVAL.md").write_text(markdown, encoding="utf-8")
 
@@ -492,11 +503,18 @@ def default_stages() -> list[Stage]:
             version=export_version(),
         ),
         Stage(
+            name="detypify",
+            description="Compare with Detypify on the test drawings of its symbols",
+            run=run_detypify_stage,
+            depends_on=("realdata", "charset", "confusables", "encoderdata", "export"),
+            version="1",
+        ),
+        Stage(
             name="evalreport",
             description="Write EVAL.md from the saved evaluation reports",
             run=run_evalreport_stage,
-            depends_on=("realdata", "confusables", "baselines"),
-            version="1",
+            depends_on=("realdata", "confusables", "baselines", "export", "detypify"),
+            version="2",
         ),
     ]
 

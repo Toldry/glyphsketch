@@ -38,6 +38,15 @@ exported metadata still credits Wikipedia as the source. The byte ranges and eac
 SHA-256 are recorded in `$DATA_DIR/wikiprior/prior.json`; the method is in DECISIONS.md
 (D25) and `docs/reports/frequency_prior.md`.
 
+## Evaluation only
+
+| Component | Version | License | Source | Use |
+|-----------|---------|---------|--------|-----|
+| Detypify (`detypify-service` npm package: `train/model.onnx`, `train/infer.json`) | 0.3.0 | MIT | https://github.com/QuarticCat/detypify | Comparison in EVAL.md (M10). Downloaded by the `detypify` stage (pinned by SHA-256); **not shipped** |
+
+The license was read from the repository's `LICENSE` at commit `1598f71` (MIT, Copyright
+(c) 2024 QuarticCat); the package's `package.json` also says MIT.
+
 ## Fonts
 
 Used at build time only: the pipeline renders glyphs from these fonts to make training
