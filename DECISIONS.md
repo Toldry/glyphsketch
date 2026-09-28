@@ -652,3 +652,36 @@ saved to local storage and exported as JSON for a personal test set (PLAN.md, se
 change 6). The page was checked through its server with curl. A headless browser needs
 system libraries the container lacks (it has no root), so the interaction was not
 tested automatically; the engine under it is.
+
+## D29. M6 results and the shipped encoder (M6–M8, 2026-09-28)
+
+Kaggle (T4) ran the equal-step ablation pair (1,701 steps, 9 minutes each) and a long run
+of each variant (30,000 steps, 163 minutes each). Test set, index (a) per font, no prior:
+
+| Run | Top-1 | Top-5 | Top-5 (conf.) | Top-5 (conf.), zero-shot |
+|-----|------:|------:|--------------:|-------------------------:|
+| synthetic only, 1,701 steps | 40.6 | 71.5 | 76.4 | 72.8 |
+| synthetic + real, 1,701 steps | 43.5 | 74.8 | 79.2 | 75.0 |
+| synthetic only, 30,000 steps | 42.4 | 72.9 | 77.4 | 74.9 |
+| synthetic + real, 30,000 steps | 49.7 | 82.4 | 86.0 | 78.4 |
+
+- **Real drawings help, including zero-shot characters**, which have no real drawings:
+  zero-shot top-5 (conf.) rises from 74.9 to 78.4 in the long runs. Real handwriting
+  teaches the encoder how people draw in general (proportions, sloppy joins), not just
+  the characters in the data.
+- **Synthetic-only training plateaus:** 17× the steps gains 1 point. The gap between
+  synthetic and real drawings, not training time, limits it.
+- **Index (a) per font wins in every run**, ahead of (a) mean by 2–5 points and (b)
+  synthetic prototypes by 4–5. Prototypes average away the styles people draw.
+
+**Shipped:** synthetic + real, 30,000 steps, index (a) per font, prior weight 0.002 (tuned
+on validation drawings with the long synthetic-only encoder, for which they are unseen;
+the same value as on the laptop's encoder). The export's validation check chose 48
+dimensions; for this encoder the validation drawings are training data, so that check
+is optimistic, but the test set agrees: the exported int8 package scores as the float
+model. Test set: 53.4% top-1 and 86.8% top-5 (conf.) ranked; tiles 56.9% exact top-1 and
+89.9% top-5 (conf.), 85.0% on zero-shot characters. 5.02 MB shipped.
+
+**Caveat.** The test set is 93% Detexify (maths symbols drawn in its web app), so these
+numbers describe that mix. The per-block tables in EVAL.md and the web demo's labelled
+drawings are the check for other use.

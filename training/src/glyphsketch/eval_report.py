@@ -156,10 +156,21 @@ def test_data_summary(test_set: TestSet) -> str:
     return "\n".join(lines)
 
 
+REPORT_ORDER = ("export-", "pixels", "hog", "encoder-")
+RUN_ORDER = ("-1701-", "-long-")
+
+
+def report_order(slug: str) -> tuple[int, int, str]:
+    """The shipped package first, then the baselines, then the encoder runs: the
+    equal-step ablation pair before the long runs."""
+    kind = next((rank for rank, prefix in enumerate(REPORT_ORDER) if slug.startswith(prefix)), 9)
+    run = next((rank for rank, marker in enumerate(RUN_ORDER) if marker in slug), 9)
+    return kind, run, slug
+
+
 def load_saved_reports() -> list[dict[str, Any]]:
-    order = {"pixels": 0, "hog": 1}
     reports = [
         json.loads(path.read_text(encoding="utf-8"))
         for path in sorted(evaluations_dir().glob("*.json"))
     ]
-    return sorted(reports, key=lambda report: (order.get(report["slug"], 9), report["slug"]))
+    return sorted(reports, key=lambda report: report_order(report["slug"]))
