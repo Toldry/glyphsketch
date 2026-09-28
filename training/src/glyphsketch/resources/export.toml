@@ -1,7 +1,7 @@
 # What the export stage packages (M8). See DECISIONS.md (D27) and docs/export_format.md.
 
 # The encoder: $DATA_DIR/experiments/<run>/encoder.pt.
-run = "synthetic-only"
+run = "synthetic-and-real-long"
 # Index option (M6): "a-per-font" (one vector per glyph render) or "a-mean".
 index = "a-per-font"
 # Ranking: score = similarity + prior_weight · log prior (tuned by model.ranking_eval).
