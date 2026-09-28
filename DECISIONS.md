@@ -725,3 +725,20 @@ Part of Detypify's lead may be overlap: it trains on Detexify data, and nothing 
 test writers are excluded. A fixed-set classifier trained on real drawings is the better
 tool for a fixed symbol set; glyphsketch's design buys coverage (15× the characters,
 most without handwriting data) and adding characters from a font alone.
+
+## D32. Latency budget relaxed to 300 ms per query (2026-09-28)
+
+The brief asked for under ~50 ms per query on a mid-range phone. The user relaxed it to
+300 ms: waiting 0.3 s for results after finishing a drawing is acceptable. For
+reference, the TypeScript engine takes 20 ms per query in Node and 43.5 ms in the user's
+browser on the laptop. The phone numbers come in M11. The new budget leaves room for a
+larger encoder later if accuracy needs it, and makes the pure-Kotlin engine (no native
+code) an easier choice.
+
+## D33. Project logo (2026-09-28)
+
+The logo is the user's "GS" drawn in the web demo (`docs/logo/gs-drawing.json`),
+rendered by `glyphsketch.tools.logo` in the drawing pad's dark-theme colours: light
+round-capped strokes (#ececf0) on the pad's grey (#222228). `logo.svg` keeps the pad's
+pen width; `favicon.svg` (the demo's favicon) doubles it and a half, since at 16–32 px
+the pad's width would be under a pixel.

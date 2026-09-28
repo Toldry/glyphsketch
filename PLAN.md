@@ -31,7 +31,8 @@ following:
    benchmarking. My expectation, to be confirmed in M11: ONNX Runtime ships native `.so`
    files for each ABI, F-Droid wants everything built from source, and Thumb-Key has no
    native dependencies today. A CNN of about 1M parameters at 64×64 needs roughly
-   20–60 MFLOPs, which a plain engine can run well under 50 ms.
+   20–60 MFLOPs, which a plain engine can run well under 50 ms. (The budget is now 300 ms;
+   see D32.)
 6. **Web first.** During development the web demo is the test bench for drawing by hand.
    It also collects labelled drawings locally, which you can export for a personal
    sanity-check set. Android comes last.

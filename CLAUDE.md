@@ -12,7 +12,8 @@ for later integration into the Thumb-Key Android keyboard (AGPL-3.0, F-Droid).
 - Fully offline at runtime; buildable from source (F-Droid); no Google Play Services/ML Kit.
 - AGPL-3.0. Every font, dataset and dependency must be license-compatible and recorded in
   `THIRD_PARTY.md` with its license and URL. Verify each license from the source itself.
-- Model + index ≤ ~10 MB; ≤ ~50 ms per query on a mid-range phone.
+- Model + index ≤ ~10 MB; ≤ ~300 ms per query on a mid-range phone (relaxed from the
+  brief's 50 ms by the user on 2026-09-28, D32).
 - Adding a character must never require new handwriting data.
 
 ## Working style
