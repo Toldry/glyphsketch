@@ -24,3 +24,7 @@ local.properties
 .idea/
 .DS_Store
 Thumbs.db
+
+# Kaggle bundles and results, passed between the devcontainer and Kaggle by hand
+/glyphsketch-kaggle.zip
+/glyphsketch-results*.zip
