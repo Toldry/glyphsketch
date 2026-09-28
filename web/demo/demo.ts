@@ -1,6 +1,13 @@
 /** The demo page: draw, see tiles and candidates, save labelled drawings locally. */
 
-import { type Point, type Recognition, Recognizer, type Stroke, type Tile } from "../src/index.ts";
+import {
+  displayText,
+  type Point,
+  type Recognition,
+  Recognizer,
+  type Stroke,
+  type Tile,
+} from "../src/index.ts";
 
 // Relative to the page (web/demo/), not to the compiled script in web/dist/demo/.
 const EXPORT_URL = new URL("../../export/", document.baseURI);
@@ -91,6 +98,12 @@ function drawInputImage(image: Uint8Array | null): void {
   context.putImageData(pixels, 0, 0);
 }
 
+/** The character as shown on its own (combining marks on a dotted circle). */
+function shown(codePoint: number): string {
+  const info = recognizer?.charset.characters.get(codePoint);
+  return info ? displayText(info) : String.fromCodePoint(codePoint);
+}
+
 function describe(codePoint: number): string {
   const info = recognizer?.charset.characters.get(codePoint);
   return `U+${codePoint.toString(16).toUpperCase().padStart(4, "0")} ${info?.name ?? ""}`;
@@ -108,7 +121,7 @@ function showChooser(tile: Tile, anchor: HTMLElement): void {
       button.type = "button";
       const glyph = document.createElement("span");
       glyph.className = "char";
-      glyph.textContent = String.fromCodePoint(codePoint);
+      glyph.textContent = shown(codePoint);
       const name = document.createElement("span");
       name.className = "name";
       name.textContent = describe(codePoint);
@@ -138,7 +151,7 @@ function renderResults(recognition: Recognition | null): void {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "tile";
-    button.textContent = String.fromCodePoint(tile.representative);
+    button.textContent = shown(tile.representative);
     button.title = describe(tile.representative);
     if (tile.members.length > 1) {
       const more = document.createElement("span");
@@ -171,7 +184,7 @@ function renderResults(recognition: Recognition | null): void {
     const item = document.createElement("li");
     const glyph = document.createElement("span");
     glyph.className = "char";
-    glyph.textContent = String.fromCodePoint(candidate.codePoint);
+    glyph.textContent = shown(candidate.codePoint);
     const code = document.createElement("span");
     code.className = "code";
     code.textContent = describe(candidate.codePoint);

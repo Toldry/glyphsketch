@@ -82,3 +82,11 @@ export function parseCharset(json: string): Charset {
     attribution: raw.attribution,
   };
 }
+
+export const DOTTED_CIRCLE = "\u25CC";
+
+/** How to show a character on its own: a combining mark (general category M…) sits on a
+ * dotted circle, ◌́, so it is visible. Typing inserts the bare character. */
+export function displayText(info: Pick<CharacterInfo, "char" | "generalCategory">): string {
+  return info.generalCategory.startsWith("M") ? DOTTED_CIRCLE + info.char : info.char;
+}

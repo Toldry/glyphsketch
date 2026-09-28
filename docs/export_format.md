@@ -123,6 +123,12 @@ members by:
 The first member is the tile's representative. All members, in this order, go in the
 tile's chooser. The tile's score is the score of its group's best-ranked member.
 
+## Showing a character
+
+A combining mark (general category starting with `M`) is shown after a dotted circle,
+U+25CC, so it is visible on its own: `◌́`. Choosing it inserts the bare mark, which
+combines with the character before it. Every other character is shown as itself.
+
 ## `fixtures.json`
 
 Each case holds the `strokes`, the expected `image_uint8_base64` (64 × 64 bytes,

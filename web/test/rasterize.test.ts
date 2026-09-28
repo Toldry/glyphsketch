@@ -27,3 +27,9 @@ test("simplification keeps the corner and drops collinear points", () => {
 test("an empty drawing is rejected", () => {
   assert.throws(() => rasterize([[]]));
 });
+
+test("combining marks are shown on a dotted circle", async () => {
+  const { displayText } = await import("../src/charset.ts");
+  assert.equal(displayText({ char: "́", generalCategory: "Mn" }), "◌́");
+  assert.equal(displayText({ char: "A", generalCategory: "Lu" }), "A");
+});

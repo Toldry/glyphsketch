@@ -1,4 +1,10 @@
-export { type Charset, type CharacterInfo, parseCharset } from "./charset.ts";
+export {
+  type Charset,
+  type CharacterInfo,
+  DOTTED_CIRCLE,
+  displayText,
+  parseCharset,
+} from "./charset.ts";
 export { type GlyphIndex, readIndex, similarities } from "./glyphIndex.ts";
 export { embed, type Model, readModel } from "./model.ts";
 export { type Candidate, onEveryKeyboard, Ranker, type Ranking, type Tile } from "./ranking.ts";
