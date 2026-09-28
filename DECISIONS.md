@@ -703,3 +703,25 @@ page links the exact commit in its footer.
 **Alternative.** GitHub's "Actions" Pages source (upload-pages-artifact and deploy-pages)
 needs no branch, but the user asked for a `gh-pages` branch, and a branch can be
 inspected and rolled back with plain git.
+
+## D31. EVAL.md as a written report, and the Detypify comparison (M10, 2026-09-28)
+
+EVAL.md stays generated (`evalreport` stage), so its numbers can't drift from the saved
+reports. It now opens with the shipped package's results, the Detypify comparison, the
+strongest and weakest Unicode blocks and the limitations, and keeps every run's full
+tables in collapsed sections below.
+
+**Detypify** (MIT, pinned npm package 0.3.0: its ONNX model and 411-symbol list) runs on
+the test drawings of its symbols. Its preprocessing is reproduced from `drawStrokes`,
+drawn with our rasterizer rather than a browser canvas. Detypify takes one image per call
+at 224×224, about 0.17 s per drawing on the laptop, so the comparison uses a fixed
+random sample of 6,000 of the 29,255 eligible drawings (standard error about 0.6
+points); the full set would take about 3 hours.
+
+Result: on its own symbols Detypify is ahead (top-1 87.8% against glyphsketch's 76.8%
+with the same 411 candidates, top-5 99.6% against 98.2%). Searching all 6,161
+characters, glyphsketch gets 57.9% top-1 and, as tiles, 93.1% top-5 counting look-alikes.
+Part of Detypify's lead may be overlap: it trains on Detexify data, and nothing says our
+test writers are excluded. A fixed-set classifier trained on real drawings is the better
+tool for a fixed symbol set; glyphsketch's design buys coverage (15× the characters,
+most without handwriting data) and adding characters from a font alone.

@@ -82,13 +82,182 @@ def _metrics(raw: dict[str, Any]) -> Metrics:
     return Metrics(**raw)
 
 
-def render_eval_markdown(reports: list[dict[str, Any]], test_summary: str) -> str:
+def _pct(value: float) -> str:
+    return f"{100 * value:.1f}%"
+
+
+def _by_slug(reports: list[dict[str, Any]], slug: str) -> dict[str, Any] | None:
+    return next((report for report in reports if report["slug"] == slug), None)
+
+
+def headline_section(reports: list[dict[str, Any]]) -> list[str]:
+    tiles, ranked = _by_slug(reports, "export-tiles"), _by_slug(reports, "export-ranked")
+    hog = _by_slug(reports, "hog")
+    if tiles is None or ranked is None:
+        return []
+    t, r = _metrics(tiles["overall"]), _metrics(ranked["overall"])
+    seen = _metrics(tiles["by_subset"]["seen"])
+    zero = _metrics(tiles["by_subset"]["zero-shot"])
+    lines = [
+        "## Results at a glance",
+        "",
+        "The shipped package (`export/`, 5 MB, int8) on held-out writers:",
+        "",
+        f"- **Result tiles** (one per look-alike group, as the demo shows them): the right "
+        f"group is among the first five tiles for **{_pct(t.top5_confusable)}** of drawings, "
+        f"and the first tile shows exactly the drawn character for {_pct(t.top1)}.",
+        f"- **Ranked characters**: top-1 {_pct(r.top1)}, top-5 {_pct(r.top5)} "
+        f"({_pct(r.top5_confusable)} counting look-alikes).",
+        f"- **Zero-shot characters**, which have no real handwriting in training, reach "
+        f"{_pct(zero.top5_confusable)} tile top-5, against {_pct(seen.top5_confusable)} for "
+        "characters with real training drawings. Adding a character with only a font works.",
+    ]
+    if hog is not None:
+        h = _metrics(hog["overall"])
+        lines.append(
+            f"- The best trivial baseline (HOG nearest glyph) reaches {_pct(h.top5_confusable)} "
+            "top-5 counting look-alikes."
+        )
+    lines += [
+        "",
+        "How the choices were made (DECISIONS.md): synthetic + real training beats synthetic",
+        "only, also on zero-shot characters (D29); one index vector per font beats averaged",
+        "or synthetic prototypes (D22, D29); the frequency prior adds about 4 points of top-1",
+        "(D25, D26); PCA to 48 dimensions and int8 cost nothing (D27).",
+        "",
+    ]
+    return lines
+
+
+def blocks_section(reports: list[dict[str, Any]], minimum_samples: int = 100) -> list[str]:
+    tiles = _by_slug(reports, "export-tiles")
+    if tiles is None:
+        return []
+    blocks = [
+        (name, _metrics(raw))
+        for name, raw in tiles["by_block"].items()
+        if raw["samples"] >= minimum_samples
+    ]
+    blocks.sort(key=lambda item: item[1].top5_confusable)
+    header = [
+        "| Block | Samples | Characters | Tile top-5 (conf.) | Exact top-1 |",
+        "|-------|--------:|-----------:|-------------------:|------------:|",
+    ]
+
+    def rows(items: list[tuple[str, Metrics]]) -> list[str]:
+        return [
+            f"| {name} | {m.samples} | {m.characters} | {_pct(m.top5_confusable)} "
+            f"| {_pct(m.top1)} |"
+            for name, m in items
+        ]
+
+    return [
+        "## Where it works and where it doesn't",
+        "",
+        f"Unicode blocks with at least {minimum_samples} test drawings, shipped package, tiles.",
+        "",
+        "Weakest:",
+        "",
+        *header,
+        *rows(blocks[:6]),
+        "",
+        "Strongest:",
+        "",
+        *header,
+        *rows(blocks[::-1][:6]),
+        "",
+        "Two causes are visible in the weakest blocks. Geometric Shapes holds filled and",
+        "outlined versions of the same shape (■ □, ● ○), which a pen drawing doesn't",
+        "distinguish, and small and large ones (▪ ■, ◦ ○), which size normalization makes",
+        "identical. The styled alphabets (Mathematical Alphanumeric Symbols, Letterlike",
+        "Symbols: 𝒜, 𝔄, ℬ) are drawn by people as plain letters, while their glyphs keep the",
+        "font's style. The full per-block tables are in the detailed results below.",
+        "",
+    ]
+
+
+def comparison_section(comparison: dict[str, Any] | None) -> list[str]:
+    if comparison is None:
+        return []
+    reports = comparison["reports"]
+    lines = [
+        "## Comparison with Detypify",
+        "",
+        "[Detypify](https://github.com/QuarticCat/detypify) (MIT) is an open-source recognizer",
+        f"of {comparison['symbols']} Typst symbols: a classifier over a fixed set, where",
+        "glyphsketch retrieves among 6,161 characters. Of the test drawings, "
+        f"{comparison['eligible_samples']:,} have a label among Detypify's symbols (nearly all "
+        f"from Detexify); both recognizers run on the same fixed random sample of "
+        f"{comparison['test_samples']:,} of them ({comparison['test_characters']} characters; "
+        "standard error about 0.6 points).",
+        "",
+        "| Recognizer | Top-1 | Top-5 | Top-1 (conf.) | Top-5 (conf.) |",
+        "|------------|------:|------:|--------------:|--------------:|",
+    ]
+    for key in ("detypify", "glyphsketch-restricted", "glyphsketch", "glyphsketch-tiles"):
+        report = reports[key]
+        m = _metrics(report["overall"])
+        lines.append(
+            f"| {report['recognizer']} | {_pct(m.top1)} | {_pct(m.top5)} | "
+            f"{_pct(m.top1_confusable)} | {_pct(m.top5_confusable)} |"
+        )
+    detypify = _metrics(reports["detypify"]["overall"])
+    restricted = _metrics(reports["glyphsketch-restricted"]["overall"])
+    lines += [
+        "",
+        f"On its own symbols Detypify is ahead: with the same {comparison['symbols']} "
+        f"candidates, its top-1 is {_pct(detypify.top1)} against {_pct(restricted.top1)}, "
+        f"and top-5 {_pct(detypify.top5)} against {_pct(restricted.top5)}. A classifier "
+        "trained on real drawings of a fixed set is the right tool for that set. glyphsketch",
+        "covers 15 times as many characters, most of which have no handwriting data at all,",
+        "and adding one needs only a font; searching all of them costs it accuracy on these",
+        "symbols (the third row).",
+    ]
+    lines += [
+        "",
+        "**Warning: possible overlap.** Detypify is trained on Detexify's data, and these test",
+        "drawings come from Detexify users. Nothing indicates that its training excluded our",
+        "test writers, so its numbers here may be optimistic. glyphsketch never trained on",
+        "these writers (D16).",
+        "",
+        "Detypify's input was reproduced from its `drawStrokes` (224 px canvas, 8 px lines);",
+        "the lines are drawn with our anti-aliased rasterizer rather than a browser canvas,",
+        "which is close but not identical (`training/src/glyphsketch/detypify.py`).",
+        "",
+    ]
+    return lines
+
+
+LIMITATIONS = [
+    "## Limitations",
+    "",
+    "- **The test mix is mostly maths symbols.** Detexify provides 93% of the test drawings",
+    "  (drawn in its web page); UJI (letters, digits, punctuation) and Omniglot (non-Latin",
+    "  alphabets) add the rest. Finger drawings on a phone keyboard may differ; the demo's",
+    "  labelled-drawing export is the way to measure that.",
+    "- **Drawings are compared by shape only.** Size and position are normalized away, so",
+    "  case pairs such as o/O or c/C, and pairs like the letter o and the digit 0 in some",
+    "  fonts, can only be told apart by the tile's menu.",
+    "- **No stroke order.** The recognizer sees the image, not the pen's path (PLAN.md,",
+    "  section 1), so it cannot use the order people write strokes in.",
+    "- **Characters outside the fonts are out of reach**, and so is CJK in v0 (M12).",
+    "",
+]
+
+
+def render_eval_markdown(
+    reports: list[dict[str, Any]], test_summary: str, comparison: dict[str, Any] | None = None
+) -> str:
     lines = [
         "# Evaluation",
         "",
         "Generated by the `evalreport` pipeline stage from the latest runs; do not edit by hand.",
         f"Last generated: {_now()}.",
         "",
+        *headline_section(reports),
+        *comparison_section(comparison),
+        *blocks_section(reports),
+        *LIMITATIONS,
         "## Test data",
         "",
         test_summary,
@@ -115,8 +284,9 @@ def render_eval_markdown(reports: list[dict[str, Any]], test_summary: str) -> st
             f"{100 * overall.top1_confusable:.1f} | {100 * overall.top5_confusable:.1f} | "
             f"{100 * zero_shot.top5_confusable:.1f} | {100 * macro.top5_confusable:.1f} |"
         )
+    lines += ["", "## Detailed results"]
     for report in reports:
-        lines += ["", f"## {report['recognizer']}", ""]
+        lines += ["", f"<details><summary>{report['recognizer']}</summary>", ""]
         lines += [f"{note}" for note in report.get("notes", [])]
         lines += ["", METRICS_HEADER]
         lines.append(metrics_row("All (per sample)", _metrics(report["overall"])))
@@ -128,7 +298,7 @@ def render_eval_markdown(reports: list[dict[str, Any]], test_summary: str) -> st
         lines += ["", "<details><summary>By Unicode block</summary>", "", METRICS_HEADER]
         for name, raw in report["by_block"].items():
             lines.append(metrics_row(name, _metrics(raw)))
-        lines += ["", "</details>"]
+        lines += ["", "</details>", "", "</details>"]
     return "\n".join(lines) + "\n"
 
 
