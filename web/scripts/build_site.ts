@@ -48,7 +48,7 @@ function copy(from: string, to: string): void {
 export function buildSite(output: string): void {
   rmSync(output, { recursive: true, force: true });
   mkdirSync(output, { recursive: true });
-  for (const name of ["index.html", "style.css"]) {
+  for (const name of ["index.html", "style.css", "favicon.svg"]) {
     copy(join(WEB_DIR, "demo", name), join(output, "web", "demo", name));
   }
   for (const part of ["demo", "src"]) {
@@ -61,6 +61,7 @@ export function buildSite(output: string): void {
   writeFileSync(
     join(output, "index.html"),
     '<!doctype html>\n<meta charset="utf-8">\n<title>glyphsketch</title>\n' +
+      '<link rel="icon" type="image/svg+xml" href="web/demo/favicon.svg">\n' +
       '<meta http-equiv="refresh" content="0; url=web/demo/">\n' +
       '<a href="web/demo/">glyphsketch demo</a>\n',
   );

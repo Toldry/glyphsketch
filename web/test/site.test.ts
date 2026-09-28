@@ -14,7 +14,7 @@ test("the site holds the demo, the engine and the shipped files only", { skip: !
   try {
     buildSite(output);
     for (const path of [
-      "index.html", ".nojekyll", "source.json", "web/demo/index.html", "web/demo/style.css",
+      "index.html", ".nojekyll", "source.json", "web/demo/index.html", "web/demo/style.css", "web/demo/favicon.svg",
       "web/dist/demo/demo.js", "web/dist/src/index.js", "web/dist/src/model.js",
       "export/glyphsketch-model.bin", "export/glyphsketch-index.bin", "export/glyphsketch-charset.json",
     ]) {
