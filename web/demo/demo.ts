@@ -6,6 +6,7 @@ import { type Point, type Recognition, Recognizer, type Stroke, type Tile } from
 const EXPORT_URL = new URL("../../export/", document.baseURI);
 const SAVED_KEY = "glyphsketch.labelledDrawings";
 const LANGUAGE_KEY = "glyphsketch.language";
+const CANDIDATE_COUNT_KEY = "glyphsketch.candidateCount";
 const LONG_PRESS_MS = 450;
 
 interface LabelledDrawing {
@@ -29,6 +30,7 @@ const candidatesList = element<HTMLOListElement>("candidates");
 const timings = element<HTMLParagraphElement>("timings");
 const output = element<HTMLInputElement>("output");
 const languageSelect = element<HTMLSelectElement>("language");
+const candidateCountSelect = element<HTMLSelectElement>("candidate-count");
 const chooser = element<HTMLDivElement>("chooser");
 const labelInput = element<HTMLInputElement>("label");
 const savedText = element<HTMLParagraphElement>("saved");
@@ -146,8 +148,9 @@ function renderResults(recognition: Recognition | null): void {
     }
     let pressTimer = 0;
     let longPressed = false;
-    button.addEventListener("pointerdown", () => {
+    button.addEventListener("pointerdown", (event) => {
       longPressed = false;
+      if (event.button !== 0) return; // right-click opens the menu through contextmenu
       pressTimer = window.setTimeout(() => {
         longPressed = true;
         showChooser(tile, button);
@@ -193,7 +196,10 @@ function recognize(): void {
     renderResults(null);
     return;
   }
-  lastRecognition = recognizer.recognize(strokes, { language: languageSelect.value });
+  lastRecognition = recognizer.recognize(strokes, {
+    language: languageSelect.value,
+    characters: Number(candidateCountSelect.value),
+  });
   renderResults(lastRecognition);
 }
 
@@ -234,6 +240,10 @@ element<HTMLButtonElement>("clear").addEventListener("click", () => {
 });
 languageSelect.addEventListener("change", () => {
   store(LANGUAGE_KEY, languageSelect.value);
+  recognize();
+});
+candidateCountSelect.addEventListener("change", () => {
+  store(CANDIDATE_COUNT_KEY, candidateCountSelect.value);
   recognize();
 });
 document.addEventListener("pointerdown", (event) => {
@@ -293,6 +303,8 @@ async function start(): Promise<void> {
   drawPad();
   drawInputImage(null);
   showSavedCount();
+  const count = storage<string>(CANDIDATE_COUNT_KEY, "10");
+  candidateCountSelect.value = ["10", "20", "50", "100"].includes(count) ? count : "10";
   try {
     recognizer = await Recognizer.load(EXPORT_URL.href);
   } catch (error) {

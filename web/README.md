@@ -41,8 +41,8 @@ Source files: `src/rasterize.ts` (strokes → 64×64 image), `src/model.ts` (the
 
 `demo/` holds the page. Draw with a mouse, pen or finger. Tap a tile to type it, and
 long-press or right-click it for its look-alikes. The keyboard selector changes which member
-a tile shows (Latin A or Greek Α). The page also shows the ranked candidates, the time per
-query and the encoder's input image.
+a tile shows (Latin A or Greek Α); it doesn't change recognition. The page also shows the
+ranked candidates (10 to 100 of them), the time per query and the encoder's input image.
 
 To build a personal test set, label a drawing (the top tile fills the label in), press
 **Save drawing**, and later **Export JSON**. Drawings stay in the browser's local storage

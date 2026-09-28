@@ -68,6 +68,9 @@ button:hover { border-color: var(--accent); }
   font-size: 0.7rem;
   color: var(--muted);
 }
+.explain { font-size: 0.85rem; color: var(--muted); margin: 0 0 8px; }
+.candidates-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.candidates-heading label { font-size: 0.9rem; color: var(--muted); }
 .output input { width: 100%; font-size: 1.3rem; margin-top: 4px; }
 #candidates { padding-left: 1.6rem; margin: 0; }
 #candidates li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -89,6 +92,8 @@ button:hover { border-color: var(--accent); }
   flex-direction: column;
   gap: 2px;
 }
+/* The display rule above would otherwise override the hidden attribute. */
+.chooser[hidden] { display: none; }
 .chooser button { display: flex; gap: 10px; align-items: baseline; text-align: left; border: none; }
 .chooser .char { font-size: 1.5rem; width: 2rem; }
 .chooser .name { font-size: 0.8rem; color: var(--muted); }
