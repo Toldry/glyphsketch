@@ -387,7 +387,11 @@ def run_evalreport_stage(context: StageContext) -> None:
     test_set = load_test_set(context)
     comparison_path = stage_dir("detypify") / COMPARISON_FILE
     comparison = json.loads(comparison_path.read_text()) if comparison_path.exists() else None
-    markdown = render_eval_markdown(load_saved_reports(), test_data_summary(test_set), comparison)
+    summary_path = stage_dir("export") / "export_summary.json"
+    package = json.loads(summary_path.read_text()) if summary_path.exists() else None
+    markdown = render_eval_markdown(
+        load_saved_reports(), test_data_summary(test_set), comparison, package
+    )
     (context.output_dir / "EVAL.md").write_text(markdown, encoding="utf-8")
     (REPO_ROOT / "EVAL.md").write_text(markdown, encoding="utf-8")
 

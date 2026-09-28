@@ -383,6 +383,7 @@ def run_export(output_dir: Path) -> dict[str, Any]:
         "dims": dims,
         "dims_curve": curve,
         "multiply_adds": multiply_adds(read_model(model_data)[0], IMAGE_SIZE),
+        "characters": len(stored_index.code_points),
         "shipped_bytes": shipped,
         "onnx_max_deviation": onnx_deviation,
         "evaluation": evaluation,

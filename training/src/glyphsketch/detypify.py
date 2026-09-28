@@ -155,10 +155,11 @@ def compare(detypify_dir: Path) -> dict[str, object]:
     scripts = [keyboard_scripts_for(int(label), script_of) for label in samples.code_points]
 
     drawings = [samples.strokes(row) for row in range(len(samples))]
+    everything = f"{len(index.code_points):,} characters"
     predictions = {
         "detypify": ("Detypify 0.3.0 (411 symbols)", detypify.rank(drawings, TOP_K)),
         "glyphsketch": (
-            "glyphsketch, ranked over all 6,161 characters",
+            f"glyphsketch, ranked over all {everything}",
             ranker.top_characters(scores, TOP_K),
         ),
         "glyphsketch-restricted": (
@@ -166,7 +167,7 @@ def compare(detypify_dir: Path) -> dict[str, object]:
             ranker.top_characters(restricted.astype(np.float32), TOP_K),
         ),
         "glyphsketch-tiles": (
-            "glyphsketch tiles, all 6,161 characters",
+            f"glyphsketch tiles, all {everything}",
             ranker.tile_representatives(scores, TOP_K, scripts),
         ),
     }
@@ -181,6 +182,7 @@ def compare(detypify_dir: Path) -> dict[str, object]:
     return {
         "package": PACKAGE_URL,
         "symbols": len(known),
+        "index_characters": len(index.code_points),
         "eligible_samples": len(eligible),
         "test_samples": len(rows),
         "test_characters": len(set(samples.code_points.tolist())),
