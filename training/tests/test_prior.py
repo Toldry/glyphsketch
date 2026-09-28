@@ -4,7 +4,7 @@ from collections import Counter
 
 import pytest
 
-from glyphsketch.prior.build import log_prior
+from glyphsketch.prior.build import log_prior, raise_to_flat_prior
 from glyphsketch.prior.sample import (
     DumpFile,
     complete_streams,
@@ -113,3 +113,12 @@ def test_config_lists_languages_with_scripts() -> None:
     codes = [language.code for language in config.languages]
     assert "en" in codes and len(codes) == len(set(codes))
     assert all(language.scripts for language in config.languages)
+
+
+def test_emoji_get_at_least_the_median_prior_of_characters_in_regular_use() -> None:
+    prior = {1: -3.0, 2: -5.0, 3: -9.0, 6: -19.0, 4: -20.0, 5: -2.0}
+    totals = {1: 5000, 2: 900, 3: 150, 6: 2, 5: 40}
+    raised, level = raise_to_flat_prior(prior, {4, 5}, totals)
+    assert level == -5.0  # median of 1, 2, 3; character 6 is too rare to count
+    assert raised[4] == -5.0 and raised[5] == -2.0  # a frequent emoji keeps its own
+    assert raised[6] == -19.0

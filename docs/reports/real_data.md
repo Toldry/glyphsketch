@@ -7,17 +7,17 @@ test writers or real drawings of zero-shot characters.
 
 | Dataset | Samples | Characters | Writers | Test samples | Test writers |
 |---------|--------:|-----------:|--------:|-------------:|-------------:|
-| detexify | 207758 | 786 | 1290 | 36975 | 233 |
+| detexify | 207970 | 789 | 1290 | 36999 | 233 |
 | omniglot | 3640 | 180 | 120 | 834 | 27 |
 | uji | 11640 | 97 | 60 | 2134 | 11 |
-| **all** | 223038 | 998 | 1470 | 39943 | – |
+| **all** | 223250 | 1001 | 1470 | 39967 | – |
 
-Zero-shot characters: 244 of 998 (10779 test samples).
+Zero-shot characters: 245 of 1001 (10789 test samples).
 
 Detexify labels (keys) by mapping status:
 
-- kept: 1028 keys, 207758 samples
-- mapped to a character outside the glyph set: 8 keys, 531 samples
+- kept: 1031 keys, 207970 samples
+- mapped to a character outside the glyph set: 5 keys, 319 samples
 - no single-code-point equivalent: 62 keys, 2165 samples
 
 ## Samples by Unicode block
@@ -50,10 +50,12 @@ Detexify labels (keys) by mapping status:
 | Latin Extended-B | 403 | 22 | 43 |
 | Phonetic Extensions | 366 | 4 | 66 |
 | Miscellaneous Mathematical Symbols-B | 170 | 4 | 25 |
+| Box Drawing | 153 | 2 | 18 |
 | Supplemental Punctuation | 125 | 2 | 27 |
 | Enclosed Alphanumerics | 117 | 2 | 19 |
 | Latin Extended-E | 85 | 1 | 12 |
 | Cyrillic Extended-B | 60 | 3 | 15 |
+| Enclosed Alphanumeric Supplement | 59 | 1 | 6 |
 | Miscellaneous Symbols and Arrows | 20 | 1 | 3 |
 | Arabic Supplement | 20 | 1 | 3 |
 | Phonetic Extensions Supplement | 10 | 1 | 0 |

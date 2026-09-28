@@ -742,3 +742,62 @@ rendered by `glyphsketch.tools.logo` in the drawing pad's dark-theme colours: li
 round-capped strokes (#ececf0) on the pad's grey (#222228). `logo.svg` keeps the pad's
 pen width; `favicon.svg` (the demo's favicon) doubles it and a half, since at 16–32 px
 the pad's width would be under a pixel.
+
+## D34. Extended charset: emoji, combining marks, compatibility forms and more symbols (2026-09-28)
+
+The user asked for everything v0 had left out except CJK. D8 (no emoji font) and the M12
+deferral of combining marks are replaced.
+
+**Added blocks** (`resources/charset_v0.toml`): emoji and pictographs (Miscellaneous
+Symbols and Pictographs, Emoticons, Transport and Map Symbols, Supplemental Symbols and
+Pictographs, Symbols and Pictographs Extended-A); Musical Symbols and its supplement;
+Chess, Mahjong, Domino and Playing Cards; Alchemical and Ancient Symbols; Box Drawing,
+Block Elements, Braille Patterns and Symbols for Legacy Computing (and supplement);
+Geometric Shapes Extended, Supplemental Arrows-C, Ornamental Dingbats, Enclosed
+Alphanumeric Supplement, Miscellaneous Symbols Supplement, Miscellaneous Symbols and Arrows
+Extended; the combining mark blocks; and the compatibility forms (Alphabetic and Arabic
+Presentation Forms, Halfwidth and Fullwidth Forms, Small Form Variants, Vertical Forms).
+Combining marks (Mn, Me) are no longer excluded anywhere, so Hebrew points and Arabic
+vowel marks come in too. CJK stays out (M12), as do historical music notations and
+Yijing symbols.
+
+**Fonts.** Noto Emoji (monochrome outlines; a colour emoji can't be compared with a pen
+drawing) and Noto Music, both OFL from the pinned Google Fonts commit. Glyphs at huge
+render sizes (a tiny mark scaled to the box) overflowed FreeType's rasterizer; the
+renderer now retries at half the size.
+
+**Known limits, accepted.** Many added characters can't be told apart once drawn:
+heavy and light box lines, single-dot braille patterns (size normalization makes them one
+dot), presentation forms that look like their base letters. The look-alike groups put
+those in one tile's menu. Emoji families (😀 😃 😄) differ in details a rough drawing
+lacks. Nothing in the real datasets covers the new characters, so they are measured only
+by synthetic drawings and the user's labelled drawings.
+
+**Prior.** Emoji barely occur in Wikipedia. Unicode's emoji frequency ranking would fit,
+but it is website content whose terms of use forbid incorporating it into a product (only
+the files under /Public/ and the like are under the Unicode License). So every
+Extended_Pictographic character gets one flat prior (the user's choice): the median log
+prior of the characters the sample contains at least 100 times, about the level of ∫, ≤
+and € (−13.7). The plain median would be the floor, since most characters occur only a
+handful of times.
+
+**Display.** A combining mark is shown after a dotted circle (◌́) in tiles, menus and
+candidate lists (`docs/export_format.md`); choosing it inserts the bare mark.
+
+**Compatibility forms and the look-alike groups.** Clustered like other characters, the
+fullwidth letters joined both the o and the O cluster early and then blocked the merge
+of the two (complete linkage), splitting o/O, c/C and w/W. Compatibility forms
+(decomposition tags `<wide>`, `<narrow>`, `<small>`, `<vertical>`, `<isolated>`,
+`<initial>`, `<medial>`, `<final>`) now stay out of the clustering and join their base
+character's group afterwards if their glyphs are similar enough (`confusables.py`).
+
+**Result, current encoder (no retraining).** 10,776 characters (was 6,161), 89,437
+renders, 1,040 confusable groups; 6.30 MB shipped. On the real test set (old characters
+only, plus 212 drawings of 3 Detexify symbols whose Unicode characters are new), the
+extra candidates cost little: tile top-5 (conf.) 87.5% (was 89.9%), ranked top-1 52.2%
+(was 53.4%). On held-out synthetic drawings of the new characters
+(`glyphsketch.tools.new_characters`, 5 per character, tiles, Latin keyboard), top-5
+(conf.): emoji and pictographs 90.4%, compatibility forms 94.8%, other new symbols 80.7%,
+music and games 68.4%, combining marks 68.2%, box, block and braille 65.5%. Synthetic
+drawings flatter the recognizer, so read these as a comparison baseline for the retrained
+encoder (next), not as real-world accuracy.

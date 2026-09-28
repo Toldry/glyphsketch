@@ -55,7 +55,7 @@ Each milestone ends with tests passing, an entry in DECISIONS.md and focused com
 | M9 | **Web library + demo** | TypeScript engine with parity tests. Canvas demo (Vite) that shows candidates, per-query latency, and a local labelled-drawing export | Done 2026-09-27 (D28): parity on all fixtures, 20 ms per query in Node; demo without Vite (`make web-serve`) |
 | M10 | **EVAL.md + Detypify comparison** | Full report. Comparison with Detypify on its symbol set, with a warning about possible overlap with Detexify training data | Done 2026-09-28 (D31): written EVAL.md; Detypify 87.8% vs glyphsketch 76.8% top-1 on its 411 symbols (possible overlap noted) |
 | M11 | **Android library + demo (last)** | Pure-Kotlin engine with unit tests against the parity fixtures. ONNX Runtime benchmarked on the Pixel 8 (over Wi-Fi `adb`). Written recommendation. Compose demo. minSdk 24 (matches Thumb-Key) | Not started |
-| M12 | **Later, to be decided** | Combining marks (e.g. drawn on a dotted circle ◌́). CJK as an optional index pack | Not started |
+| M12 | **Later, to be decided** | CJK as an optional index pack (combining marks moved into v0, D34) | Not started |
 
 `training/` runs end to end with one command (`uv run python -m glyphsketch.pipeline all`,
 or a `make all` wrapper). Each stage caches its output in `$DATA_DIR`.
@@ -90,8 +90,8 @@ only), no NVIDIA GPU.
 - ODbL (Detexify): the trained model is treated as a Produced Work and gets an
   attribution notice. The data is never redistributed. No legal review.
 - Omniglot: hand-map the alphabets that are in scope.
-- Combining marks: excluded from v0 and moved to M12.
-- Emoji: keep only characters that have a text-presentation glyph in a free font.
+- Combining marks: included (shown on a dotted circle), 2026-09-28 (D34).
+- Emoji: included, rendered from the monochrome Noto Emoji; flat prior (D34).
 - Frequency prior: Wikipedia dump character counts.
 - Unicode version: pin the latest released UCD in M1.
 - Android: last milestone. Web is the development test bench.

@@ -258,9 +258,15 @@ def run_wikiprior_stage(context: StageContext) -> None:
         for record in load_charset(context.input_dir("charset") / CHARSET_FILE_NAME)
         if record.code_point in covered
     ]
+    from glyphsketch.ucd import files as ucd_files
+    from glyphsketch.ucd.parse import code_points_with_property
+
+    pictographic = code_points_with_property(
+        context.input_dir("ucd") / ucd_files.EMOJI_DATA.relative_path, "Extended_Pictographic"
+    )
     config = load_prior_config()
     cache_dir = data_dir() / "wikipedia-samples" / config.dump_date
-    prior = build_prior(config, characters, cache_dir)
+    prior = build_prior(config, characters, cache_dir, set(pictographic))
     (context.output_dir / PRIOR_FILE).write_text(
         json.dumps(prior, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
     )
@@ -455,14 +461,14 @@ def default_stages() -> list[Stage]:
             description="Group characters whose glyphs look alike",
             run=run_confusables_stage,
             depends_on=("ucd", "glyphs"),
-            version="2",
+            version="3",
         ),
         Stage(
             name="wikiprior",
             description="Sample Wikipedia dumps and build the character-frequency prior",
             run=run_wikiprior_stage,
-            depends_on=("charset", "glyphs"),
-            version="1-"
+            depends_on=("ucd", "charset", "glyphs"),
+            version="3-"
             + file_fingerprint(PRIOR_CONFIG_PATH)
             + file_fingerprint(Path(wikitext.__file__)),
         ),

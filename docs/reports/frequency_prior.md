@@ -25,7 +25,7 @@ Source: Wikipedia pages-articles-multistream dumps of 20260901, sampled by byte 
 | ar | Arabic | 24 | 61,993 | 158,789,928 |
 | fa | Arabic | 24 | 66,994 | 131,345,982 |
 
-3,811 of 6,161 charset characters occur at least once in the sample.
+5,464 of 10,776 charset characters occur at least once in the sample.
 
 ## Most frequent characters
 
@@ -94,5 +94,5 @@ Source: Wikipedia pages-articles-multistream dumps of 20260901, sampled by byte 
 | € | U+20AC | EURO SIGN | Common | -12.64 |
 | α | U+03B1 | GREEK SMALL LETTER ALPHA | Greek | -5.62 |
 | а | U+0430 | CYRILLIC SMALL LETTER A | Cyrillic | -4.16 |
-| ə | U+0259 | LATIN SMALL LETTER SCHWA | Latin | -11.55 |
+| ə | U+0259 | LATIN SMALL LETTER SCHWA | Latin | -11.56 |
 | ʃ | U+0283 | LATIN SMALL LETTER ESH | Latin | -13.91 |

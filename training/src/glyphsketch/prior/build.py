@@ -9,6 +9,13 @@ equal weight:
 So a character that only one script uses (Cyrillic А) gets a prior from the few
 languages that use it, and one that no sample contains still gets a small, non-zero
 prior. The shipped value is ``log prior(c)``.
+
+Emoji hardly occur in Wikipedia text, so every Extended_Pictographic character gets at
+least the median log prior of the characters in regular use (those the sample contains at
+least 100 times; about the level of ∫, ≤ or €): one flat value for all emoji
+(DECISIONS.md, D34). The plain median of all characters would be the floor, because most
+characters occur only a handful of times. An emoji that Wikipedia uses more often (©, ™,
+‼) keeps its own value.
 """
 
 import hashlib
@@ -20,6 +27,8 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+import numpy as np
 
 from glyphsketch.charset import CharacterRecord, format_code_point
 from glyphsketch.parallel import default_workers, single_threaded_pool
@@ -120,8 +129,32 @@ def sha256_of(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+IN_REGULAR_USE = 100  # occurrences in the sample
+
+
+def raise_to_flat_prior(
+    prior: dict[int, float], flat_code_points: set[int], totals: dict[int, int]
+) -> tuple[dict[int, float], float]:
+    """Give ``flat_code_points`` at least the median prior of the characters in regular use:
+    those the sample contains at least ``IN_REGULAR_USE`` times (about ∫, ≤ or €)."""
+    regular = [
+        value
+        for code_point, value in prior.items()
+        if code_point not in flat_code_points and totals.get(code_point, 0) >= IN_REGULAR_USE
+    ]
+    level = float(np.median(regular)) if regular else min(prior.values(), default=0.0)
+    raised = {
+        code_point: max(value, level) if code_point in flat_code_points else value
+        for code_point, value in prior.items()
+    }
+    return raised, level
+
+
 def build_prior(
-    config: PriorConfig, characters: Sequence[CharacterRecord], cache_dir: Path
+    config: PriorConfig,
+    characters: Sequence[CharacterRecord],
+    cache_dir: Path,
+    flat_code_points: set[int] | None = None,
 ) -> dict[str, Any]:
     downloaded = download_samples(config, cache_dir)
     with single_threaded_pool(default_workers(len(downloaded))) as pool:
@@ -159,7 +192,18 @@ def build_prior(
             {code_point: count for code_point, count in counts.items() if code_point in in_charset}
         )
     prior = log_prior(counts_by_language, code_points, config.smoothing)
+    flat = (flat_code_points or set()) & set(code_points)
+    totals: Counter[int] = Counter()
+    for counts in counts_by_language.values():
+        totals.update(counts)
+    prior, flat_value = raise_to_flat_prior(prior, flat, totals)
     return {
+        "flat_prior": {
+            "rule": "Extended_Pictographic characters get at least the median log prior of "
+            f"the characters the sample contains at least {IN_REGULAR_USE} times",
+            "characters": len(flat),
+            "log_prior": round(flat_value, 4),
+        },
         "dump_date": config.dump_date,
         "source": "https://dumps.wikimedia.org/<language>wiki/<dump_date>/, "
         "pages-articles-multistream dumps",

@@ -7,6 +7,11 @@ Candidate pairs come from three sources:
 * simple case pairs (c/C, o/O, ...), which size normalization makes identical for many
   letters but ``confusables.txt`` doesn't list.
 
+Compatibility forms (fullwidth Ａ, small ﹒, vertical ︰, positional Arabic forms) are by
+definition their base character, so they stay out of the clustering, where they would
+link otherwise separate clusters and block merges. Afterwards each one joins its base
+character's group if their glyphs are similar enough.
+
 Two characters end up in one group only if their glyphs really look alike in our renders.
 ``confusables.txt`` also links characters whose glyphs differ a lot (fraktur 𝔄 and A), and
 putting those in one group would hide real recognition errors. Similarity is the
@@ -152,6 +157,45 @@ class SignatureIndex:
         return result
 
 
+COMPATIBILITY_TAGS = (
+    "<wide>", "<narrow>", "<small>", "<vertical>",
+    "<isolated>", "<initial>", "<medial>", "<final>",
+)  # fmt: skip
+
+
+def compatibility_bases(ucd: UnicodeDatabase, code_points: set[int]) -> dict[int, int]:
+    """Compatibility forms whose decomposition is one character in ``code_points``."""
+    bases = {}
+    for code_point in code_points:
+        entry = ucd.entries.get(code_point)
+        if entry is None or not entry.decomposition.startswith(COMPATIBILITY_TAGS):
+            continue
+        target = entry.decomposition.split()[1:]
+        if len(target) == 1 and int(target[0], 16) in code_points:
+            bases[code_point] = int(target[0], 16)
+    return bases
+
+
+def attach_compatibility_forms(
+    groups: list[list[int]],
+    bases: dict[int, int],
+    similarity: Callable[[int, int], float],
+    threshold: float,
+) -> list[list[int]]:
+    """Add each compatibility form to its base's group when their glyphs look alike."""
+    group_of = {member: index for index, group in enumerate(groups) for member in group}
+    result = [list(group) for group in groups]
+    for form, base in sorted(bases.items()):
+        if similarity(form, base) < threshold:
+            continue
+        if base not in group_of:
+            group_of[base] = len(result)
+            result.append([base])
+        result[group_of[base]].append(form)
+        group_of[form] = group_of[base]
+    return sorted((sorted(group) for group in result), key=lambda group: group[0])
+
+
 def complete_linkage_groups(
     candidates: Sequence[tuple[int, int]],
     similarity: Callable[[int, int], float],
@@ -219,15 +263,22 @@ def build_confusable_groups(
 ) -> tuple[ConfusableGroups, list[dict[str, Any]]]:
     """Return the groups and every candidate pair with its similarity and decision."""
     code_points = set(table.code_points.tolist())
+    bases = compatibility_bases(ucd, code_points)
     candidates = skeleton_candidates(ucd.ucd_dir, code_points)
     for pair, source in case_candidates(ucd, code_points).items():
         candidates.setdefault(pair, source)
-    index = SignatureIndex.build(renders, table, {cp for pair in candidates for cp in pair})
-    groups = [
-        group
-        for group in complete_linkage_groups(sorted(candidates), index.similarity, threshold)
-        if len(group) > 1
-    ]
+    candidates = {
+        pair: source
+        for pair, source in candidates.items()
+        if pair[0] not in bases and pair[1] not in bases
+    }
+    needed = {cp for pair in candidates for cp in pair} | set(bases) | set(bases.values())
+    index = SignatureIndex.build(renders, table, needed)
+    clusters = complete_linkage_groups(sorted(candidates), index.similarity, threshold)
+    clusters = attach_compatibility_forms(clusters, bases, index.similarity, threshold)
+    for form, base in bases.items():
+        candidates[(min(form, base), max(form, base))] = "compatibility"
+    groups = [group for group in clusters if len(group) > 1]
     group_of = {member: group[0] for group in groups for member in group}
     pairs = []
     for (first, second), source in sorted(candidates.items()):

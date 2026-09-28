@@ -20,6 +20,8 @@ from glyphsketch.charset import (
 from glyphsketch.ucd.parse import UnicodeDatabase, parse_range_file
 
 EXCLUDED_CATEGORIES = frozenset(["Cn", "Co", "Cc", "Cf", "Zs", "Zl", "Zp", "Cs", "Mn", "Me"])
+# The real v0 config keeps combining marks (Mn, Me) since D34.
+V0_EXCLUDED_CATEGORIES = frozenset(["Cn", "Co", "Cc", "Cf", "Zs", "Zl", "Zp", "Cs"])
 
 
 def _fixture_config(**overrides: object) -> CharsetConfig:
@@ -115,7 +117,7 @@ def test_v0_config_names_only_real_unicode_18_blocks() -> None:
     real_blocks = {entry.value for entry in parse_range_file(blocks_file)}
     assert set(config.blocks) <= real_blocks
     assert len(config.blocks) == len(set(config.blocks)), "a block is listed twice"
-    assert config.excluded_general_categories == EXCLUDED_CATEGORIES
+    assert config.excluded_general_categories == V0_EXCLUDED_CATEGORIES
 
 
 @pytest.mark.data
@@ -124,12 +126,14 @@ def test_real_v0_charset() -> None:
     records = load_charset(charset_dir / CHARSET_FILE_NAME)
     by_code_point = {record.code_point: record for record in records}
     config = load_charset_config()
-    assert 6000 < len(records) < 12000
-    for included in "AzéßΩжאب∑→€ℝ①★✓𝔄":
+    assert 10000 < len(records) < 14000  # 12,205 candidates since D34
+    # Since D34 also combining marks (acute, Hebrew patah, Arabic fatha), emoji and music.
+    for included in "AzéßΩжאب∑→€ℝ①★✓𝔄\u0301\u05b7\u064e😀🚲𝄞":
         assert ord(included) in by_code_point, included
-    for excluded in "́​ ­ ַَ ":
+    # Zero-width space, no-break space, soft hyphen, ideographic space: never drawn.
+    for excluded in "\u200b\u00a0\u00ad\u3000":
         assert ord(excluded) not in by_code_point, f"U+{ord(excluded):04X}"
-    assert not {record.general_category for record in records} & EXCLUDED_CATEGORIES
+    assert not {record.general_category for record in records} & V0_EXCLUDED_CATEGORIES
     allowed_blocks = set(config.blocks) | {"Arabic Presentation Forms-A"}
     assert {record.block for record in records} <= allowed_blocks
     assert by_code_point[ord("⌚")].emoji_presentation

@@ -83,3 +83,17 @@ def test_real_groups_merge_true_homoglyphs_only() -> None:
     assert not same("6", "O")
     assert not same("1", "l")
     assert max(len(group) for group in groups.groups) < 40
+
+
+def test_compatibility_forms_join_their_base_when_they_look_alike() -> None:
+    from glyphsketch.confusables import attach_compatibility_forms
+
+    def similarity(a: int, b: int) -> float:
+        return 0.5 if 0xFE82 in (a, b) else 0.95
+
+    groups = [[0x4F, 0x6F, 0x41E]]
+    bases = {0xFF2F: 0x4F, 0xFF21: 0x41, 0xFE82: 0x622}  # Ｏ → O, Ａ → A, ﺂ (final) → آ
+    attached = attach_compatibility_forms(groups, bases, similarity, 0.85)
+    assert [0x4F, 0x6F, 0x41E, 0xFF2F] in attached
+    assert [0x41, 0xFF21] in attached  # the base had no group yet
+    assert not any(0xFE82 in group for group in attached)  # a final form that looks different

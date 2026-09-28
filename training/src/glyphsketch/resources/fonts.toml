@@ -9,8 +9,9 @@
 #   handwriting        - informal or handwriting-like faces (closest to drawn input)
 #   math, symbols      - specialist coverage fonts
 #
-# Deliberately not used: emoji fonts, including the monochrome Noto Emoji (see DECISIONS.md,
-# D8); DejaVu Math TeX Gyre (mixed Bitstream/AMS terms, and four other math fonts cover the
+# Noto Emoji is the monochrome (outline) emoji font, the only kind a drawing can be
+# compared with; colour emoji fonts are not used (DECISIONS.md, D34 replaces D8).
+# Deliberately not used: DejaVu Math TeX Gyre (mixed Bitstream/AMS terms, and four other math fonts cover the
 # same characters); GNU Unifont (a 16x16 bitmap design; the characters only it covers are
 # brand-new ones that devices can't display yet); small-caps and decorative faces.
 
@@ -140,6 +141,26 @@ sha256 = "7d5fb73b7ca67a6798101741f5d280a3d016a56a197afcd4199dbb57b4b82a21"
 license = "OFL-1.1"
 license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssymbols2/OFL.txt"
 license_sha256 = "b118dd41337806a5d4797052c77caf3bd096aed783e5eb21b4d11154351e1ac0"
+
+[[font]]
+id = "noto-emoji"
+family = "Noto Emoji"
+style = "symbols"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoemoji/NotoEmoji%5Bwght%5D.ttf"
+sha256 = "de6c18832938afc99caf132b39d6a30a19bac7f2e812e28db2535b4608d27551"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoemoji/OFL.txt"
+license_sha256 = "500bb1ccf43df7bbb522112f9133a52b16e1c35e809632f5d8609b179152de5b"
+
+[[font]]
+id = "noto-music"
+family = "Noto Music"
+style = "symbols"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notomusic/NotoMusic-Regular.ttf"
+sha256 = "e913be269fe16723d1dea0afc3c31a28be6958f6a7f0e6d5be6e98506c4022bd"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notomusic/OFL.txt"
+license_sha256 = "1679cb60544990b4c2445320c6d5298e4bb0c08ff00dbb5a526f3793fdaa1e6f"
 
 [[font]]
 id = "stix-two-text"
