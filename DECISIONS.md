@@ -778,7 +778,7 @@ but it is website content whose terms of use forbid incorporating it into a prod
 the files under /Public/ and the like are under the Unicode License). So every
 Extended_Pictographic character gets one flat prior (the user's choice): the median log
 prior of the characters the sample contains at least 100 times, about the level of ∫, ≤
-and € (−13.7). The plain median would be the floor, since most characters occur only a
+and € (−13.6). The plain median would be the floor, since most characters occur only a
 handful of times.
 
 **Display.** A combining mark is shown after a dotted circle (◌́) in tiles, menus and
@@ -800,4 +800,28 @@ extra candidates cost little: tile top-5 (conf.) 87.5% (was 89.9%), ranked top-1
 (conf.): emoji and pictographs 90.4%, compatibility forms 94.8%, other new symbols 80.7%,
 music and games 68.4%, combining marks 68.2%, box, block and braille 65.5%. Synthetic
 drawings flatter the recognizer, so read these as a comparison baseline for the retrained
-encoder (next), not as real-world accuracy.
+encoder, not as real-world accuracy.
+
+**Retrained encoder (shipped).** The long synthetic+real run was repeated on Kaggle on the
+extended charset, with the same settings (`synthetic-and-real-long-v2`, 30,000 steps,
+2.9 h). Both encoders scored on the same 10,776-character index, tiles, top-5 (conf.) /
+top-1:
+
+| Test drawings | Current encoder | Retrained |
+|---|---:|---:|
+| Real, characters seen in training | 89.8% / 58.6% | 88.7% / 56.4% |
+| Real, zero-shot characters | 81.2% / 46.9% | 80.9% / 48.5% |
+| Synthetic: emoji and pictographs | 90.4% | 98.8% |
+| Synthetic: compatibility forms | 94.8% | 97.6% |
+| Synthetic: other new symbols | 80.7% | 91.1% |
+| Synthetic: music and games | 68.4% | 91.8% |
+| Synthetic: box, block and braille | 65.5% | 78.0% |
+| Synthetic: combining marks | 68.2% | 74.9% |
+
+The retrained encoder is shipped (`export.toml`): on real handwriting it is level for
+characters it has not seen and about one point lower for the others (the same model
+capacity now covers 75% more characters), and it is far better on the new characters.
+It has seen synthetic drawings of those (from another generator seed), as the current
+encoder had for the old characters, so the synthetic columns flatter it somewhat more.
+Adding a character still needs no handwriting data: the current encoder's column is what
+an index-only addition gives.
