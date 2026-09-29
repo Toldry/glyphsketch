@@ -210,7 +210,21 @@ version and license.
 
 ## Android library and demo
 
-Added in M11.
+The library (`android/glyphsketch`) has **no runtime dependencies** besides the Kotlin
+standard library. It ships the files in `export/` as assets. Licenses checked in each
+artifact's POM or repository.
+
+| Component | Version | License | Source | Use |
+|-----------|---------|---------|--------|-----|
+| Kotlin standard library | 2.4.20 | Apache-2.0 | https://github.com/JetBrains/kotlin | runtime (library and demo) |
+| Jetpack Compose (BOM: `ui`, `material3` and their AndroidX dependencies) | BOM 2026.09.00 | Apache-2.0 | https://developer.android.com/jetpack/androidx | runtime, demo app only |
+| `androidx.activity:activity-compose` | 1.13.0 | Apache-2.0 | https://developer.android.com/jetpack/androidx | runtime, demo app only |
+| Gradle (wrapper and distribution) | 9.7.1 | Apache-2.0 | https://github.com/gradle/gradle | build |
+| Android Gradle Plugin | 9.4.1 | Apache-2.0 | https://developer.android.com/build | build |
+| Kotlin Compose compiler plugin | 2.4.20 | Apache-2.0 | https://github.com/JetBrains/kotlin | build |
+| kotlinter (Gradle plugin) | 5.7.0 | Apache-2.0 | https://github.com/jeremymailen/kotlinter-gradle | build: lint and format |
+| ktlint (used by kotlinter) | 1.8.0 | MIT | https://github.com/pinterest/ktlint | build: lint and format |
+| JUnit | 4.13.2 | EPL-1.0 | https://github.com/junit-team/junit4 | tests only, not shipped |
 
 ## CI and development environment
 
