@@ -849,3 +849,43 @@ would need no handwriting data for it (the brief's key idea), but it would need 
 font, a budget decision (about 100k characters, well over 10 MB at 48 int8 dimensions
 unless product-quantized), and CJK drawings to test with, since stroke-dense characters
 at 64×64 are untested.
+
+## D36. Android engine: pure Kotlin; ONNX Runtime only in the benchmark (2026-09-29)
+
+The brief asks to compare ONNX Runtime for Android with a hand-written Kotlin
+implementation. The library (`android/glyphsketch`) is a port of the TypeScript engine with
+no dependencies besides the Kotlin standard library, and it matches every parity fixture in
+JVM unit tests. ONNX Runtime 1.30.0 is used only by `android/benchmark`, which times both
+encoders on the same drawings and checks that they agree.
+
+**Recommendation: the Kotlin engine.**
+- Size: ONNX Runtime's arm64 `libonnxruntime.so` alone is 33 MB (23–39 MB on the other
+  ABIs), three times the whole 10 MB budget, before the model. The Kotlin engine is a
+  150 kB class jar (debug, before R8 shrinking).
+- F-Droid: ONNX Runtime is a prebuilt native library; building it from source is a large
+  C++ build F-Droid would have to run. Thumb-Key has no native code today.
+- Speed: the budget is 300 ms per query (D32); timings from the Android Studio emulator
+  (the user's choice over the Pixel 8) are added here when they come in.
+
+## D37. Egyptian hieroglyphs (2026-09-29)
+
+The user asked for them. The Egyptian Hieroglyphs block (1,072 characters) is rendered from
+Noto Sans Egyptian Hieroglyphs 2.002 (OFL, same pinned Google Fonts commit). Egyptian
+Hieroglyphs Extended-A (U+13460 on, about 4,000 characters) stays out: no font in the
+manifest covers it. The format controls (U+13430–1345F) are general category Cf and
+excluded like all format characters. No retraining: the index gains one vector per
+hieroglyph from the current encoder, the brief's key idea. Their prior is the floor (they
+barely occur in Wikipedia), so on equal similarity common characters rank first.
+
+## D38. The Android demo bundles display fonts (2026-09-29)
+
+Phones have far fewer fonts than a desktop browser, so the Android demo showed many
+candidates as code points. `glyphsketch.tools.display_fonts` writes subsets of the Noto
+fonts and Klee One (OFL-1.1 without a Reserved Font Name, so subsets may keep their names)
+covering every character the glyph stage rendered, from the Regular instance of variable
+fonts: 3.3 MB in `android/demo/src/main/assets/fonts/`, next to each license. The demo uses
+the phone's fonts when they have the glyph and a bundled subset otherwise. 21 characters
+(mostly Coptic) that only DejaVu or GNU FreeFont cover still show their code point: DejaVu's
+license requires renaming modified fonts and FreeFont is GPL. The library doesn't bundle
+fonts; whether a keyboard should (or should hide characters the phone can't show) is part
+of the Thumb-Key plan.

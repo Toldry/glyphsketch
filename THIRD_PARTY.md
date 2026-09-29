@@ -54,6 +54,9 @@ data and the glyph index. The font files themselves are not shipped. What ships 
 index, a set of embedding vectors computed from the renders. Each font file and its
 license text are pinned by SHA-256 in `training/src/glyphsketch/resources/fonts.toml`,
 and the `fonts` stage saves each font's license next to it in `$DATA_DIR/fonts/licenses/`.
+The one exception is the Android demo app: it ships subsets of the Noto fonts and Klee One
+(OFL-1.1) in `android/demo/src/main/assets/fonts/`, each with its license text, to show
+characters the phone's fonts lack (DECISIONS.md, D38).
 
 How each license was verified:
 - Google Fonts families: the `OFL.txt` in each family's directory at the pinned commit

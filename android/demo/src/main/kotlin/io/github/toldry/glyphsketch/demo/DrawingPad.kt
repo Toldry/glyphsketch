@@ -1,12 +1,12 @@
 package io.github.toldry.glyphsketch.demo
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -31,13 +31,15 @@ fun DrawingPad(
     modifier: Modifier = Modifier,
 ) {
     val current = remember { mutableStateListOf<Offset>() }
-    val ink = MaterialTheme.colorScheme.onSurface
-    val paper = MaterialTheme.colorScheme.surfaceContainerHighest
+    val colors = LocalWebColors.current
+    val ink = colors.ink
+    val paper = colors.panel
     Canvas(
         modifier
             .fillMaxWidth()
             .aspectRatio(1f)
             .clip(RoundedCornerShape(8.dp))
+            .border(1.dp, colors.line, RoundedCornerShape(8.dp))
             .pointerInput(Unit) {
                 awaitEachGesture {
                     val down = awaitFirstDown()
@@ -75,4 +77,4 @@ fun DrawingPad(
     }
 }
 
-private const val PEN_WIDTH_DP = 5f
+private const val PEN_WIDTH_DP = 6f // the web demo's 6 px pen

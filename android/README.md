@@ -40,6 +40,11 @@ app's about screen.
 The parity tests read `../export/` directly, so run the export stage first if it's
 missing.
 
+**Next to Android Studio.** When Studio and a second Gradle (the devcontainer's) build the
+same checkout, they overwrite each other's build files. Give the second one its own output
+directory: set `glyphsketch.buildRoot=/data/android-build` in `~/.gradle/gradle.properties`
+and pass `--project-cache-dir /data/android-build/.gradle`.
+
 ## In Android Studio
 
 1. **Get the repository onto the machine that runs Android Studio**, the whole repository

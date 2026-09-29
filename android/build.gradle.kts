@@ -10,3 +10,10 @@ plugins {
 subprojects {
     apply(plugin = "org.jmailen.kotlinter")
 }
+
+// Optional: build outside the source tree, e.g. in the devcontainer, which shares android/
+// with Android Studio on the host (their build files would clash). Set
+// glyphsketch.buildRoot in ~/.gradle/gradle.properties to use it.
+providers.gradleProperty("glyphsketch.buildRoot").orNull?.let { buildRoot ->
+    allprojects { layout.buildDirectory.set(file("$buildRoot/${project.path.replace(':', '/')}")) }
+}
