@@ -563,3 +563,1665 @@ license = "OFL-1.1"
 license_member = "Libertinus-7.051/OFL.txt"
 license_sha256 = "9aeecc8107c489ec1ec0068b0313e531a760edf3493705b32ab8ab8215a8794e"
 
+# Noto script and notation fonts (D40): one per added block, the Noto family covering it best.
+
+[[font]]
+id = "noto-sans-adlam"
+family = "Noto Sans Adlam"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansadlam/NotoSansAdlam%5Bwght%5D.ttf"
+sha256 = "fda98eedbbad51d6c80319065bb193a1b3c9410a8309f09063082b768a54159f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansadlam/OFL.txt"
+license_sha256 = "0e86b3990089b054d8e6a29520589ac7ff3926738e2868e20d1b7f137d337d14"
+blocks = ["Adlam"]
+
+[[font]]
+id = "noto-sans-anatolian-hieroglyphs"
+family = "Noto Sans Anatolian Hieroglyphs"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansanatolianhieroglyphs/NotoSansAnatolianHieroglyphs-Regular.ttf"
+sha256 = "be46e1111764b0c65e448634f7fb410a14242ccbffd66002681d8f16a98bf26d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansanatolianhieroglyphs/OFL.txt"
+license_sha256 = "38a991a0d87537daefe1a2332edcffdb599bf9670533badbbfc98f881b8f817c"
+blocks = ["Anatolian Hieroglyphs"]
+
+[[font]]
+id = "noto-sans-armenian"
+family = "Noto Sans Armenian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansarmenian/NotoSansArmenian%5Bwdth%2Cwght%5D.ttf"
+sha256 = "0870908d8318435a5daf1cd280ae15063f990cd9ad60f3e94c734ce9e1ffef71"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansarmenian/OFL.txt"
+license_sha256 = "0468358b316f69f405b55cadf8a8314e16e3610b8feaad96772bd5d968112d02"
+blocks = ["Armenian"]
+
+[[font]]
+id = "noto-sans-avestan"
+family = "Noto Sans Avestan"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansavestan/NotoSansAvestan-Regular.ttf"
+sha256 = "fe2ed44b8b3949cddced6c748bb67e161727b133d1e7a67c20385b314d2a4158"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansavestan/OFL.txt"
+license_sha256 = "3554a83d7ac9f12aefb36a548e6c88fe1a71711d5c57f86001305c78a5c03152"
+blocks = ["Avestan"]
+
+[[font]]
+id = "noto-sans-balinese"
+family = "Noto Sans Balinese"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbalinese/NotoSansBalinese%5Bwght%5D.ttf"
+sha256 = "ccca9d3492b86930d8e0272d1e06d9e2e11147489b04d9858aa58e766cc30374"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbalinese/OFL.txt"
+license_sha256 = "11bc477b31ec9e66f86bf6f64c060dde84b34ed49582d881657b472c33c4e1e9"
+blocks = ["Balinese"]
+
+[[font]]
+id = "noto-sans-bamum"
+family = "Noto Sans Bamum"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbamum/NotoSansBamum%5Bwght%5D.ttf"
+sha256 = "ac9c498f2030192040e2c5541302ed428a81184ff4635faacd32417a58d83e53"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbamum/OFL.txt"
+license_sha256 = "3dd4cce0a3d3405f7b690bc10bc2c78f2d2feb448c8f88b604bed2f33892d892"
+blocks = ["Bamum", "Bamum Supplement"]
+
+[[font]]
+id = "noto-sans-bassa-vah"
+family = "Noto Sans Bassa Vah"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbassavah/NotoSansBassaVah%5Bwght%5D.ttf"
+sha256 = "b6c065b905d4ca228580027164f2102fae76215724c43a36e8ebf3c7ee81b8fb"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbassavah/OFL.txt"
+license_sha256 = "287edd17552fbfffb8b695582889adad29672599d654cf53d820aace29208256"
+blocks = ["Bassa Vah"]
+
+[[font]]
+id = "noto-sans-batak"
+family = "Noto Sans Batak"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbatak/NotoSansBatak-Regular.ttf"
+sha256 = "fc3809692a0ad247a56889af623eaf7a73089c0a78bbe5306443add3d23313a6"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbatak/OFL.txt"
+license_sha256 = "ff0723191d946fd4c7e53effb67b3b5b25b1c3f3aa85f5244230fa2580a8fc1b"
+blocks = ["Batak"]
+
+[[font]]
+id = "noto-sans-bengali"
+family = "Noto Sans Bengali"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbengali/NotoSansBengali%5Bwdth%2Cwght%5D.ttf"
+sha256 = "dcd42978094e584a849c84a51450eeac40c8826057d566ea6d4b9627a403a05a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbengali/OFL.txt"
+license_sha256 = "754f0e221aa7d5a915489f3bf1f20fe53ddc35ab2834a4d91656d78f9622de70"
+blocks = ["Bengali", "Devanagari", "Devanagari Extended", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-bhaiksuki"
+family = "Noto Sans Bhaiksuki"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbhaiksuki/NotoSansBhaiksuki-Regular.ttf"
+sha256 = "eac343bece0d783218f3ab574df20217c0e165de3d04cd6fef8b47934605e0d9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbhaiksuki/OFL.txt"
+license_sha256 = "55acad617cc72f630484d7cef2c12074a818df03eea7d89d6d595c663fc92fc5"
+blocks = ["Bhaiksuki"]
+
+[[font]]
+id = "noto-sans-brahmi"
+family = "Noto Sans Brahmi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbrahmi/NotoSansBrahmi-Regular.ttf"
+sha256 = "3e3b877c30f3fa51328fd4fb96bf2f66bdb922c36c446ed0bb94bde0f90729d3"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbrahmi/OFL.txt"
+license_sha256 = "46d6caa05a24bda40dd8c1d073c3857b69738b856a8b644238104a62bf2cd6d1"
+blocks = ["Brahmi"]
+
+[[font]]
+id = "noto-sans-buginese"
+family = "Noto Sans Buginese"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbuginese/NotoSansBuginese-Regular.ttf"
+sha256 = "af1ed02af9eff48e872c3fcf922ba72053b776c2f0d1a0d4cb36e57d5e3508b5"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbuginese/OFL.txt"
+license_sha256 = "1b63982dfebd74eab553a4aa303bc18811d9f136f82e20c37df7262ce3125bca"
+blocks = ["Buginese", "Javanese"]
+
+[[font]]
+id = "noto-sans-buhid"
+family = "Noto Sans Buhid"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbuhid/NotoSansBuhid-Regular.ttf"
+sha256 = "70408dbcf0da33d12d3b582305057a63a3ea132b4bf313027834e5b9b6a7d886"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansbuhid/OFL.txt"
+license_sha256 = "6c127a87daaa23faca73b3607879fe6f86799e3948d07275800b54b805610294"
+blocks = ["Buhid", "Hanunoo"]
+
+[[font]]
+id = "noto-sans-canadian-aboriginal"
+family = "Noto Sans Canadian Aboriginal"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscanadianaboriginal/NotoSansCanadianAboriginal%5Bwght%5D.ttf"
+sha256 = "81b0f7e7ca48b28e343bb6a523a066743acedfbb29f374cbe4501e6d5f08f7af"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscanadianaboriginal/OFL.txt"
+license_sha256 = "507cc466e43d021662b9e9320a55a81798d293ed6a4a80c8d519f917bd90fdeb"
+blocks = ["Unified Canadian Aboriginal Syllabics", "Unified Canadian Aboriginal Syllabics Extended", "Unified Canadian Aboriginal Syllabics Extended-A"]
+
+[[font]]
+id = "noto-sans-carian"
+family = "Noto Sans Carian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscarian/NotoSansCarian-Regular.ttf"
+sha256 = "73f83bf71bac6046bd409f42706cd5e3706bce4521150302be3010ef6a161ecd"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscarian/OFL.txt"
+license_sha256 = "8d161a6467a3b032c852f311d23a8df336d2152ca9e4b236c8b6e2ed49199068"
+blocks = ["Carian"]
+
+[[font]]
+id = "noto-sans-caucasian-albanian"
+family = "Noto Sans Caucasian Albanian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscaucasianalbanian/NotoSansCaucasianAlbanian-Regular.ttf"
+sha256 = "7d5a81e7f9f90eb1aaef9935b2c4d68b6300939a2df9dbb9472b38a4fbec50bc"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscaucasianalbanian/OFL.txt"
+license_sha256 = "9fcb74e139ee491def8fd25fb9a651310594a0dd232616030fc8d304a7c9d0c0"
+blocks = ["Caucasian Albanian"]
+
+[[font]]
+id = "noto-sans-chakma"
+family = "Noto Sans Chakma"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanschakma/NotoSansChakma-Regular.ttf"
+sha256 = "0e560c61cfe0f378377741770d38b5f802457455dd78aaf4b89614082659fba5"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanschakma/OFL.txt"
+license_sha256 = "4f95be0c30353cefed3d98051bb6762754893267ddbe123783cf92e8aa6f787f"
+blocks = ["Bengali", "Chakma", "Myanmar"]
+
+[[font]]
+id = "noto-sans-cherokee"
+family = "Noto Sans Cherokee"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscherokee/NotoSansCherokee%5Bwght%5D.ttf"
+sha256 = "865d9e644f5011f2020a10325b7242f85c9c8ef0edece00e5ed743e5dfb275fd"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscherokee/OFL.txt"
+license_sha256 = "d7f9ca0cf1b9bcb7e94697bce31b2ec7a5571c51deb8f1f2f411ddf9a67859dd"
+blocks = ["Cherokee", "Cherokee Supplement"]
+
+[[font]]
+id = "noto-sans-chorasmian"
+family = "Noto Sans Chorasmian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanschorasmian/NotoSansChorasmian-Regular.ttf"
+sha256 = "30496cc8f77c1ef3f97f3c61791a579c4aa97983e8678ffc81a341151af5756b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanschorasmian/OFL.txt"
+license_sha256 = "9154669974b25a4694c515f835bcc6a354291df78a57fa167ac8b3946a8c2ce0"
+blocks = ["Chorasmian"]
+
+[[font]]
+id = "noto-sans-coptic"
+family = "Noto Sans Coptic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscoptic/NotoSansCoptic-Regular.ttf"
+sha256 = "51990af1bb0df7be8bfe98fda97769cecfa36eee15381e5504df400276abd735"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscoptic/OFL.txt"
+license_sha256 = "322570ceef6e9935b2422470682e42481903eb444fc416455c32c2c3c888c78c"
+blocks = ["Coptic", "Coptic Epact Numbers"]
+
+[[font]]
+id = "noto-sans-cuneiform"
+family = "Noto Sans Cuneiform"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscuneiform/NotoSansCuneiform-Regular.ttf"
+sha256 = "b4e0a892514fcb1beb081c8b652fb36689f77105491d1796c2c3f5a59b4524d2"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscuneiform/OFL.txt"
+license_sha256 = "83e16aed35737ea80911a82938ad4bfe762fde24928010c2c80d21ece07bec14"
+blocks = ["Cuneiform", "Cuneiform Numbers and Punctuation", "Early Dynastic Cuneiform"]
+
+[[font]]
+id = "noto-sans-cypriot"
+family = "Noto Sans Cypriot"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscypriot/NotoSansCypriot-Regular.ttf"
+sha256 = "80590aed2c4223ee0ca53fda21281236529dcc637451d016248559c83880d14d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscypriot/OFL.txt"
+license_sha256 = "18f3c4770aae15b8f60a8d4e5a7d7e7065fbcca195d6fa8ca23fd10374647b0a"
+blocks = ["Aegean Numbers", "Cypriot Syllabary"]
+
+[[font]]
+id = "noto-sans-cypro-minoan"
+family = "Noto Sans Cypro Minoan"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscyprominoan/NotoSansCyproMinoan-Regular.ttf"
+sha256 = "e2c9c85ce7044f895443e97653ca440e7499d10c59ef780c12e592558a7c2bda"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscyprominoan/OFL.txt"
+license_sha256 = "d3350b235b681746db9ca902f656cadf122769738f3cef76bc999df7d52bbd77"
+blocks = ["Cypro-Minoan"]
+
+[[font]]
+id = "noto-sans-deseret"
+family = "Noto Sans Deseret"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansdeseret/NotoSansDeseret-Regular.ttf"
+sha256 = "aaab78856a00ca015e8f545200c82093b33192990651a0f62926a13cf0a7b080"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansdeseret/OFL.txt"
+license_sha256 = "cdfc75eeec8b7d71279b2412798808f2b7c5d70fe672ad624c3418b58ccd1c42"
+blocks = ["Deseret"]
+
+[[font]]
+id = "noto-sans-devanagari"
+family = "Noto Sans Devanagari"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansdevanagari/NotoSansDevanagari%5Bwdth%2Cwght%5D.ttf"
+sha256 = "14ec4af41f27482216d1c2229f417ff9b1425e1babb014e57d1d40d03229853e"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansdevanagari/OFL.txt"
+license_sha256 = "a216f6f8d85c7228093e0ee5e258d9d377e6671f68acb4db1930b29583d0f331"
+blocks = ["Common Indic Number Forms", "Devanagari", "Devanagari Extended", "Devanagari Extended-A", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-duployan"
+family = "Noto Sans Duployan"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansduployan/NotoSansDuployan-Regular.ttf"
+sha256 = "2510875cbe4b602f90446e185b25eff1dc600acbc37e8a7a46bbf352603373be"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansduployan/OFL.txt"
+license_sha256 = "b1b12c372165b0a2cf7533c7fa8b6568b8981d2e207a15d7bf631bd1910c4fe0"
+blocks = ["Duployan"]
+
+[[font]]
+id = "noto-sans-elbasan"
+family = "Noto Sans Elbasan"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanselbasan/NotoSansElbasan-Regular.ttf"
+sha256 = "fce315f8ec66dd6f627cd8e2d076d622ebb244ef609def9621f820f209eaf576"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanselbasan/OFL.txt"
+license_sha256 = "6abb98eea47fde30d4d334fc50f1ee26048e77f1e7f66172c682df8f8fd52a94"
+blocks = ["Elbasan"]
+
+[[font]]
+id = "noto-sans-elymaic"
+family = "Noto Sans Elymaic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanselymaic/NotoSansElymaic-Regular.ttf"
+sha256 = "4a4772cbb8a278019152bafd58fef3892fae055d0b137f3fb1f61663960e156b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanselymaic/OFL.txt"
+license_sha256 = "bdfb572fad1e0d80331b02e52d9f2184a4e5b2b3991427eff95c1d816fbd2a77"
+blocks = ["Elymaic"]
+
+[[font]]
+id = "noto-sans-ethiopic"
+family = "Noto Sans Ethiopic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansethiopic/NotoSansEthiopic%5Bwdth%2Cwght%5D.ttf"
+sha256 = "0dbccc00b22d180ebd6a4bd8a733918a29e709fa6798023adc3e6cd40da65077"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansethiopic/OFL.txt"
+license_sha256 = "72606b23f312cb25973958f2892d4d2c2012deabadbf0f763232624a9649fc69"
+blocks = ["Ethiopic", "Ethiopic Extended", "Ethiopic Extended-A", "Ethiopic Extended-B", "Ethiopic Supplement"]
+
+[[font]]
+id = "noto-sans-georgian"
+family = "Noto Sans Georgian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf"
+sha256 = "dc591156f36842d38996c4a7a17fee9bb58e45da3e2cac7a31b7d33de700adb9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgeorgian/OFL.txt"
+license_sha256 = "8c02263c5d73d40544f9ed91e30c4e947407057a3cc430d7b786189aeceff6df"
+blocks = ["Armenian", "Georgian", "Georgian Extended", "Georgian Supplement"]
+
+[[font]]
+id = "noto-sans-glagolitic"
+family = "Noto Sans Glagolitic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansglagolitic/NotoSansGlagolitic-Regular.ttf"
+sha256 = "6472cfa8cda3efd3c680a007af9b55dc02469104a068bf9fd08f934a1fb27310"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansglagolitic/OFL.txt"
+license_sha256 = "246cab0cc2102b5f601447ab1d48f79d2ca2b23cc72ed7968efcbaa9bf9cccfe"
+blocks = ["Glagolitic", "Glagolitic Supplement"]
+
+[[font]]
+id = "noto-sans-gothic"
+family = "Noto Sans Gothic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgothic/NotoSansGothic-Regular.ttf"
+sha256 = "5a1b3946cc98fd9ccd8d3b32777cdaa82ae7f0278469d18272e1d9fcf2f6ff87"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgothic/OFL.txt"
+license_sha256 = "f7107137477d250fc49410833110c25ffd8b96a78b1a25e1f1b967e876070949"
+blocks = ["Gothic"]
+
+[[font]]
+id = "noto-sans-grantha"
+family = "Noto Sans Grantha"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgrantha/NotoSansGrantha-Regular.ttf"
+sha256 = "a3e57ddeeb9763111d0e4bd6440af2c7b2fa6763fe02ca56570d33e2afbf7ffb"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgrantha/OFL.txt"
+license_sha256 = "57ddd5a347bbe5f83d47a5a63679af4a3eb7f609f5a3d5c059ad12fd1fa29e21"
+blocks = ["Devanagari", "Grantha", "Tamil", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-gujarati"
+family = "Noto Sans Gujarati"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgujarati/NotoSansGujarati%5Bwdth%2Cwght%5D.ttf"
+sha256 = "9901d8552f1dd5d2c50dbd4caa6f6e174e74e8264f06594ab259ae6e7b1ac428"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgujarati/OFL.txt"
+license_sha256 = "c0b88977aa18b5e4fd05d646d560da89fde61b6581fa4507cb00dd90bd1bf7d4"
+blocks = ["Common Indic Number Forms", "Devanagari", "Gujarati"]
+
+[[font]]
+id = "noto-sans-gunjala-gondi"
+family = "Noto Sans Gunjala Gondi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgunjalagondi/NotoSansGunjalaGondi%5Bwght%5D.ttf"
+sha256 = "1de8a430d5c176994d1c5ae61151af141ae39fcb38a29f340b1f46e7ad9522d4"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgunjalagondi/OFL.txt"
+license_sha256 = "08143215e0afaca5ccf91aae3f575029f918b9177d5bc18e0c49dd838a5ba5f4"
+blocks = ["Gunjala Gondi"]
+
+[[font]]
+id = "noto-sans-gurmukhi"
+family = "Noto Sans Gurmukhi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgurmukhi/NotoSansGurmukhi%5Bwdth%2Cwght%5D.ttf"
+sha256 = "1e6f728fa620e566f842d81e220265813faa12771214765d289c98e035adc5f2"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansgurmukhi/OFL.txt"
+license_sha256 = "3f7451b7e2c8381be0c5712f7b0dd5c2d75fe787ae16a99f18b7fa45627a0fde"
+blocks = ["Common Indic Number Forms", "Devanagari", "Gurmukhi"]
+
+[[font]]
+id = "noto-sans-hanifi-rohingya"
+family = "Noto Sans Hanifi Rohingya"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshanifirohingya/NotoSansHanifiRohingya%5Bwght%5D.ttf"
+sha256 = "8ae85e850664b2d319c3b359bbf59b285e0e472afcaf96e34f37810e4b441d1b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshanifirohingya/OFL.txt"
+license_sha256 = "addc4a900f32e670a401766f144d6a1fc1bc7dffed87350e310ef1d68ba404f8"
+blocks = ["Hanifi Rohingya"]
+
+[[font]]
+id = "noto-sans-hanunoo"
+family = "Noto Sans Hanunoo"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshanunoo/NotoSansHanunoo-Regular.ttf"
+sha256 = "bdf8e293a79d753fcff1c3fdfc5e09fdfd8141cd08dbf2ac1268a24f4549a005"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshanunoo/OFL.txt"
+license_sha256 = "1d243377ac4633a4b10bb66cc07695c8432e93a611433fb5e91a2009cbd2616f"
+blocks = ["Hanunoo"]
+
+[[font]]
+id = "noto-sans-hatran"
+family = "Noto Sans Hatran"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshatran/NotoSansHatran-Regular.ttf"
+sha256 = "8d26a25e634783f3fe285868bc71ca396c11d0f760129ce9f85a24f3f943116d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanshatran/OFL.txt"
+license_sha256 = "910456012f8244afa9af0d21863a0d637e62b20af4d935350b8635c9664860c0"
+blocks = ["Hatran"]
+
+[[font]]
+id = "noto-sans-imperial-aramaic"
+family = "Noto Sans Imperial Aramaic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansimperialaramaic/NotoSansImperialAramaic-Regular.ttf"
+sha256 = "51433e25557eac79df4e447e0b6be4a23bcf3680a60432ebb388a13ea82d227d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansimperialaramaic/OFL.txt"
+license_sha256 = "965a8053ceb55292d06262810224e7e283015545a73bcb0e0c5931bdcc982aa7"
+blocks = ["Imperial Aramaic"]
+
+[[font]]
+id = "noto-sans-indic-siyaq-numbers"
+family = "Noto Sans Indic Siyaq Numbers"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansindicsiyaqnumbers/NotoSansIndicSiyaqNumbers-Regular.ttf"
+sha256 = "35045d5e8f0794db6432f4c13bfe123a05183fd2487fba2d0ebfdb76a92a9c33"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansindicsiyaqnumbers/OFL.txt"
+license_sha256 = "5bc7346cabfde1fbca124566f67198f154d5d356e022639f2406f087def374f2"
+blocks = ["Indic Siyaq Numbers"]
+
+[[font]]
+id = "noto-sans-inscriptional-pahlavi"
+family = "Noto Sans Inscriptional Pahlavi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansinscriptionalpahlavi/NotoSansInscriptionalPahlavi-Regular.ttf"
+sha256 = "96aa13745c70634bc902662aaa2a665818d277b04d3318992346c54954237cd6"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansinscriptionalpahlavi/OFL.txt"
+license_sha256 = "0e246b748c637c88e8e0c34d5c1d27fe46bf477738653e46055df5c015c24ded"
+blocks = ["Inscriptional Pahlavi"]
+
+[[font]]
+id = "noto-sans-inscriptional-parthian"
+family = "Noto Sans Inscriptional Parthian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansinscriptionalparthian/NotoSansInscriptionalParthian-Regular.ttf"
+sha256 = "a3b80af8a1927189a353b03075cbebd454291519dfc60a325070d6f405f5ba50"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansinscriptionalparthian/OFL.txt"
+license_sha256 = "34db797c6a8f7bba182a70971aa9191af6265864ec804339f7a4d2a05afed33e"
+blocks = ["Inscriptional Parthian"]
+
+[[font]]
+id = "noto-sans-javanese"
+family = "Noto Sans Javanese"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansjavanese/NotoSansJavanese%5Bwght%5D.ttf"
+sha256 = "0bcb88de05a855aec38471d6317e860fa2a40d1c3ca93f2736b7c34ad9288d90"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansjavanese/OFL.txt"
+license_sha256 = "8a5665bd3b16a64f953b24a71f12e298f5233be8a4ed17424129c5524a397892"
+blocks = ["Javanese"]
+
+[[font]]
+id = "noto-sans-kaithi"
+family = "Noto Sans Kaithi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskaithi/NotoSansKaithi-Regular.ttf"
+sha256 = "e33f6b7e0c9d3c4edfb3f9bf9c00b0814bef14f25fef9d2c6a8d1451520ffe43"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskaithi/OFL.txt"
+license_sha256 = "5f4eef8d6ea9e1b6d08376007ea9ff1763bda32f5bb58c53042b061cdfcc026f"
+blocks = ["Common Indic Number Forms", "Devanagari", "Kaithi"]
+
+[[font]]
+id = "noto-sans-kannada"
+family = "Noto Sans Kannada"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskannada/NotoSansKannada%5Bwdth%2Cwght%5D.ttf"
+sha256 = "cca4f3b3a8cb12fb261f1b43baf5d2f7f59d90fe123d41f0065ed3a183997ec9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskannada/OFL.txt"
+license_sha256 = "9d49a4e56df9b36403b139f48bf07fd87cc5e716cb3203c54b04b674adb16238"
+blocks = ["Common Indic Number Forms", "Devanagari", "Kannada", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-kawi"
+family = "Noto Sans Kawi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskawi/NotoSansKawi%5Bwght%5D.ttf"
+sha256 = "8261be9862d01826ad75af8596129eff72ab4ce098d72b42a4549e4a6292c518"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskawi/OFL.txt"
+license_sha256 = "13a37d6fb70d8c4c04f2b8452731029208427934ba4151dd1e8221f006950e3d"
+blocks = ["Kawi"]
+
+[[font]]
+id = "noto-sans-kayah-li"
+family = "Noto Sans Kayah Li"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskayahli/NotoSansKayahLi%5Bwght%5D.ttf"
+sha256 = "477e12ed1a0255e8b51f4228d0fa66fc740a0b546d632a82d3080c37fdd087f5"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskayahli/OFL.txt"
+license_sha256 = "e053c471ccf7602350e2f9f77bb479dfadc040173ce4e50309dba9ce1ae7e09a"
+blocks = ["Kayah Li"]
+
+[[font]]
+id = "noto-sans-kharoshthi"
+family = "Noto Sans Kharoshthi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskharoshthi/NotoSansKharoshthi-Regular.ttf"
+sha256 = "e1cc4bd5abc3c0efe6cb102a30b543371c8a42d12ed661bcc4c3f3e3421ee670"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskharoshthi/OFL.txt"
+license_sha256 = "b3928e46f902b1d6d7108c8e9d5c08599b1c5c3e02bdec8a2e21a184c9a19e13"
+blocks = ["Kharoshthi"]
+
+[[font]]
+id = "noto-sans-khmer"
+family = "Noto Sans Khmer"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskhmer/NotoSansKhmer%5Bwdth%2Cwght%5D.ttf"
+sha256 = "f37a8431a0c5d5ed2f81a767417546aca576a81fb7eff9c924d46aecf828f2ca"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskhmer/OFL.txt"
+license_sha256 = "be0407f060aea48787ff9e75d8d3aedef70aef113b3ce9aca26fdaacd10b1870"
+blocks = ["Khmer", "Khmer Symbols"]
+
+[[font]]
+id = "noto-sans-khojki"
+family = "Noto Sans Khojki"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskhojki/NotoSansKhojki-Regular.ttf"
+sha256 = "0b50d1f6d4f8c4254095eb3a9a7603444d9f30e21d8dca1305971288b8e5be1b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskhojki/OFL.txt"
+license_sha256 = "82ead5cfe70167960007329171dcffe99886373b3159619e596e84f08890234c"
+blocks = ["Common Indic Number Forms", "Gujarati", "Khojki"]
+
+[[font]]
+id = "noto-sans-khudawadi"
+family = "Noto Sans Khudawadi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskhudawadi/NotoSansKhudawadi-Regular.ttf"
+sha256 = "1650e84136b1e9a4e3b4e8f2e96b3542be7587716c58b4c0da6814ed1d87a721"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanskhudawadi/OFL.txt"
+license_sha256 = "fc41afc2ff35b773da629641500b5b99d8243f121571c10b54cceabe516330b3"
+blocks = ["Common Indic Number Forms", "Devanagari", "Khudawadi"]
+
+[[font]]
+id = "noto-sans-lao"
+family = "Noto Sans Lao"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslao/NotoSansLao%5Bwdth%2Cwght%5D.ttf"
+sha256 = "9608b94603a82d09a8038946f9775242f99e3b3459b7f1e4d5b335b578cd7ab3"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslao/OFL.txt"
+license_sha256 = "a42993999944845fb5af693ea678a372a053db1f0981d55e911dcfa9d330f279"
+blocks = ["Lao"]
+
+[[font]]
+id = "noto-sans-lepcha"
+family = "Noto Sans Lepcha"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslepcha/NotoSansLepcha-Regular.ttf"
+sha256 = "9624931ae8f9a8a2a45233e5486fac1a80f333a0b3a25f84d0e2484363914f84"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslepcha/OFL.txt"
+license_sha256 = "d6a4fe388105d6738b6f56eae2b43368a58e6191d5d62d9e9440b38b4d32547f"
+blocks = ["Lepcha"]
+
+[[font]]
+id = "noto-sans-limbu"
+family = "Noto Sans Limbu"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslimbu/NotoSansLimbu-Regular.ttf"
+sha256 = "5a8b4fd72c5a64051332f66fcf46fda1a32a37d130631362378c6b465d852dd5"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslimbu/OFL.txt"
+license_sha256 = "9745259e135d9de74a122c6498a830a1e45c59b75677821f42e11691e769deec"
+blocks = ["Devanagari", "Limbu"]
+
+[[font]]
+id = "noto-sans-linear-a"
+family = "Noto Sans Linear A"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslineara/NotoSansLinearA-Regular.ttf"
+sha256 = "f2f281d2bfd685ed2fb9597d77ed50dbe64bc36e0e80acf88b0862f2561e5aa0"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslineara/OFL.txt"
+license_sha256 = "a67a01aefe12fa20a386b1dcd45b36a82b9c71c27cbef6b4b359ff9c9a816ded"
+blocks = ["Aegean Numbers", "Linear A"]
+
+[[font]]
+id = "noto-sans-linear-b"
+family = "Noto Sans Linear B"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslinearb/NotoSansLinearB-Regular.ttf"
+sha256 = "c69e7a80ad643b7f05fea03bf4102a659489b045533f6ac5539c3600c98fdb06"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslinearb/OFL.txt"
+license_sha256 = "bc7112fdaa4a03fd869deca0d0454cd34fa575663a194cec9578da5489f713b3"
+blocks = ["Aegean Numbers", "Linear B Ideograms", "Linear B Syllabary"]
+
+[[font]]
+id = "noto-sans-lisu"
+family = "Noto Sans Lisu"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslisu/NotoSansLisu%5Bwght%5D.ttf"
+sha256 = "669592efd358c495000ae79201dbec736d877d04fabf4dfc4dfb887cd9eeac40"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslisu/OFL.txt"
+license_sha256 = "1f65bfdc26d6bd6e57249c60a86ea355761fb9150694e50206175d3fa8d3c166"
+blocks = ["Lisu"]
+
+[[font]]
+id = "noto-sans-lycian"
+family = "Noto Sans Lycian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslycian/NotoSansLycian-Regular.ttf"
+sha256 = "81ad6994c822aba066219b06e6e097dcedba449b33c6fe6ceb79c2cdeb88664f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslycian/OFL.txt"
+license_sha256 = "43ade220daeb7c8f610c4ca136304710e4eb910f64627d6010ddf9fe2fe18cf8"
+blocks = ["Lycian"]
+
+[[font]]
+id = "noto-sans-lydian"
+family = "Noto Sans Lydian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslydian/NotoSansLydian-Regular.ttf"
+sha256 = "25466c3aa089d25abf5829a29c6a72738e006a21865a48e03c58411b0227920a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanslydian/OFL.txt"
+license_sha256 = "3a4d46fda7223bbdc698882822b43b3650432f8895b9b62c7f01bbf889990aa0"
+blocks = ["Lydian"]
+
+[[font]]
+id = "noto-sans-mahajani"
+family = "Noto Sans Mahajani"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmahajani/NotoSansMahajani-Regular.ttf"
+sha256 = "a48694e1ea0178e11df1b9a760d7ad53b6aa3a7b86e5d8c18dfb37e144ae69c0"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmahajani/OFL.txt"
+license_sha256 = "3c695b36fef73588d0a192dad666b2956d15582f66289a85a3d55705e4cd454a"
+blocks = ["Common Indic Number Forms", "Devanagari", "Mahajani"]
+
+[[font]]
+id = "noto-sans-malayalam"
+family = "Noto Sans Malayalam"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmalayalam/NotoSansMalayalam%5Bwdth%2Cwght%5D.ttf"
+sha256 = "312e0e7c3cc15fa09eb42a8f749eeb246b593ed420e3c81aafe8d910c3a6fb56"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmalayalam/OFL.txt"
+license_sha256 = "1df18163a0bf60f02131401ba1609df90051f40c4047684dda1c8a2e9586f7f2"
+blocks = ["Common Indic Number Forms", "Devanagari", "Malayalam", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-mandaic"
+family = "Noto Sans Mandaic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmandaic/NotoSansMandaic-Regular.ttf"
+sha256 = "28f9cdd5221c0c0ce42871996a3ca716e0f2f7be5131423e51021c6397be0fdc"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmandaic/OFL.txt"
+license_sha256 = "b5a142ed5fe40575370ceffe3f611ce95bb12afcffd363bed18cbf6f624daa13"
+blocks = ["Mandaic"]
+
+[[font]]
+id = "noto-sans-manichaean"
+family = "Noto Sans Manichaean"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmanichaean/NotoSansManichaean-Regular.ttf"
+sha256 = "692e31fc2600b1db6a369dd50b808914ebea385530b0d95ca1f103e7943e7487"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmanichaean/OFL.txt"
+license_sha256 = "b1d3bb52a18917b0fe332721a4cd438d601fe9439d4359e36cc33d90c29c39d6"
+blocks = ["Manichaean"]
+
+[[font]]
+id = "noto-sans-marchen"
+family = "Noto Sans Marchen"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmarchen/NotoSansMarchen-Regular.ttf"
+sha256 = "6c8ecfbf4e0b5926ebee810be293c1018f921577b2f6dff22e19ec0a596c7ce3"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmarchen/OFL.txt"
+license_sha256 = "ff6916cdb42ea52dd0aeb275043ed78367e1aab5a82d2c426446ee1557f7fd7a"
+blocks = ["Marchen"]
+
+[[font]]
+id = "noto-sans-masaram-gondi"
+family = "Noto Sans Masaram Gondi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmasaramgondi/NotoSansMasaramGondi-Regular.ttf"
+sha256 = "e1caa285f93023d2cdf8e9594310062b8310a3d6addf6b56103a9f828198c98f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmasaramgondi/OFL.txt"
+license_sha256 = "5d2288d3bd6fd0b8bb76548bfa8a00c390f25092a6a24831288bd2f40bf89931"
+blocks = ["Devanagari", "Masaram Gondi"]
+
+[[font]]
+id = "noto-sans-mayan-numerals"
+family = "Noto Sans Mayan Numerals"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmayannumerals/NotoSansMayanNumerals-Regular.ttf"
+sha256 = "b073279ae1eabfbe8bd4232f5f83fdaeb439267f5580a7849ed9c4a04cf35d34"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmayannumerals/OFL.txt"
+license_sha256 = "4ea975c31fc83692252a4c19382bbd539e7a06afa2eaacdad4ef433132cf64bc"
+blocks = ["Mayan Numerals"]
+
+[[font]]
+id = "noto-sans-medefaidrin"
+family = "Noto Sans Medefaidrin"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmedefaidrin/NotoSansMedefaidrin%5Bwght%5D.ttf"
+sha256 = "538e31337f09ceaf290e374c2e8a649211ba56523482c2f6674e2868b5555546"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmedefaidrin/OFL.txt"
+license_sha256 = "47755a5e817c401cdca376815aae527195d333688277cce00a542b83ed532fa7"
+blocks = ["Medefaidrin"]
+
+[[font]]
+id = "noto-sans-meetei-mayek"
+family = "Noto Sans Meetei Mayek"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmeeteimayek/NotoSansMeeteiMayek%5Bwght%5D.ttf"
+sha256 = "d56eb6d54ad8aad3570b7ee07f64866832a04f29bce6e5f183918c9eaf008fac"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmeeteimayek/OFL.txt"
+license_sha256 = "5dbbaac416c9c5021f3409d1157419c0bfe5089ef39a373c49a632eefdc639d8"
+blocks = ["Meetei Mayek", "Meetei Mayek Extensions"]
+
+[[font]]
+id = "noto-sans-meroitic"
+family = "Noto Sans Meroitic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmeroitic/NotoSansMeroitic-Regular.ttf"
+sha256 = "0a9920e60a884d517c9385f68bef840d380ea0918b397a02357a882c28acca69"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmeroitic/OFL.txt"
+license_sha256 = "1dfb3d4b1c7a31bf3de390189cf46f30eef4a45f43523437d09c1339e6b3a194"
+blocks = ["Meroitic Cursive", "Meroitic Hieroglyphs"]
+
+[[font]]
+id = "noto-sans-miao"
+family = "Noto Sans Miao"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmiao/NotoSansMiao-Regular.ttf"
+sha256 = "c7c4424d4a36e8ea986153278eb8e4ee26001764dbb1575026825df57ff0ffdf"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmiao/OFL.txt"
+license_sha256 = "92cbde615c4e0d7b970ef5e8473ffb6be3de2689155c30c95a20590336917e5a"
+blocks = ["Miao"]
+
+[[font]]
+id = "noto-sans-modi"
+family = "Noto Sans Modi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmodi/NotoSansModi-Regular.ttf"
+sha256 = "df1b8c6736fde0e7d8838370b336e4b22f84b465c81c817a8eceaab5d41ff33f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmodi/OFL.txt"
+license_sha256 = "fc8470520ea4c92c2430e6cb57b6d92bc1aabff954292ce8f20db2c5465d4a25"
+blocks = ["Common Indic Number Forms", "Devanagari", "Modi"]
+
+[[font]]
+id = "noto-sans-mongolian"
+family = "Noto Sans Mongolian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmongolian/NotoSansMongolian-Regular.ttf"
+sha256 = "805a55e10492c547ccadc1ad04faabdef61a74a5c02ecce69748378d66ef032d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmongolian/OFL.txt"
+license_sha256 = "b0158b3c0b16c20e22ea662850503a7980111c5c704501e942cc1a7ed12dc011"
+blocks = ["Mongolian", "Mongolian Supplement"]
+
+[[font]]
+id = "noto-sans-mro"
+family = "Noto Sans Mro"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmro/NotoSansMro-Regular.ttf"
+sha256 = "fe05fbcf65aa3a42f446437a6e2db4e9ccf2a1d2fd85fddfd93af3df1d729cf9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmro/OFL.txt"
+license_sha256 = "4db1c3aa73647bb9ad9b0137917e3e335ed1e7286c1764db707e3f5836a766d1"
+blocks = ["Mro"]
+
+[[font]]
+id = "noto-sans-multani"
+family = "Noto Sans Multani"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmultani/NotoSansMultani-Regular.ttf"
+sha256 = "fe39d78a4f0acae8e5033ac59aa7af3f8664410c048a3b58b5d76ea44548c090"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmultani/OFL.txt"
+license_sha256 = "a1b3ca46173087cac8b37010a23bd72edab3fd104ea8ef6cc0ff282078df52e4"
+blocks = ["Devanagari", "Gurmukhi", "Multani"]
+
+[[font]]
+id = "noto-sans-myanmar"
+family = "Noto Sans Myanmar"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmyanmar/NotoSansMyanmar%5Bwdth%2Cwght%5D.ttf"
+sha256 = "7abbbfbe2514105d7ce94937aee3feb2ba89b73a256c8b77b5866bd9b83e32ec"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansmyanmar/OFL.txt"
+license_sha256 = "246a75859267af7da466823969d2e2b407ed8455ee5f74f4c8d63d8783be9b57"
+blocks = ["Kayah Li", "Myanmar", "Myanmar Extended-A", "Myanmar Extended-B"]
+
+[[font]]
+id = "noto-sans-nabataean"
+family = "Noto Sans Nabataean"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnabataean/NotoSansNabataean-Regular.ttf"
+sha256 = "b21dc4564143ce3647bfb5c410b8b2f0affb257756693b9578a1328fdf9d82e8"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnabataean/OFL.txt"
+license_sha256 = "d1d3fa924183e4c4f14d17fd5bdd2b1ab3e433c898bb2cb6074b5cf331c22485"
+blocks = ["Nabataean"]
+
+[[font]]
+id = "noto-sans-nag-mundari"
+family = "Noto Sans Nag Mundari"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnagmundari/NotoSansNagMundari%5Bwght%5D.ttf"
+sha256 = "326db3178a5cb37f602c2b4ee32fdcb8b97e9526954f5c715b3c11545ec8a424"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnagmundari/OFL.txt"
+license_sha256 = "89c7524928e05e5d5d9d16bed5e61466824dc076e5a71091a09bea729fc6fc04"
+blocks = ["Devanagari", "Nag Mundari"]
+
+[[font]]
+id = "noto-sans-nandinagari"
+family = "Noto Sans Nandinagari"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnandinagari/NotoSansNandinagari-Regular.ttf"
+sha256 = "ed326d58e570027ecff41cb3f0286a389f52118bf1313273e4ce2faa3d5d5f51"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnandinagari/OFL.txt"
+license_sha256 = "1b03662d65f124e6333ccf45d389154e42028c8eee158b28ccba7ce344723b80"
+blocks = ["Common Indic Number Forms", "Devanagari", "Kannada", "Nandinagari", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-newa"
+family = "Noto Sans Newa"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnewa/NotoSansNewa-Regular.ttf"
+sha256 = "5a67f2e2a94eb493076dbb708a91ee4d48cd204c608f531077ad7c624b524e9e"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnewa/OFL.txt"
+license_sha256 = "39b6d4531cfac5e6004bf5f34668bf1ce50ef3b1f2cbe0b2ecc432949a45c6dd"
+blocks = ["Newa"]
+
+[[font]]
+id = "noto-sans-new-tai-lue"
+family = "Noto Sans New Tai Lue"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnewtailue/NotoSansNewTaiLue%5Bwght%5D.ttf"
+sha256 = "5362f7ab42089804beb05c936bef575f08ab27cf26109c71df99bfa28bda1cb4"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnewtailue/OFL.txt"
+license_sha256 = "c689158356ee339a27b56c95a802dc5980b7d654586fa44b5ccdd3d5c7230c2f"
+blocks = ["New Tai Lue"]
+
+[[font]]
+id = "noto-sans-nko"
+family = "Noto Sans NKo"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnko/NotoSansNKo-Regular.ttf"
+sha256 = "97954444367ad6708c36e85a89aec2830720e34968398d9caf07e7c3307c7993"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnko/OFL.txt"
+license_sha256 = "ddddb5913f75b8f4af1e50386b5ecdfa909b58685994f120b116a3ae5a1c8c48"
+blocks = ["NKo"]
+
+[[font]]
+id = "noto-sans-nushu"
+family = "Noto Sans Nushu"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnushu/NotoSansNushu-Regular.ttf"
+sha256 = "dc9cd53e71e2ecfb749b6a824bf779c88af840b9f9bdd22db51246fc6b9fca2d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansnushu/OFL.txt"
+license_sha256 = "1cabb5c007be074c36e1a390b591265c31fa910d20d73af57e13093928f8cac0"
+blocks = ["Nushu"]
+
+[[font]]
+id = "noto-sans-ogham"
+family = "Noto Sans Ogham"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansogham/NotoSansOgham-Regular.ttf"
+sha256 = "6a70572d381f3a54fdaa3b373b865f4d97377c65434493b294b1dfacc7c4f58c"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansogham/OFL.txt"
+license_sha256 = "d5e3e9b305ff13448c11cb348dce7f180eb42c961a53325c1339fdeeaec4e239"
+blocks = ["Ogham"]
+
+[[font]]
+id = "noto-sans-ol-chiki"
+family = "Noto Sans Ol Chiki"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansolchiki/NotoSansOlChiki%5Bwght%5D.ttf"
+sha256 = "c9c31988656f49eccec9588825ab3b5045099c2f850ef98f356f976e8a596b4d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansolchiki/OFL.txt"
+license_sha256 = "b30754bbe6bea30b666a60d513ae80435a197979c9500e8380f83acd99dc763b"
+blocks = ["Ol Chiki"]
+
+[[font]]
+id = "noto-sans-old-hungarian"
+family = "Noto Sans Old Hungarian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldhungarian/NotoSansOldHungarian-Regular.ttf"
+sha256 = "c23b363986fabc168af489c5d4eaf3c10fbb110599ffe6ca3b2eac777aa73079"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldhungarian/OFL.txt"
+license_sha256 = "8b78300a14978656a55fac2ee73466ece7d6e9e9d8a4ba770f81ed92f3ec8af4"
+blocks = ["Old Hungarian"]
+
+[[font]]
+id = "noto-sans-old-italic"
+family = "Noto Sans Old Italic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansolditalic/NotoSansOldItalic-Regular.ttf"
+sha256 = "be47cca5000d090c3716c86428afbce436864a67c817271af0b57e450e2b7aab"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansolditalic/OFL.txt"
+license_sha256 = "9c892f8ae3d98d86a31bfb811335da1ad6fb90bc3feac6774ee4b709e2c1ba98"
+blocks = ["Old Italic"]
+
+[[font]]
+id = "noto-sans-old-north-arabian"
+family = "Noto Sans Old North Arabian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldnortharabian/NotoSansOldNorthArabian-Regular.ttf"
+sha256 = "27e42ee27587eda9c2521650cca938d4b247e00d55603b0abab0789c2eb2cccb"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldnortharabian/OFL.txt"
+license_sha256 = "5f57555b16c41ca7ff067efefdb3eadfcb601d3d96263f5ba13ac017c770dc1b"
+blocks = ["Old North Arabian"]
+
+[[font]]
+id = "noto-sans-old-permic"
+family = "Noto Sans Old Permic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldpermic/NotoSansOldPermic-Regular.ttf"
+sha256 = "a0a446342fbb13aee85bdfd77b27362ca9b5a4fd8f8fa4318ee33e41dc581bf6"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldpermic/OFL.txt"
+license_sha256 = "368ec41388919a8214a906db7ab1491a8b3588b81938d2c33225e607c8b5c564"
+blocks = ["Old Permic"]
+
+[[font]]
+id = "noto-sans-old-persian"
+family = "Noto Sans Old Persian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldpersian/NotoSansOldPersian-Regular.ttf"
+sha256 = "fa2d24830f472b8c0974079be5150caffd4fd0b9d6daf431453f277720895fdb"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldpersian/OFL.txt"
+license_sha256 = "002443fcdf6acb8cf7467b678bfba924396bbd47c64522500a48ba86fdc295d3"
+blocks = ["Old Persian"]
+
+[[font]]
+id = "noto-sans-old-sogdian"
+family = "Noto Sans Old Sogdian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldsogdian/NotoSansOldSogdian-Regular.ttf"
+sha256 = "3686573e4175d14e8681cdd7bdf10b57762ded8bc3e5a5fa0083e4e14f4f2613"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldsogdian/OFL.txt"
+license_sha256 = "585875e6ce2a9ce9c80314fb83c11bf48ff55b5910552987312c783bfcc5c9b6"
+blocks = ["Old Sogdian"]
+
+[[font]]
+id = "noto-sans-old-south-arabian"
+family = "Noto Sans Old South Arabian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldsoutharabian/NotoSansOldSouthArabian-Regular.ttf"
+sha256 = "54df22db482aef96a0f4aa7eb9e0a7bc92f4af281dec93ca7d16d03a42ef20a5"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldsoutharabian/OFL.txt"
+license_sha256 = "22aac2446e3aa2fb1e02eb6aecde823aa7e13e3fbd89ed3bd8595905e1d37671"
+blocks = ["Old South Arabian"]
+
+[[font]]
+id = "noto-sans-old-turkic"
+family = "Noto Sans Old Turkic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldturkic/NotoSansOldTurkic-Regular.ttf"
+sha256 = "b8e3f206a9fdaea960a988bb1ed3275391eb534d127859611dca87f2204da4a7"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoldturkic/OFL.txt"
+license_sha256 = "74bb75fa973b17a9cf559445529c1a9fa56b3afe55dcc19608469ac79a03f25f"
+blocks = ["Old Turkic"]
+
+[[font]]
+id = "noto-sans-oriya"
+family = "Noto Sans Oriya"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoriya/NotoSansOriya%5Bwdth%2Cwght%5D.ttf"
+sha256 = "910342275d619081b896b4ed25fd9ad6ff320c25591b810de1fcc4beb153ba82"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansoriya/OFL.txt"
+license_sha256 = "c90ff15ade263a49148e35af34e9c177c6d56881e81260b29f10123e9e227eca"
+blocks = ["Devanagari", "Oriya"]
+
+[[font]]
+id = "noto-sans-osage"
+family = "Noto Sans Osage"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansosage/NotoSansOsage-Regular.ttf"
+sha256 = "fb7f7fed310568cceddf3d08cfbb13ccde7b84b1ddd93f9430cb91c2bdd4172d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansosage/OFL.txt"
+license_sha256 = "46683544b3fae35c1716ad6deead57b7363edfc369aabcd8d159250e3fce57ae"
+blocks = ["Osage"]
+
+[[font]]
+id = "noto-sans-osmanya"
+family = "Noto Sans Osmanya"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansosmanya/NotoSansOsmanya-Regular.ttf"
+sha256 = "8832125f106a0be9d4b7e6442493a96f2d6626b8edb2cc20f53c48e9b73fd5a7"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansosmanya/OFL.txt"
+license_sha256 = "a912228f344a47ecb6e7f00c96f70a62033e18c028304bd0b23ce77c929621f4"
+blocks = ["Osmanya"]
+
+[[font]]
+id = "noto-sans-pahawh-hmong"
+family = "Noto Sans Pahawh Hmong"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspahawhhmong/NotoSansPahawhHmong-Regular.ttf"
+sha256 = "8b575d82f37d1119c7fb6d0f569fafea572bddfeb83861c8501d4ab5a5faef92"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspahawhhmong/OFL.txt"
+license_sha256 = "55c7d320c0be6098bd42e7665397f2f15b46ba6b1fad2708969bf073402d012e"
+blocks = ["Pahawh Hmong"]
+
+[[font]]
+id = "noto-sans-palmyrene"
+family = "Noto Sans Palmyrene"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspalmyrene/NotoSansPalmyrene-Regular.ttf"
+sha256 = "d9cb8aeef761d8f0639bdb182f03048435473f623f7567c9b6477fe320cd8404"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspalmyrene/OFL.txt"
+license_sha256 = "387a4cccbc74240911059aad6db9ab13be0c72a8d7cd98c94a63d6c3ece8f5e0"
+blocks = ["Palmyrene"]
+
+[[font]]
+id = "noto-sans-pau-cin-hau"
+family = "Noto Sans Pau Cin Hau"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspaucinhau/NotoSansPauCinHau-Regular.ttf"
+sha256 = "148f6ad11e71c58a4c557af7f492a6478b3e96700202a62e7013dd7031057a83"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspaucinhau/OFL.txt"
+license_sha256 = "ab62d184e7353d161ddea97e3aa400f9251a653b055dd5b030b07fede3bb546e"
+blocks = ["Pau Cin Hau"]
+
+[[font]]
+id = "noto-sans-phags-pa"
+family = "Noto Sans PhagsPa"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansphagspa/NotoSansPhagsPa-Regular.ttf"
+sha256 = "1f90e0a9e6b83c903e4ed9470261ba4e61b7068de2063516665b62c1bf389dab"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansphagspa/OFL.txt"
+license_sha256 = "36c78621f9338739cd29fc770253fbb867be8934d36d6a172afc6bd56da4c138"
+blocks = ["Mongolian", "Phags-pa"]
+
+[[font]]
+id = "noto-sans-phoenician"
+family = "Noto Sans Phoenician"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansphoenician/NotoSansPhoenician-Regular.ttf"
+sha256 = "9c248001ff674977172c89fb7686faf22b827b63641d0122352523f31780d1f4"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansphoenician/OFL.txt"
+license_sha256 = "ff3760ba038fb0498a3cbfd3454fc983babefe2a0318a660cd7e70c9bcc3eece"
+blocks = ["Phoenician"]
+
+[[font]]
+id = "noto-sans-psalter-pahlavi"
+family = "Noto Sans Psalter Pahlavi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspsalterpahlavi/NotoSansPsalterPahlavi-Regular.ttf"
+sha256 = "1df586f1f62820f7c71c2d6cf9e2c006673a028ec515b0656fb617b0859e4c14"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanspsalterpahlavi/OFL.txt"
+license_sha256 = "39b0604a413ed27060e627e666cd9a8a7693f6d5b54c8348b3d2ccce28d5b71e"
+blocks = ["Psalter Pahlavi"]
+
+[[font]]
+id = "noto-sans-rejang"
+family = "Noto Sans Rejang"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansrejang/NotoSansRejang-Regular.ttf"
+sha256 = "4350c7672a035d21bacf9909a17da374aec268e5394cf66302838c194eeaca47"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansrejang/OFL.txt"
+license_sha256 = "768322eaf654dd25d1f21b7ee144211d4b6d38ca088bc4b3f7279bcc2d84a217"
+blocks = ["Rejang"]
+
+[[font]]
+id = "noto-sans-runic"
+family = "Noto Sans Runic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansrunic/NotoSansRunic-Regular.ttf"
+sha256 = "615b6c1166a8c51816dc1536784acbf486547e3bed03dbfdd70910e10066793b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansrunic/OFL.txt"
+license_sha256 = "b0fbcb9eaf0f5f415358bfefa5999ee75e18cde4a275b78285b2140a9e381865"
+blocks = ["Runic"]
+
+[[font]]
+id = "noto-sans-samaritan"
+family = "Noto Sans Samaritan"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssamaritan/NotoSansSamaritan-Regular.ttf"
+sha256 = "b2e86cdcac51ecae8948cac8a6925bb1c2e98f8a64e5cf83bb05f1294cd79810"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssamaritan/OFL.txt"
+license_sha256 = "b5077d717d6cd64f06e8e4500eb103b0cb51dd95965d562e2ba3a0684e6c966f"
+blocks = ["Samaritan"]
+
+[[font]]
+id = "noto-sans-saurashtra"
+family = "Noto Sans Saurashtra"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssaurashtra/NotoSansSaurashtra-Regular.ttf"
+sha256 = "d2df88b4e293636d04c363b13dc5c6f88fca0e9a3b6fece52f12c11d77e9e566"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssaurashtra/OFL.txt"
+license_sha256 = "aef66e1a5ca98031d65b2284c24de0e66158703fe84a0bf339ac600c8e355c1a"
+blocks = ["Saurashtra"]
+
+[[font]]
+id = "noto-sans-sharada"
+family = "Noto Sans Sharada"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssharada/NotoSansSharada-Regular.ttf"
+sha256 = "2ccfb8e72773d318c03b8414ad82686c97ee65a9825fdb1a388e376c4df13372"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssharada/OFL.txt"
+license_sha256 = "110e682353242abfe1529151fda818b381cb722b4d5a46388c13f55225e21b1b"
+blocks = ["Devanagari", "Sharada", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-shavian"
+family = "Noto Sans Shavian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansshavian/NotoSansShavian-Regular.ttf"
+sha256 = "9f57b0429b23616aee4a662da73caca681fbcb6895fd212539b70bf596c209d5"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansshavian/OFL.txt"
+license_sha256 = "ce9ffedf88a403a1de82c6a58869ff84e7371453d844247babe40336de5f613b"
+blocks = ["Shavian"]
+
+[[font]]
+id = "noto-sans-siddham"
+family = "Noto Sans Siddham"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssiddham/NotoSansSiddham-Regular.ttf"
+sha256 = "8ae4c893d5df6a4e418e7cd19ad6cc7fb95c7b9e04a772072a102fca74ca0185"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssiddham/OFL.txt"
+license_sha256 = "85610e60cd4cfa1395c27ada1f15ac5ba10b7b9f1eb343a66532105682d2c830"
+blocks = ["Siddham"]
+
+[[font]]
+id = "noto-sans-sign-writing"
+family = "Noto Sans SignWriting"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssignwriting/NotoSansSignWriting-Regular.ttf"
+sha256 = "1da27fe7b8e959efaf338818f2a6c1aa2c02ff97cf60c34c6d0825675ebc53fb"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssignwriting/OFL.txt"
+license_sha256 = "5cd389912c5b7f1d1ae7c341968109343697a7bdabf69c0dabafb5b6b8cc5477"
+blocks = ["Sutton SignWriting"]
+
+[[font]]
+id = "noto-sans-sinhala"
+family = "Noto Sans Sinhala"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssinhala/NotoSansSinhala%5Bwdth%2Cwght%5D.ttf"
+sha256 = "9bd93e407a278075be403324063bc94a7e306c44de4df81214e932330c22eecf"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssinhala/OFL.txt"
+license_sha256 = "2d6f7c43bce61f4b1919379f901bc613484f5285f520b6d29bb7c1f31b17e841"
+blocks = ["Devanagari", "Sinhala", "Sinhala Archaic Numbers"]
+
+[[font]]
+id = "noto-sans-sogdian"
+family = "Noto Sans Sogdian"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssogdian/NotoSansSogdian-Regular.ttf"
+sha256 = "e1575de303408101b8c8a6f1a812936b2b2e2eab5d9cab6b1926883f3fd73642"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssogdian/OFL.txt"
+license_sha256 = "ade8e858dd1b48cae4781855440ae9ba83358a7f4f1ac8eadfb0ad90644b1775"
+blocks = ["Sogdian"]
+
+[[font]]
+id = "noto-sans-sora-sompeng"
+family = "Noto Sans Sora Sompeng"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssorasompeng/NotoSansSoraSompeng%5Bwght%5D.ttf"
+sha256 = "1fe66f4904e960705b68c60f7e92ae579ef80bab30f29b894d44eed1edc306e0"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssorasompeng/OFL.txt"
+license_sha256 = "a95dc9b1eab6e384e5f14d125074cddac6108c30a829190cfedc973d571a59cf"
+blocks = ["Sora Sompeng"]
+
+[[font]]
+id = "noto-sans-soyombo"
+family = "Noto Sans Soyombo"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssoyombo/NotoSansSoyombo-Regular.ttf"
+sha256 = "a1ed643ffe8f84fd7c397a6eb0030f58e2722e7acd8b6a2305f33bf569d1bb2f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssoyombo/OFL.txt"
+license_sha256 = "a5f1c842c6b33865210dda255cbbc8257ce6f05e861129af3d45b887147cdcc3"
+blocks = ["Soyombo"]
+
+[[font]]
+id = "noto-sans-sundanese"
+family = "Noto Sans Sundanese"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssundanese/NotoSansSundanese%5Bwght%5D.ttf"
+sha256 = "28282be9cce5a96e6b5baa3cc48044187f65d610879ff29b1dc5fe5ea465df6a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssundanese/OFL.txt"
+license_sha256 = "2d42ae3d7f3522cfd45fcd4daffa698a1d7b5c13b2512593d0f993633fa428fa"
+blocks = ["Sundanese", "Sundanese Supplement"]
+
+[[font]]
+id = "noto-sans-sunuwar"
+family = "Noto Sans Sunuwar"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssunuwar/NotoSansSunuwar-Regular.ttf"
+sha256 = "332bbbcbb64c42ccc0a1b79dfd557b47aa3bd88a8ffab1417dd2f6989ad67f4d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssunuwar/OFL.txt"
+license_sha256 = "985d2180d93a7ae74cf81296d22bf2ddb1851d8ef35a200e0fd406ac188b1501"
+blocks = ["Sunuwar"]
+
+[[font]]
+id = "noto-sans-syloti-nagri"
+family = "Noto Sans Syloti Nagri"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssylotinagri/NotoSansSylotiNagri-Regular.ttf"
+sha256 = "86125713777b45f80ea7f08abe9cc02e2e25cf9a475f8c7e15d29180ab980571"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssylotinagri/OFL.txt"
+license_sha256 = "5533f0addd3fcdfc8d784db3aeec631bb04f570961831ea2c384a4dbf2fcfc13"
+blocks = ["Bengali", "Devanagari", "Syloti Nagri"]
+
+[[font]]
+id = "noto-sans-syriac"
+family = "Noto Sans Syriac"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssyriac/NotoSansSyriac%5Bwght%5D.ttf"
+sha256 = "775585cc3c12877115d588f70af3aa140c78cb440f9d42c98273bf05bed3f6b1"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanssyriac/OFL.txt"
+license_sha256 = "6442860dad2700aabece2ac7252680b1a5bfc0987cec1ca0c3d605ab8f0b7975"
+blocks = ["Syriac"]
+
+[[font]]
+id = "noto-sans-tagalog"
+family = "Noto Sans Tagalog"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstagalog/NotoSansTagalog-Regular.ttf"
+sha256 = "871a66319d10d1a027eee889f75ea49be0b7d2a4e97acd6bf7f7a0ed1d741aac"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstagalog/OFL.txt"
+license_sha256 = "34e8361b8799f1e37b199f0260a66a38f4359f42ed0f2dcf96e3650f6bff2cd9"
+blocks = ["Hanunoo", "Tagalog"]
+
+[[font]]
+id = "noto-sans-tagbanwa"
+family = "Noto Sans Tagbanwa"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstagbanwa/NotoSansTagbanwa-Regular.ttf"
+sha256 = "9f9288024e3eddfd3ce77088c4806e0515d47aa093b1a04bc7bc24bdfd5d998a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstagbanwa/OFL.txt"
+license_sha256 = "3c2f7990d23f5f5150ea8c8eab653a197ca191934cccbf09514afdae76b559b1"
+blocks = ["Hanunoo", "Tagbanwa"]
+
+[[font]]
+id = "noto-sans-tai-le"
+family = "Noto Sans Tai Le"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstaile/NotoSansTaiLe-Regular.ttf"
+sha256 = "eeb4c41d8e1a6075f7e580cc159dff424e2f61e64f5edcd57b5e8ca57d58a2ea"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstaile/OFL.txt"
+license_sha256 = "01950566b02c4f25f237a1619129650852da6f664110f7bdaccdc60ba51b1b06"
+blocks = ["Myanmar", "Tai Le"]
+
+[[font]]
+id = "noto-sans-tai-tham"
+family = "Noto Sans Tai Tham"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstaitham/NotoSansTaiTham%5Bwght%5D.ttf"
+sha256 = "a053b99fc5ed0a3e5fb14eecbbf137245cb0b8c34c2cb4ffd0872db3097bcd0a"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstaitham/OFL.txt"
+license_sha256 = "8cf7ad1fbb6cd4a3b1596f813d6e0d57f919f612a72c2e2603506489f9dbebc6"
+blocks = ["Tai Tham"]
+
+[[font]]
+id = "noto-sans-tai-viet"
+family = "Noto Sans Tai Viet"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstaiviet/NotoSansTaiViet-Regular.ttf"
+sha256 = "ba2a5346d6a9c041663fc835cf090efcbb9feb81a620245e7a64ecf6caafc59d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstaiviet/OFL.txt"
+license_sha256 = "12353b96af2837abbe42f486d99c487836d8d9778b058c37d920ca2ec0cc83a3"
+blocks = ["Tai Viet"]
+
+[[font]]
+id = "noto-sans-takri"
+family = "Noto Sans Takri"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstakri/NotoSansTakri-Regular.ttf"
+sha256 = "129764150a358e24eb65ec117d140440e84b28bf4aad23a608fe9526f10c4701"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstakri/OFL.txt"
+license_sha256 = "7289a413acc7fa6ec0a40f1c92652e02178fe3a36e2fee2f98af8ceada41b0a4"
+blocks = ["Common Indic Number Forms", "Devanagari", "Takri"]
+
+[[font]]
+id = "noto-sans-tamil"
+family = "Noto Sans Tamil"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstamil/NotoSansTamil%5Bwdth%2Cwght%5D.ttf"
+sha256 = "aa3a9b321f4b0bb2c40203ffbde9af89713227866e0e13f76e5b9eeea727cf88"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstamil/OFL.txt"
+license_sha256 = "f8ff8ce7d0a81bf8d5e121c635ef027250c531f2fd37d5988b8dd6e45f19d7f1"
+blocks = ["Devanagari", "Devanagari Extended", "Grantha", "Tamil", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-tamil-supplement"
+family = "Noto Sans Tamil Supplement"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstamilsupplement/NotoSansTamilSupplement-Regular.ttf"
+sha256 = "321ef3c69cd8b3859420164820f316f245772ab24a587ac35f484a7e18760071"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstamilsupplement/OFL.txt"
+license_sha256 = "f8ff8ce7d0a81bf8d5e121c635ef027250c531f2fd37d5988b8dd6e45f19d7f1"
+blocks = ["Tamil Supplement"]
+
+[[font]]
+id = "noto-sans-tangsa"
+family = "Noto Sans Tangsa"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstangsa/NotoSansTangsa%5Bwght%5D.ttf"
+sha256 = "2ed50f0ba084742ce2dfe4909bc529131272d9468b1aa341d5866fbc1a1be48f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstangsa/OFL.txt"
+license_sha256 = "b4c6eab864c1283a5c1846d7b5467e70cdc58fac872123aeac0b966a9ab3169b"
+blocks = ["Tangsa"]
+
+[[font]]
+id = "noto-sans-telugu"
+family = "Noto Sans Telugu"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstelugu/NotoSansTelugu%5Bwdth%2Cwght%5D.ttf"
+sha256 = "e618af7bf999df192ed4f388eba2e563f2b5015034e9cbb317b5bd793bd7334d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstelugu/OFL.txt"
+license_sha256 = "481c72a8f1b4f645a7e6b10326be41b2da2c15cb470ff48a07fab773eed00102"
+blocks = ["Devanagari", "Telugu", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-thaana"
+family = "Noto Sans Thaana"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansthaana/NotoSansThaana%5Bwght%5D.ttf"
+sha256 = "a296795c892a9ec2b0f4d3af315568506ef9fd55920386170992d3935d8866ca"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansthaana/OFL.txt"
+license_sha256 = "5de6fbfe9ca25509fd60e47be3fab3cc236abe20bc1b123a5c2bd12f067fd13c"
+blocks = ["Thaana"]
+
+[[font]]
+id = "noto-sans-thai"
+family = "Noto Sans Thai"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansthai/NotoSansThai%5Bwdth%2Cwght%5D.ttf"
+sha256 = "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansthai/OFL.txt"
+license_sha256 = "2e98fd23a52d253db8612cd5942c8f2ff4111b21d2367050fdca91d8ccc374a0"
+blocks = ["Thai"]
+
+[[font]]
+id = "noto-sans-tifinagh"
+family = "Noto Sans Tifinagh"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstifinagh/NotoSansTifinagh-Regular.ttf"
+sha256 = "b08755bdee9835ebbca1095460e36a9e2f3ae396919fd0fa2377d9b4a3388f7e"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstifinagh/OFL.txt"
+license_sha256 = "030b53206585ee108e261d15e3674ea3f8969cd59bbeccbd0028027a0eb22d6a"
+blocks = ["Tifinagh"]
+
+[[font]]
+id = "noto-sans-tirhuta"
+family = "Noto Sans Tirhuta"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstirhuta/NotoSansTirhuta-Regular.ttf"
+sha256 = "ad7123ee63118b83ed2f723591e5e861baad8dd157508b8339362850c6036efe"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanstirhuta/OFL.txt"
+license_sha256 = "9bf9c1ab9b7837bb65fb40dd7f6b706a28199cd633b80dcebe532bddc56594cb"
+blocks = ["Bengali", "Common Indic Number Forms", "Devanagari", "Tirhuta", "Vedic Extensions"]
+
+[[font]]
+id = "noto-sans-ugaritic"
+family = "Noto Sans Ugaritic"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansugaritic/NotoSansUgaritic-Regular.ttf"
+sha256 = "68d5a37ab45ba3ab091dda2aa392698963a90e2b399e131394892b8224da6491"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansugaritic/OFL.txt"
+license_sha256 = "1c95c4c9e705f165c9577063a49b5e86914e2f38d62db454143b261bfee674c1"
+blocks = ["Ugaritic"]
+
+[[font]]
+id = "noto-sans-vai"
+family = "Noto Sans Vai"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansvai/NotoSansVai-Regular.ttf"
+sha256 = "1ee63dafc2d2a71c42d7bb06259ae1728d8fd155bc752254a1cc5a7002e13a8d"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansvai/OFL.txt"
+license_sha256 = "765206100bc8ad011be3a0976323394c28f335c69c49de152c3bd8bd27cdb803"
+blocks = ["Vai"]
+
+[[font]]
+id = "noto-sans-vithkuqi"
+family = "Noto Sans Vithkuqi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansvithkuqi/NotoSansVithkuqi%5Bwght%5D.ttf"
+sha256 = "9b7f114c20897d6253fac413a7f66295b6fe18c630202f0564785b6aa79e5067"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansvithkuqi/OFL.txt"
+license_sha256 = "d6269b9dcf2275996a5dbf660e3d2dda3cf0d74e9b470629e474c4adfe42f969"
+blocks = ["Vithkuqi"]
+
+[[font]]
+id = "noto-sans-wancho"
+family = "Noto Sans Wancho"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanswancho/NotoSansWancho-Regular.ttf"
+sha256 = "a5cb8b34da1c91b55a789efd79188c103c34dd9d55218d40087afd3850e97f31"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanswancho/OFL.txt"
+license_sha256 = "50f044fdaa382fa03de22849f2b31906a56139df0dad90215fa60413dbc255e8"
+blocks = ["Wancho"]
+
+[[font]]
+id = "noto-sans-warang-citi"
+family = "Noto Sans Warang Citi"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanswarangciti/NotoSansWarangCiti-Regular.ttf"
+sha256 = "f4c6ec5458b85e1d7d9452fb404bf0c4762e98ac7eea95aa6a7e5798cb6ffdba"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanswarangciti/OFL.txt"
+license_sha256 = "a97d2d7a91aa60fe67b6c9b77ff562fd0d29e1c27f667c650bd52f322ab0be88"
+blocks = ["Warang Citi"]
+
+[[font]]
+id = "noto-sans-zanabazar-square"
+family = "Noto Sans Zanabazar Square"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanszanabazarsquare/NotoSansZanabazarSquare-Regular.ttf"
+sha256 = "73419252f55ba853edeb9f635533da240ed612b4dff59cdb48d83948864126c7"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanszanabazarsquare/OFL.txt"
+license_sha256 = "bb3dc754adff0b5baa523c96e6ecc424df94b406b1f32ac19630905230ff0739"
+blocks = ["Zanabazar Square"]
+
+[[font]]
+id = "noto-serif-ahom"
+family = "Noto Serif Ahom"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifahom/NotoSerifAhom-Regular.ttf"
+sha256 = "2db70c33f5ef1796753743a87817278094fb031ba05d6b51d359c8cb5929631b"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifahom/OFL.txt"
+license_sha256 = "33941759eab10afc82c8a166212be569a1e0bf40aa42f9987bdcabb2907c08ee"
+blocks = ["Ahom"]
+
+[[font]]
+id = "noto-serif-dives-akuru"
+family = "Noto Serif Dives Akuru"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifdivesakuru/NotoSerifDivesAkuru-Regular.ttf"
+sha256 = "8b6753cdf9e4703af44f7f196994912f6fa683a176d45b49d4c8624030d544dd"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifdivesakuru/OFL.txt"
+license_sha256 = "6e876fdd3f09f2b80d70545636e003a2d0acf844c787ed194b703a22455943c8"
+blocks = ["Dives Akuru"]
+
+[[font]]
+id = "noto-serif-dogra"
+family = "Noto Serif Dogra"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifdogra/NotoSerifDogra-Regular.ttf"
+sha256 = "82c4680f67a8437f6e237adbc5da559751bb3fcd251e9b82c6d7bd9879896024"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifdogra/OFL.txt"
+license_sha256 = "5e67c5a885cfcfd6ce8c2807e440c07091e3ea5432b2557b13611e3ce5b0691b"
+blocks = ["Devanagari", "Dogra"]
+
+[[font]]
+id = "noto-serif-khitan-small-script"
+family = "Noto Serif Khitan Small Script"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifkhitansmallscript/NotoSerifKhitanSmallScript-Regular.ttf"
+sha256 = "3e164843a3f04b9f89b533a8cb87141b0ee72661b035a4229cb6f58934d44eba"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifkhitansmallscript/OFL.txt"
+license_sha256 = "58068590e3e02b923b3c8b7e94d3668aeeac58e9d7ecc05f3e5243c2ae385e55"
+blocks = ["Khitan Small Script"]
+
+[[font]]
+id = "noto-serif-makasar"
+family = "Noto Serif Makasar"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifmakasar/NotoSerifMakasar-Regular.ttf"
+sha256 = "f4c5619563060fb67fc9ef26e755ee8a9d4a27ba22e2938f25ffcd1e2b547f94"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifmakasar/OFL.txt"
+license_sha256 = "d8f80a299c629ef4b73009b9e89c7ef4eee08c2a2ae5f595d81cf5db64c4af9b"
+blocks = ["Makasar"]
+
+[[font]]
+id = "noto-serif-np-hmong"
+family = "Noto Serif NP Hmong"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifnphmong/NotoSerifNPHmong%5Bwght%5D.ttf"
+sha256 = "6917f29fdcb76668b8ad4c85038d54815b5899c49242c82b76c3b3dcc2bb216f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifnphmong/OFL.txt"
+license_sha256 = "e13fc63364c2d60d1933e3a20c74a265d949f1e2321155db2b0df103f78d539e"
+blocks = ["Nyiakeng Puachue Hmong"]
+
+[[font]]
+id = "noto-serif-old-uyghur"
+family = "Noto Serif Old Uyghur"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifolduyghur/NotoSerifOldUyghur-Regular.ttf"
+sha256 = "69b7251fc565b7dcf2a54bce7f6c61095b02850c22062b12e97f92b159f4ab03"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifolduyghur/OFL.txt"
+license_sha256 = "bbbe0718f4570ed936c027b77b940f59eebff86a70e4f85076ab660609720456"
+blocks = ["Manichaean", "Old Uyghur"]
+
+[[font]]
+id = "noto-serif-ottoman-siyaq"
+family = "Noto Serif Ottoman Siyaq"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifottomansiyaq/NotoSerifOttomanSiyaq-Regular.ttf"
+sha256 = "c709105016fb6db957cfcf8ce504c115fe504b6a9055427ff227b73a24d7dd6c"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifottomansiyaq/OFL.txt"
+license_sha256 = "7f6a7ae1130aa5931a54f4a2bcfa63596178353391aaeae143a29d5f7101deaf"
+blocks = ["Ottoman Siyaq Numbers"]
+
+[[font]]
+id = "noto-serif-tibetan"
+family = "Noto Serif Tibetan"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoseriftibetan/NotoSerifTibetan%5Bwght%5D.ttf"
+sha256 = "060ec022b04c306de3f58d051fb0e1cf81a5b610c5910fbfc43bba154c057cda"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoseriftibetan/OFL.txt"
+license_sha256 = "0077789fc3cb20f358278ba4c6437eb14ade97d4d3e3281eaa42853efcd9dc8b"
+blocks = ["Tibetan"]
+
+[[font]]
+id = "noto-serif-todhri"
+family = "Noto Serif Todhri"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoseriftodhri/NotoSerifTodhri-Regular.ttf"
+sha256 = "d2c1afe671b637345e7045fcd0b4a4dca35c55811a7811de486b77f1b035008f"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoseriftodhri/OFL.txt"
+license_sha256 = "fc15b3238ec801869c2e069bcb4fb3daf51e2ee33e36fbbcb698c1b86e471cfe"
+blocks = ["Todhri"]
+
+[[font]]
+id = "noto-serif-toto"
+family = "Noto Serif Toto"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoseriftoto/NotoSerifToto%5Bwght%5D.ttf"
+sha256 = "086c2319907580c721843a02665a02d2b130f7bd0e93e63b98dcfd3e817675c9"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoseriftoto/OFL.txt"
+license_sha256 = "a06bb763aeed40f9b1899cb773fb61c5b33a8c49d48466b90f726fd93aee8715"
+blocks = ["Toto"]
+
+[[font]]
+id = "noto-serif-yezidi"
+family = "Noto Serif Yezidi"
+style = "serif"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifyezidi/NotoSerifYezidi%5Bwght%5D.ttf"
+sha256 = "807b3ec568b2333601e297484565e1ff48adb014aa4d8aaa7eba23dc04e44e05"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoserifyezidi/OFL.txt"
+license_sha256 = "e54b92f7047e9de3276849387c4109fe77718bf608408ac2f9826188af442dfb"
+blocks = ["Yezidi"]
+
+[[font]]
+id = "noto-znamenny-musical-notation"
+family = "Noto Znamenny Musical Notation"
+style = "symbols"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoznamennymusicalnotation/NotoZnamennyMusicalNotation-Regular.ttf"
+sha256 = "38b7bd32372d35f7601e8cc485c5b04d0a023c75ecebe9543a7916e3c0626c32"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notoznamennymusicalnotation/OFL.txt"
+license_sha256 = "b1b08ef05bc4e6e9bc16bc372e2a980d437aafa4de86c33baba37ba2651e9a90"
+blocks = ["Znamenny Musical Notation"]

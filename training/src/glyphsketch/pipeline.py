@@ -328,6 +328,13 @@ def run_glyphstrokes_stage(context: StageContext) -> None:
     )
 
 
+def run_indexdata_stage(context: StageContext) -> None:
+    from glyphsketch.model.experiments import prepare_index_data
+
+    counts = prepare_index_data(context.output_dir)
+    print("  " + ", ".join(f"{name}: {count}" for name, count in counts.items()))
+
+
 def run_encoderdata_stage(context: StageContext) -> None:
     from glyphsketch.model.experiments import SYNTHETIC_PER_CHARACTER, prepare_encoder_data
 
@@ -484,11 +491,19 @@ def default_stages() -> list[Stage]:
             version="1-" + file_fingerprint(skeleton_module_path),
         ),
         Stage(
+            name="indexdata",
+            description="Prepare the index and test images (glyph renders, held-out drawings)",
+            run=run_indexdata_stage,
+            depends_on=("glyphs", "realdata"),
+            version="1",
+        ),
+        # Only training (the Kaggle bundle) needs this slow stage; exports don't wait for it.
+        Stage(
             name="encoderdata",
-            description="Prepare encoder training and test images (synthetic, glyphs, real)",
+            description="Prepare encoder training images (synthetic and real drawings)",
             run=run_encoderdata_stage,
             depends_on=("glyphs", "glyphstrokes", "realdata"),
-            version="1-" + file_fingerprint(augment_module_path),
+            version="2-" + file_fingerprint(augment_module_path),
         ),
         Stage(
             name="baselines",
@@ -507,7 +522,7 @@ def default_stages() -> list[Stage]:
                 "glyphstrokes",
                 "realdata",
                 "confusables",
-                "encoderdata",
+                "indexdata",
                 "wikiprior",
             ),
             version=export_version(),
@@ -516,7 +531,7 @@ def default_stages() -> list[Stage]:
             name="detypify",
             description="Compare with Detypify on the test drawings of its symbols",
             run=run_detypify_stage,
-            depends_on=("realdata", "charset", "confusables", "encoderdata", "export"),
+            depends_on=("realdata", "charset", "confusables", "indexdata", "export"),
             version="1",
         ),
         Stage(

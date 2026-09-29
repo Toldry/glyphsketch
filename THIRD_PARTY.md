@@ -84,6 +84,158 @@ How each license was verified:
 | Noto Music | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notomusic | symbols |
 | Noto Sans Egyptian Hieroglyphs | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansegyptianhieroglyphs | symbols (Egyptian Hieroglyphs block) |
 | Noto Sans Cham | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscham | sans (Cham block) |
+| *Noto script and notation fonts (D40), one per added block, all from the same pinned commit; each `OFL.txt` and `METADATA.pb` read, none reserves a font name:* | | | | |
+| Noto Sans Adlam | 3.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansadlam | sans |
+| Noto Sans Anatolian Hieroglyphs | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansanatolianhieroglyphs | sans |
+| Noto Sans Armenian | 2.008 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansarmenian | sans |
+| Noto Sans Avestan | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansavestan | sans |
+| Noto Sans Balinese | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbalinese | sans |
+| Noto Sans Bamum | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbamum | sans |
+| Noto Sans Bassa Vah | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbassavah | sans |
+| Noto Sans Batak | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbatak | sans |
+| Noto Sans Bengali | 3.011 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbengali | sans |
+| Noto Sans Bhaiksuki | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbhaiksuki | sans |
+| Noto Sans Brahmi | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbrahmi | sans |
+| Noto Sans Buginese | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbuginese | sans |
+| Noto Sans Buhid | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansbuhid | sans |
+| Noto Sans Canadian Aboriginal | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscanadianaboriginal | sans |
+| Noto Sans Carian | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscarian | sans |
+| Noto Sans Caucasian Albanian | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscaucasianalbanian | sans |
+| Noto Sans Chakma | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanschakma | sans |
+| Noto Sans Cherokee | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscherokee | sans |
+| Noto Sans Chorasmian | 1.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanschorasmian | sans |
+| Noto Sans Coptic | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscoptic | sans |
+| Noto Sans Cuneiform | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscuneiform | sans |
+| Noto Sans Cypriot | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscypriot | sans |
+| Noto Sans Cypro Minoan | 1.503 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanscyprominoan | sans |
+| Noto Sans Deseret | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansdeseret | sans |
+| Noto Sans Devanagari | 2.007 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansdevanagari | sans |
+| Noto Sans Duployan | 3.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansduployan | sans |
+| Noto Sans Elbasan | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanselbasan | sans |
+| Noto Sans Elymaic | 1.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanselymaic | sans |
+| Noto Sans Ethiopic | 2.102 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansethiopic | sans |
+| Noto Sans Georgian | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansgeorgian | sans |
+| Noto Sans Glagolitic | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansglagolitic | sans |
+| Noto Sans Gothic | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansgothic | sans |
+| Noto Sans Grantha | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansgrantha | sans |
+| Noto Sans Gujarati | 2.106 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansgujarati | sans |
+| Noto Sans Gunjala Gondi | 1.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansgunjalagondi | sans |
+| Noto Sans Gurmukhi | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansgurmukhi | sans |
+| Noto Sans Hanifi Rohingya | 2.102 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanshanifirohingya | sans |
+| Noto Sans Hanunoo | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanshanunoo | sans |
+| Noto Sans Hatran | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanshatran | sans |
+| Noto Sans Imperial Aramaic | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansimperialaramaic | sans |
+| Noto Sans Indic Siyaq Numbers | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansindicsiyaqnumbers | sans |
+| Noto Sans Inscriptional Pahlavi | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansinscriptionalpahlavi | sans |
+| Noto Sans Inscriptional Parthian | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansinscriptionalparthian | sans |
+| Noto Sans Javanese | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansjavanese | sans |
+| Noto Sans Kaithi | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskaithi | sans |
+| Noto Sans Kannada | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskannada | sans |
+| Noto Sans Kawi | 1.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskawi | sans |
+| Noto Sans Kayah Li | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskayahli | sans |
+| Noto Sans Kharoshthi | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskharoshthi | sans |
+| Noto Sans Khmer | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskhmer | sans |
+| Noto Sans Khojki | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskhojki | sans |
+| Noto Sans Khudawadi | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanskhudawadi | sans |
+| Noto Sans Lao | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslao | sans |
+| Noto Sans Lepcha | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslepcha | sans |
+| Noto Sans Limbu | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslimbu | sans |
+| Noto Sans Linear A | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslineara | sans |
+| Noto Sans Linear B | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslinearb | sans |
+| Noto Sans Lisu | 2.102 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslisu | sans |
+| Noto Sans Lycian | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslycian | sans |
+| Noto Sans Lydian | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanslydian | sans |
+| Noto Sans Mahajani | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmahajani | sans |
+| Noto Sans Malayalam | 2.104 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmalayalam | sans |
+| Noto Sans Mandaic | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmandaic | sans |
+| Noto Sans Manichaean | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmanichaean | sans |
+| Noto Sans Marchen | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmarchen | sans |
+| Noto Sans Masaram Gondi | 1.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmasaramgondi | sans |
+| Noto Sans Mayan Numerals | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmayannumerals | sans |
+| Noto Sans Medefaidrin | 1.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmedefaidrin | sans |
+| Noto Sans Meetei Mayek | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmeeteimayek | sans |
+| Noto Sans Meroitic | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmeroitic | sans |
+| Noto Sans Miao | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmiao | sans |
+| Noto Sans Modi | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmodi | sans |
+| Noto Sans Mongolian | 3.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmongolian | sans |
+| Noto Sans Mro | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmro | sans |
+| Noto Sans Multani | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmultani | sans |
+| Noto Sans Myanmar | 2.107 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansmyanmar | sans |
+| Noto Sans Nabataean | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansnabataean | sans |
+| Noto Sans Nag Mundari | 1.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansnagmundari | sans |
+| Noto Sans Nandinagari | 1.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansnandinagari | sans |
+| Noto Sans Newa | 2.007 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansnewa | sans |
+| Noto Sans New Tai Lue | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansnewtailue | sans |
+| Noto Sans NKo | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansnko | sans |
+| Noto Sans Nushu | 1.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansnushu | sans |
+| Noto Sans Ogham | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansogham | sans |
+| Noto Sans Ol Chiki | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansolchiki | sans |
+| Noto Sans Old Hungarian | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoldhungarian | sans |
+| Noto Sans Old Italic | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansolditalic | sans |
+| Noto Sans Old North Arabian | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoldnortharabian | sans |
+| Noto Sans Old Permic | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoldpermic | sans |
+| Noto Sans Old Persian | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoldpersian | sans |
+| Noto Sans Old Sogdian | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoldsogdian | sans |
+| Noto Sans Old South Arabian | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoldsoutharabian | sans |
+| Noto Sans Old Turkic | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoldturkic | sans |
+| Noto Sans Oriya | 2.007 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansoriya | sans |
+| Noto Sans Osage | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansosage | sans |
+| Noto Sans Osmanya | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansosmanya | sans |
+| Noto Sans Pahawh Hmong | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanspahawhhmong | sans |
+| Noto Sans Palmyrene | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanspalmyrene | sans |
+| Noto Sans Pau Cin Hau | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanspaucinhau | sans |
+| Noto Sans PhagsPa | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansphagspa | sans |
+| Noto Sans Phoenician | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansphoenician | sans |
+| Noto Sans Psalter Pahlavi | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanspsalterpahlavi | sans |
+| Noto Sans Rejang | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansrejang | sans |
+| Noto Sans Runic | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansrunic | sans |
+| Noto Sans Samaritan | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssamaritan | sans |
+| Noto Sans Saurashtra | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssaurashtra | sans |
+| Noto Sans Sharada | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssharada | sans |
+| Noto Sans Shavian | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansshavian | sans |
+| Noto Sans Siddham | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssiddham | sans |
+| Noto Sans SignWriting | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssignwriting | sans |
+| Noto Sans Sinhala | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssinhala | sans |
+| Noto Sans Sogdian | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssogdian | sans |
+| Noto Sans Sora Sompeng | 2.101 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssorasompeng | sans |
+| Noto Sans Soyombo | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssoyombo | sans |
+| Noto Sans Sundanese | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssundanese | sans |
+| Noto Sans Sunuwar | 1.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssunuwar | sans |
+| Noto Sans Syloti Nagri | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssylotinagri | sans |
+| Noto Sans Syriac | 3.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssyriac | sans |
+| Noto Sans Tagalog | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstagalog | sans |
+| Noto Sans Tagbanwa | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstagbanwa | sans |
+| Noto Sans Tai Le | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstaile | sans |
+| Noto Sans Tai Tham | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstaitham | sans |
+| Noto Sans Tai Viet | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstaiviet | sans |
+| Noto Sans Takri | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstakri | sans |
+| Noto Sans Tamil | 2.004 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstamil | sans |
+| Noto Sans Tamil Supplement | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstamilsupplement | sans |
+| Noto Sans Tangsa | 1.506 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstangsa | sans |
+| Noto Sans Telugu | 2.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstelugu | sans |
+| Noto Sans Thaana | 3.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansthaana | sans |
+| Noto Sans Thai | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansthai | sans |
+| Noto Sans Tifinagh | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstifinagh | sans |
+| Noto Sans Tirhuta | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanstirhuta | sans |
+| Noto Sans Ugaritic | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansugaritic | sans |
+| Noto Sans Vai | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansvai | sans |
+| Noto Sans Vithkuqi | 1.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansvithkuqi | sans |
+| Noto Sans Wancho | 2.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanswancho | sans |
+| Noto Sans Warang Citi | 3.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanswarangciti | sans |
+| Noto Sans Zanabazar Square | 2.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanszanabazarsquare | sans |
+| Noto Serif Ahom | 2.007 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifahom | serif |
+| Noto Serif Dives Akuru | 2.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifdivesakuru | serif |
+| Noto Serif Dogra | 1.007 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifdogra | serif |
+| Noto Serif Khitan Small Script | 1.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifkhitansmallscript | serif |
+| Noto Serif Makasar | 1.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifmakasar | serif |
+| Noto Serif NP Hmong | 1.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifnphmong | serif |
+| Noto Serif Old Uyghur | 1.005 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifolduyghur | serif |
+| Noto Serif Ottoman Siyaq | 1.006 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifottomansiyaq | serif |
+| Noto Serif Tibetan | 2.103 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoseriftibetan | serif |
+| Noto Serif Todhri | 1.000 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoseriftodhri | serif |
+| Noto Serif Toto | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoseriftoto | serif |
+| Noto Serif Yezidi | 1.001 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoserifyezidi | serif |
+| Noto Znamenny Musical Notation | 1.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoznamennymusicalnotation | symbols |
 | STIX Two Text | 2.13 b171 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwotext | serif |
 | STIX Two Text Italic | 2.13 b171 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwotext | serif |
 | STIX Two Math | 2.12 b168a | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwomath | math |

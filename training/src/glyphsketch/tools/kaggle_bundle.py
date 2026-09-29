@@ -31,13 +31,12 @@ STAGE_FILES = {
     "glyphs": ("glyph_table.npz",),
     "glyphstrokes": ("glyph_strokes.npz",),
     "realdata": ("samples.npz",),
+    "indexdata": ("glyph_images.npy", "test_images.npy"),
     "encoderdata": (
         "synthetic_images.npy",
         "synthetic_code_points.npy",
-        "glyph_images.npy",
         "real_train_images.npy",
         "real_train_code_points.npy",
-        "test_images.npy",
     ),
 }
 

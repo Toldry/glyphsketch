@@ -37,6 +37,6 @@ def test_bundle_holds_code_data_and_a_manifest(tmp_path: Path) -> None:
 def test_bundle_refuses_missing_stage_files(tmp_path: Path) -> None:
     data = tmp_path / "data"
     _fake_stages(data)
-    (data / "encoderdata" / "test_images.npy").unlink()
+    (data / "indexdata" / "test_images.npy").unlink()
     with pytest.raises(FileNotFoundError, match=r"test_images\.npy"):
         write_bundle(tmp_path / "bundle.zip", data, tmp_path)

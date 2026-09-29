@@ -1,4 +1,5 @@
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -13,6 +14,7 @@ from glyphsketch.glyphs import (
     GLYPHS_FILE,
     GlyphTable,
     load_renders,
+    render_all_fonts,
     render_font,
     write_glyph_outputs,
 )
@@ -91,6 +93,18 @@ def test_outputs_merge_fonts_and_drop_uncovered_characters(tmp_path: Path) -> No
     report = (output_dir / COVERAGE_REPORT_FILE).read_text(encoding="utf-8")
     assert "Emoji-presentation characters kept (text glyph in a text font): 0 of 1" in report
     assert "U+231A" in report
+
+
+def test_a_font_with_blocks_renders_only_those_blocks(tmp_path: Path) -> None:
+    files = tmp_path / "files"
+    files.mkdir()
+    glyphs = {"A": TRIANGLE, "hyphen": WIDE_BAR}
+    build_font(files / "script.ttf", glyphs, {0x41: "A", 0x2D: "hyphen"})
+    spec = replace(_spec("script"), url="file:///script.ttf", blocks=("Basic Latin letters",))
+    characters = [_record(0x41, block="Basic Latin letters"), _record(0x2D, block="Punctuation")]
+    manifest = FontManifest("0" * 40, {}, (spec,))
+    (result,) = render_all_fonts(characters, manifest, tmp_path, workers=1)
+    assert result.code_points == [0x41]
 
 
 @pytest.mark.data

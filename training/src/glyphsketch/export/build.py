@@ -36,6 +36,7 @@ from glyphsketch.export.formats import index_bytes, model_bytes, read_index, rea
 from glyphsketch.export.ops import OperationsModule, fold_encoder, multiply_adds, run_numpy
 from glyphsketch.model.experiments import (
     IMAGE_SIZE,
+    INDEX_DATA_STAGE,
     TEST_IMAGES,
     index_options,
     synthetic_generator,
@@ -67,7 +68,7 @@ CHARSET_FILE = "glyphsketch-charset.json"
 ONNX_FILE = "glyphsketch.onnx"
 FIXTURES_FILE = "fixtures.json"
 README_FILE = "README.md"
-SIZE_BUDGET_BYTES = 10_000_000
+SIZE_BUDGET_BYTES = 15_000_000  # raised from 10 MB by the user (D40)
 SIMPLIFY_TOLERANCE = 0.25
 FIXTURE_SAMPLE = 5
 FIXTURE_TOP = 10
@@ -409,7 +410,7 @@ def evaluate_package(
     """Test-set accuracy of the files as written (int8 weights and index)."""
     operations, _ = read_model(model_data)
     module = OperationsModule(operations).eval()
-    images = np.load(stage_dir("encoderdata") / TEST_IMAGES)
+    images = np.load(stage_dir(INDEX_DATA_STAGE) / TEST_IMAGES)
     embeddings = embed_uint8_images(module, images, torch.device("cpu"))  # type: ignore[arg-type]
     scores = similarities(index, embeddings)
     ranker = ranker_from_metadata(metadata, index)

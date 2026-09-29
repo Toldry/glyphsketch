@@ -123,7 +123,7 @@ def compare(detypify_dir: Path) -> dict[str, object]:
     )
     from glyphsketch.export.formats import read_index, read_model
     from glyphsketch.export.ops import OperationsModule
-    from glyphsketch.model.experiments import TEST_IMAGES
+    from glyphsketch.model.experiments import INDEX_DATA_STAGE, TEST_IMAGES
     from glyphsketch.model.ranking_eval import similarities
     from glyphsketch.model.train import embed_uint8_images
     from glyphsketch.paths import stage_dir
@@ -148,7 +148,7 @@ def compare(detypify_dir: Path) -> dict[str, object]:
     index = read_index((export_dir / INDEX_FILE).read_bytes())
     metadata = json.loads((export_dir / CHARSET_FILE).read_text(encoding="utf-8"))
     ranker = ranker_from_metadata(metadata, index)
-    images = np.load(stage_dir("encoderdata") / TEST_IMAGES, mmap_mode="r")[rows]
+    images = np.load(stage_dir(INDEX_DATA_STAGE) / TEST_IMAGES, mmap_mode="r")[rows]
     module = OperationsModule(operations).eval()
     scores = similarities(index, embed_uint8_images(module, images, torch.device("cpu")))  # type: ignore[arg-type]
     restricted = np.where(np.isin(index.code_points, list(known))[None, :], scores, -np.inf)

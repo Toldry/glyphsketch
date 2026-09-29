@@ -24,7 +24,7 @@ from typing import Any
 import numpy as np
 
 from glyphsketch.charset import CharacterRecord, format_code_point
-from glyphsketch.fonts import FontManifest, font_file_path
+from glyphsketch.fonts import FontManifest, FontSpec, font_file_path
 from glyphsketch.parallel import default_workers, single_threaded_pool
 from glyphsketch.render import CONTENT_SIZE, IMAGE_SIZE, GlyphChecker, GlyphRenderer
 
@@ -89,7 +89,13 @@ def render_all_fonts(
     workers: int | None = None,
 ) -> list[FontRenderResult]:
     code_points = [record.code_point for record in characters]
-    tasks = [(spec.id, font_file_path(fonts_dir, spec), code_points) for spec in manifest.fonts]
+
+    def wanted(spec: FontSpec) -> list[int]:
+        if not spec.blocks:
+            return code_points
+        return [record.code_point for record in characters if record.block in spec.blocks]
+
+    tasks = [(spec.id, font_file_path(fonts_dir, spec), wanted(spec)) for spec in manifest.fonts]
     workers = workers or default_workers(len(tasks))
     if workers <= 1:
         return [_render_font_task(task) for task in tasks]

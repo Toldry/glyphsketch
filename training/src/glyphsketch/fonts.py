@@ -46,6 +46,9 @@ class FontSpec:
     archive: str = ""
     member: str = ""
     license_member: str = ""
+    # Render only characters of these blocks (empty: every character the font has). Script
+    # fonts bring their own Latin, digits and punctuation, which the text fonts cover already.
+    blocks: tuple[str, ...] = ()
 
     @property
     def extension(self) -> str:
@@ -73,7 +76,9 @@ class InvalidManifestError(ValueError):
 def load_font_manifest(path: Path = DEFAULT_MANIFEST_PATH) -> FontManifest:
     raw = tomllib.loads(path.read_text(encoding="utf-8"))
     archives = {item["id"]: ArchiveSpec(**item) for item in raw.get("archive", [])}
-    fonts = tuple(FontSpec(**item) for item in raw["font"])
+    fonts = tuple(
+        FontSpec(**{**item, "blocks": tuple(item.get("blocks", ()))}) for item in raw["font"]
+    )
     ids = [spec.id for spec in fonts]
     if len(ids) != len(set(ids)):
         raise InvalidManifestError("Duplicate font ids in the manifest")

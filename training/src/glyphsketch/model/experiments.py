@@ -67,8 +67,26 @@ def synthetic_generator(seed: int = TRAIN_SEED) -> SyntheticGenerator:
     )
 
 
+INDEX_DATA_STAGE = "indexdata"
+
+
+def prepare_index_data(output_dir: Path) -> dict[str, Any]:
+    """The images an index and its evaluation need: every glyph render at the encoder's
+    size, and the held-out real drawings. Quick; no synthetic drawings."""
+    renders = load_renders(stage_dir("glyphs"), memory_map=False)
+    glyphs = np.round(downsample_renders(renders, IMAGE_SIZE) * 255).astype(np.uint8)
+    np.save(output_dir / GLYPH_IMAGES, glyphs)
+    samples = SampleSet.load(stage_dir("realdata") / SAMPLES_FILE)
+    test_samples = samples.subset(np.flatnonzero(held_out_mask(samples)))
+    default_pen = DEFAULT_PEN_WIDTH_FRACTION * IMAGE_SIZE
+    test_pens = np.full(len(test_samples), default_pen)
+    np.save(output_dir / TEST_IMAGES, rasterize_samples(test_samples, IMAGE_SIZE, test_pens))
+    return {"glyph_images": len(glyphs), "test_images": len(test_samples)}
+
+
 def prepare_encoder_data(output_dir: Path, samples_per_character: int) -> dict[str, Any]:
-    """Build and cache every image pool the experiments need."""
+    """The training image pools: synthetic drawings of every character and the real
+    training drawings. Slow (about an hour per 10k characters); only training needs it."""
     generator = synthetic_generator()
     requests = [
         (code_point, sample)
@@ -81,10 +99,6 @@ def prepare_encoder_data(output_dir: Path, samples_per_character: int) -> dict[s
         output_dir / SYNTHETIC_CODE_POINTS,
         np.array([code_point for code_point, _ in requests], dtype=np.int32),
     )
-    renders = load_renders(stage_dir("glyphs"), memory_map=False)
-    glyphs = np.round(downsample_renders(renders, IMAGE_SIZE) * 255).astype(np.uint8)
-    np.save(output_dir / GLYPH_IMAGES, glyphs)
-
     samples = SampleSet.load(stage_dir("realdata") / SAMPLES_FILE)
     train_rows = np.flatnonzero(training_mask(samples))
     train_samples = samples.subset(train_rows)
@@ -94,17 +108,7 @@ def prepare_encoder_data(output_dir: Path, samples_per_character: int) -> dict[s
     pens = np.exp(rng.uniform(np.log(low), np.log(high), size=len(train_samples))) * IMAGE_SIZE
     np.save(output_dir / REAL_TRAIN_IMAGES, rasterize_samples(train_samples, IMAGE_SIZE, pens))
     np.save(output_dir / REAL_TRAIN_CODE_POINTS, train_samples.code_points.astype(np.int32))
-
-    test_samples = samples.subset(np.flatnonzero(held_out_mask(samples)))
-    default_pen = DEFAULT_PEN_WIDTH_FRACTION * IMAGE_SIZE
-    test_pens = np.full(len(test_samples), default_pen)
-    np.save(output_dir / TEST_IMAGES, rasterize_samples(test_samples, IMAGE_SIZE, test_pens))
-    return {
-        "synthetic_images": len(synthetic),
-        "glyph_images": len(glyphs),
-        "real_train_images": len(train_samples),
-        "test_images": len(test_samples),
-    }
+    return {"synthetic_images": len(synthetic), "real_train_images": len(train_samples)}
 
 
 def load_training_data(use_real: bool, exclude: set[int] | None = None) -> TrainingData:
@@ -117,7 +121,8 @@ def load_training_data(use_real: bool, exclude: set[int] | None = None) -> Train
         np.load(encoder_data / SYNTHETIC_CODE_POINTS),
         characters,
     )
-    glyphs = group_by_character(np.load(encoder_data / GLYPH_IMAGES), table.code_points, characters)
+    glyph_images = np.load(stage_dir(INDEX_DATA_STAGE) / GLYPH_IMAGES)
+    glyphs = group_by_character(glyph_images, table.code_points, characters)
     real: CharacterPool | None = None
     if use_real:
         real = group_by_character(
@@ -168,7 +173,7 @@ def index_options(
     options: dict[str, tuple[str, GlyphIndex]] = {}
     if only in (None, "a-per-font", "a-mean"):
         table = GlyphTable.load(stage_dir("glyphs"))
-        glyph_images = np.load(stage_dir("encoderdata") / GLYPH_IMAGES)
+        glyph_images = np.load(stage_dir(INDEX_DATA_STAGE) / GLYPH_IMAGES)
         per_font = glyph_index(model, glyph_images, table.code_points, device)
         options["a-per-font"] = ("index (a): glyph render per font, best match", per_font)
         options["a-mean"] = ("index (a): mean of the glyph renders", per_font.averaged())
@@ -188,7 +193,7 @@ def evaluate_experiment(
     experiment: Experiment, model: GlyphEncoder, device: torch.device, training: dict[str, Any]
 ) -> list[dict[str, Any]]:
     test_set = TestSet.load(stage_dir("realdata"), stage_dir("charset"), stage_dir("confusables"))
-    test_images = np.load(stage_dir("encoderdata") / TEST_IMAGES)
+    test_images = np.load(stage_dir(INDEX_DATA_STAGE) / TEST_IMAGES)
     results = []
     for option, (option_description, index) in index_options(model, device).items():
         recognizer = EmbeddingRecognizer(model, index, device)

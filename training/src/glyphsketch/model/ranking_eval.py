@@ -26,7 +26,12 @@ import torch
 from glyphsketch.charset import CHARSET_FILE_NAME, load_charset
 from glyphsketch.eval_report import TestSet, evaluations_dir
 from glyphsketch.evaluation import TOP_K, evaluate_predictions, score_predictions
-from glyphsketch.model.experiments import IMAGE_SIZE, TEST_IMAGES, index_options
+from glyphsketch.model.experiments import (
+    IMAGE_SIZE,
+    INDEX_DATA_STAGE,
+    TEST_IMAGES,
+    index_options,
+)
 from glyphsketch.model.index import GlyphIndex
 from glyphsketch.model.train import CHECKPOINT_FILE, LOG_FILE, embed_uint8_images, load_encoder
 from glyphsketch.parallel import default_workers
@@ -151,7 +156,7 @@ def run(run_name: str, option: str, weight: float | None) -> dict[str, Any]:
         )
         print(f"  chosen weight {weight}", flush=True)
 
-    test_images = np.load(stage_dir("encoderdata") / TEST_IMAGES)
+    test_images = np.load(stage_dir(INDEX_DATA_STAGE) / TEST_IMAGES)
     test_scores = similarities(index, embed_uint8_images(model, test_images, device))
     ranker = Ranker(
         index.code_points, prior.log_prior, weight, group_of, script_of, typed_everywhere

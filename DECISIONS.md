@@ -906,3 +906,29 @@ bought and kept for the purpose, which the user didn't want. It implies no GitHu
 endorsement. One artifact holds the engine and the model files; they split only if model
 updates start outpacing the engine. The POM's developer entry is "Toldry" without an
 email. The user opens the Thumb-Key PR later; no discussion beforehand.
+
+## D40. The blocks Noto covers; budget 15 MB (2026-09-29)
+
+The user asked for ꩜ (U+AA5C, CHAM PUNCTUATION SPIRAL), then for every block that a Noto
+font in the pinned Google Fonts commit covers and the charset left out, except Control
+Pictures, Yijing Hexagram Symbols, Tangut and Tangut Components (a sample page of all 195
+candidates helped choose). CJK Symbols and Punctuation, half covered, stays out with CJK
+(D35). Added: Cham and 190 blocks in four config groups (living scripts 89, historic
+scripts 72, notations and numerals 23, large historic sets 7), rendered from 152 new Noto
+fonts, each OFL-1.1 with no Reserved Font Name (every `METADATA.pb` and `OFL.txt` read).
+Candidates grow from 12,096 to 30,184.
+
+**Each new font renders only its blocks** (a `blocks` list in `fonts.toml`). Most script
+fonts also carry Latin, digits and punctuation; rendering those too would add over a hundred
+near-identical Noto renders of common characters to the index. Characters of the added
+blocks usually have one font, so the index adds about one vector per character.
+
+**Budget.** The user raised the size budget from 10 MB to 15 MB (CLAUDE.md, the export's
+check).
+
+**Exports no longer wait for training images.** The `encoderdata` stage (synthetic drawings
+of every character, about an hour per 10,000 characters) is only needed for retraining; the
+glyph and test images that the export and evaluations use moved to a quick `indexdata`
+stage. Retraining (the Kaggle bundle) still builds `encoderdata`.
+
+No retraining: the new characters are an index-only addition, as the brief intends.
