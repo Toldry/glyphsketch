@@ -889,3 +889,14 @@ the phone's fonts when they have the glyph and a bundled subset otherwise. 21 ch
 license requires renaming modified fonts and FreeFont is GPL. The library doesn't bundle
 fonts; whether a keyboard should (or should hide characters the phone can't show) is part
 of the Thumb-Key plan.
+
+## D39. Publishing: Maven Central as `io.github.toldry:glyphsketch` (2026-09-29)
+
+Thumb-Key will depend on the library as a Maven artifact. Maven Central over JitPack
+(less reliable, distrusted by F-Droid) and over copying the source into Thumb-Key (two
+copies drift, model updates become manual). The namespace is `io.github.toldry`, verified
+through the GitHub account: a domain namespace (`org.glyphsketch`) would need a domain
+bought and kept for the purpose, which the user didn't want. It implies no GitHub
+endorsement. One artifact holds the engine and the model files; they split only if model
+updates start outpacing the engine. The POM's developer entry is "Toldry" without an
+email. The user opens the Thumb-Key PR later; no discussion beforehand.
