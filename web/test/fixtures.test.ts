@@ -107,3 +107,11 @@ test("recognize runs the whole pipeline and times it", { skip: !available }, () 
   assert.deepEqual(result.tiles[0]!.members, fixture.tiles["Greek"]![0]!.members);
   assert.ok(result.timings.totalMs >= result.timings.encodeMs);
 });
+
+test("a group's members come in code point order", { skip: !available }, () => {
+  const group = recognizer.charset.characters.get(0x41)!.group;
+  const members = recognizer.ranker.members(group);
+  assert.ok(members.includes(0x41) && members.includes(0x391) && members.includes(0x410));
+  assert.deepEqual(members, [...members].sort((a, b) => a - b));
+  assert.equal(members[0], 0x41);
+});

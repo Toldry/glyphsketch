@@ -18,13 +18,10 @@
         <div class="controls">
           <button id="undo" type="button">Undo stroke</button>
           <button id="clear" type="button">Clear</button>
-          <label>Keyboard language <select id="language" aria-describedby="language-help"></select></label>
         </div>
-        <p id="language-help" class="explain">
+        <p class="explain">
           Some characters look the same when drawn, such as Latin A, Greek Α and Cyrillic А.
-          Each candidate's look-alikes are in its <em>Look-alikes</em> menu, ordered for your
-          keyboard's language: with Greek, Α comes first; with English, A. The setting doesn't
-          change what is recognized or how it ranks.
+          Each candidate's <em>Look-alikes</em> button opens the others, in code point order.
         </p>
         <label class="output">Text <input id="output" type="text" autocomplete="off" /></label>
       </section>

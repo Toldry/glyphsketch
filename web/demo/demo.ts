@@ -11,15 +11,15 @@ import {
 // Relative to the page (web/demo/), not to the compiled script in web/dist/demo/.
 const EXPORT_URL = new URL("../../export/", document.baseURI);
 const SAVED_KEY = "glyphsketch.labelledDrawings";
-const LANGUAGE_KEY = "glyphsketch.language";
 const CANDIDATE_COUNT_KEY = "glyphsketch.candidateCount";
 const DETAILS_URL = "https://unicodefyi.com/char/";
 
+/** Export format 2: the recognizer's first five characters instead of format 1's
+ * keyboard language and tiles. */
 interface LabelledDrawing {
   label: string;
   strokes: Stroke[];
-  language: string;
-  tiles: string[];
+  candidates: string[];
   savedAt: string;
 }
 
@@ -34,7 +34,6 @@ const inputCanvas = element<HTMLCanvasElement>("input");
 const candidatesBody = element<HTMLTableElement>("candidates").tBodies[0]!;
 const timings = element<HTMLParagraphElement>("timings");
 const output = element<HTMLInputElement>("output");
-const languageSelect = element<HTMLSelectElement>("language");
 const candidateCountSelect = element<HTMLSelectElement>("candidate-count");
 const chooser = element<HTMLDivElement>("chooser");
 const labelInput = element<HTMLInputElement>("label");
@@ -111,12 +110,11 @@ function describe(codePoint: number): string {
   return `${code(codePoint)} ${recognizer?.charset.characters.get(codePoint)?.name ?? ""}`;
 }
 
-/** The other members of a character's look-alike group, ordered for the keyboard. */
+/** The other members of a character's look-alike group, in code point order. */
 function lookAlikes(codePoint: number): number[] {
   const info = recognizer?.charset.characters.get(codePoint);
   if (!recognizer || !info) return [];
-  const scripts = recognizer.scriptsFor(languageSelect.value);
-  return recognizer.ranker.chooser(info.group, scripts).filter((member) => member !== codePoint);
+  return recognizer.ranker.members(info.group).filter((member) => member !== codePoint);
 }
 
 function cell(...children: (Node | string)[]): HTMLTableCellElement {
@@ -185,7 +183,7 @@ function renderResults(recognition: Recognition | null): void {
   recognition.characters.forEach((candidate, position) => {
     const { codePoint } = candidate;
     const row = document.createElement("tr");
-    const glyph = button(shown(codePoint), `Type ${describe(codePoint)}`, () => type(codePoint));
+    const glyph = button(shown(codePoint), describe(codePoint), () => type(codePoint));
     glyph.className = "char";
     const details = document.createElement("a");
     details.href = `${DETAILS_URL}${code(codePoint)}/`;
@@ -239,10 +237,7 @@ function recognize(): void {
     renderResults(null);
     return;
   }
-  lastRecognition = recognizer.recognize(strokes, {
-    language: languageSelect.value,
-    characters: Number(candidateCountSelect.value),
-  });
+  lastRecognition = recognizer.recognize(strokes, { characters: Number(candidateCountSelect.value) });
   renderResults(lastRecognition);
 }
 
@@ -281,10 +276,6 @@ element<HTMLButtonElement>("clear").addEventListener("click", () => {
   drawPad();
   recognize();
 });
-languageSelect.addEventListener("change", () => {
-  store(LANGUAGE_KEY, languageSelect.value);
-  recognize();
-});
 candidateCountSelect.addEventListener("change", () => {
   store(CANDIDATE_COUNT_KEY, candidateCountSelect.value);
   recognize();
@@ -297,7 +288,14 @@ document.addEventListener("keydown", (event) => {
 });
 
 function savedDrawings(): LabelledDrawing[] {
-  return storage<LabelledDrawing[]>(SAVED_KEY, []);
+  // Drawings saved in format 1 carry the tiles' characters, which become the candidates.
+  type Stored = LabelledDrawing & { tiles?: string[] };
+  return storage<Stored[]>(SAVED_KEY, []).map(({ label, strokes, candidates, tiles, savedAt }) => ({
+    label,
+    strokes,
+    candidates: candidates ?? tiles ?? [],
+    savedAt,
+  }));
 }
 
 function showSavedCount(): void {
@@ -315,8 +313,9 @@ element<HTMLButtonElement>("save").addEventListener("click", () => {
   drawings.push({
     label,
     strokes: strokes.map((stroke) => stroke.map(([x, y]) => [Math.round(x * 10) / 10, Math.round(y * 10) / 10])),
-    language: languageSelect.value,
-    tiles: (lastRecognition?.tiles ?? []).map((tile) => String.fromCodePoint(tile.representative)),
+    candidates: (lastRecognition?.characters ?? [])
+      .slice(0, 5)
+      .map((candidate) => String.fromCodePoint(candidate.codePoint)),
     savedAt: new Date().toISOString(),
   });
   store(SAVED_KEY, drawings);
@@ -326,7 +325,7 @@ element<HTMLButtonElement>("save").addEventListener("click", () => {
   showSavedCount();
 });
 element<HTMLButtonElement>("export").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify({ format: 1, drawings: savedDrawings() }, null, 1)], {
+  const blob = new Blob([JSON.stringify({ format: 2, drawings: savedDrawings() }, null, 1)], {
     type: "application/json",
   });
   const link = document.createElement("a");
@@ -373,12 +372,6 @@ async function start(): Promise<void> {
     timings.textContent = `Could not load the model from ${EXPORT_URL.pathname}: ${String(error)}`;
     return;
   }
-  const languages = Object.keys(recognizer.charset.keyboardScripts);
-  languageSelect.replaceChildren(
-    ...languages.map((code) => new Option(`${code} (${recognizer!.charset.keyboardScripts[code]!.join(", ")})`, code)),
-  );
-  const remembered = storage<string>(LANGUAGE_KEY, "en");
-  languageSelect.value = languages.includes(remembered) ? remembered : "en";
   element<HTMLElement>("attribution").textContent = recognizer.charset.attribution.join(" ");
   void showSourceLink();
   timings.textContent = "Draw a character.";

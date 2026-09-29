@@ -35,7 +35,7 @@ export class Ranker {
   readonly codePoints: Uint32Array;
   private readonly logPriors: Float32Array;
   private readonly groups: Int32Array;
-  private readonly members = new Map<number, number[]>(); // group → columns
+  private readonly groupColumns = new Map<number, number[]>(); // group → columns
   private readonly infos: CharacterInfo[];
   private readonly weight: number;
   private readonly chooserCache = new Map<string, number[]>();
@@ -51,9 +51,9 @@ export class Ranker {
     this.logPriors = Float32Array.from(this.infos, (info) => info.logPrior);
     this.groups = Int32Array.from(this.infos, (info) => info.group);
     this.groups.forEach((group, column) => {
-      const list = this.members.get(group);
+      const list = this.groupColumns.get(group);
       if (list) list.push(column);
-      else this.members.set(group, [column]);
+      else this.groupColumns.set(group, [column]);
     });
   }
 
@@ -87,6 +87,13 @@ export class Ranker {
     }));
   }
 
+  /** A group's members in code point order. */
+  members(group: number): number[] {
+    const columns = this.groupColumns.get(group);
+    if (!columns) throw new Error(`Unknown group ${group}`);
+    return columns.map((column) => this.codePoints[column]!).sort((a, b) => a - b);
+  }
+
   chooser(group: number, scripts: readonly string[]): number[] {
     const key = `${group}|${scripts.join(",")}`;
     const cached = this.chooserCache.get(key);
@@ -95,7 +102,7 @@ export class Ranker {
       const info = this.infos[column]!;
       return scripts.includes(info.script) || onEveryKeyboard(info);
     };
-    const columns = [...this.members.get(group)!].sort(
+    const columns = [...this.groupColumns.get(group)!].sort(
       (a, b) =>
         Number(!typed(a)) - Number(!typed(b)) ||
         this.logPriors[b]! - this.logPriors[a]! ||

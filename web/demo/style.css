@@ -20,7 +20,7 @@
 * { box-sizing: border-box; }
 body {
   margin: 0 auto;
-  max-width: 980px;
+  max-width: 1440px;
   padding: 16px;
   font: 15px/1.45 system-ui, sans-serif;
   color: var(--ink);
@@ -68,7 +68,7 @@ button:hover { border-color: var(--accent); }
 #candidates td { padding: 2px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
 #candidates .rank, #candidates .score { text-align: right; color: var(--muted); }
 #candidates .code { color: var(--muted); white-space: nowrap; }
-#candidates .name { min-width: 10rem; }
+#candidates .name { white-space: nowrap; }
 #candidates td button { padding: 2px 6px; }
 #candidates .char { font-size: 1.4rem; min-width: 2.4rem; line-height: 1.2; }
 #candidates .tile { font-size: 1.1rem; min-width: 2.6rem; position: relative; padding-right: 18px; }
