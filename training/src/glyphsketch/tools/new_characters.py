@@ -1,4 +1,5 @@
-"""How well the exported package recognizes the characters added in D34 (synthetic check).
+"""How well the exported package recognizes the characters added in D34 and D37 (synthetic
+check).
 
 No real handwriting exists for them, so this uses synthetic drawings from a generator seed
 that neither training (seed 1) nor index option (b) uses, run through the exported files
@@ -32,9 +33,10 @@ from glyphsketch.synth.generator import generate_images
 
 CHECK_SEED = 424242
 SAMPLES_PER_CHARACTER = 5
-# The groups and blocks D34 added, and combining marks from any block.
+# The groups and blocks D34 and D37 added, and combining marks from any block.
 KINDS = {
     "Emoji and pictographs": {"Emoji and pictographs"},
+    "Egyptian hieroglyphs": {"Egyptian hieroglyphs"},
     "Compatibility forms": {"Compatibility forms"},
     "Combining marks": {"Combining marks"},
 }

@@ -25,7 +25,7 @@ Source: Wikipedia pages-articles-multistream dumps of 20260901, sampled by byte 
 | ar | Arabic | 24 | 61,993 | 158,789,928 |
 | fa | Arabic | 24 | 66,994 | 131,345,982 |
 
-5,464 of 10,776 charset characters occur at least once in the sample.
+5,475 of 11,791 charset characters occur at least once in the sample.
 
 ## Most frequent characters
 

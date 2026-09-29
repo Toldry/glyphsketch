@@ -877,6 +877,12 @@ excluded like all format characters. No retraining: the index gains one vector p
 hieroglyph from the current encoder, the brief's key idea. Their prior is the floor (they
 barely occur in Wikipedia), so on equal similarity common characters rank first.
 
+**Result** (with the CJK clean-up of D35): 11,791 characters, 6.47 MB shipped. On the real
+test set nothing moves: tile top-5 (conf.) 86.4% (was 86.5%), ranked top-1 51.0%. On
+synthetic drawings (`tools.new_characters`), hieroglyphs reach 95.4% tile top-5 (conf.) and
+82.7% top-1. That is optimistic: one font covers them, so the drawings come from the same
+glyphs as the index, and nobody has drawn a real hieroglyph at it yet.
+
 ## D38. The Android demo bundles display fonts (2026-09-29)
 
 Phones have far fewer fonts than a desktop browser, so the Android demo showed many
