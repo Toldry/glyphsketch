@@ -4,7 +4,8 @@ Phones ship far fewer fonts than a desktop browser can use, so many candidates (
 computing symbols, Hebrew accents, hieroglyphs) would show no glyph. This picks, for every
 character the glyph stage covered, the first font in DISPLAY_FONTS that has it, and writes
 one subset per font with just those characters (plus the dotted circle that combining
-marks are shown on), from the Regular instance of variable fonts. The demo uses them only for characters the phone's own fonts lack.
+marks are shown on), from the Regular instance of variable fonts. The demo uses them only
+for characters the phone's own fonts lack.
 
 Only fonts whose license allows modified copies under the same name are used: the Noto
 fonts and Klee One (OFL-1.1, no Reserved Font Name; checked in each license header). A few
@@ -84,8 +85,8 @@ def main() -> None:
         font.save(path)
         license_file = stage_dir("fonts") / "licenses" / f"{font_id}.txt"
         shutil.copyfile(license_file, OUTPUT_DIR / f"{font_id}-OFL.txt")
-        total += path.stat().st_size
         size = path.stat().st_size
+        total += size
         print(f"  {font_id}: {len(assigned[font_id])} characters, {size:,} bytes")
     print(f"{total / 1e6:.2f} MB of fonts; {len(uncovered)} characters without a bundled glyph")
 
