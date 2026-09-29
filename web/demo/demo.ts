@@ -124,6 +124,13 @@ function cell(...children: (Node | string)[]): HTMLTableCellElement {
   return td;
 }
 
+/** A name cell that shows the full name on hover when the column cuts it short. */
+function nameCell(name: string): HTMLTableCellElement {
+  const td = cell(name);
+  td.title = name;
+  return td;
+}
+
 function button(label: string, title: string, onClick: (button: HTMLButtonElement) => void): HTMLButtonElement {
   const result = document.createElement("button");
   result.type = "button";
@@ -171,7 +178,8 @@ function showChooser(members: number[], anchor: HTMLElement): void {
   const box = anchor.getBoundingClientRect();
   chooser.hidden = false;
   chooser.style.left = `${Math.max(16, Math.min(box.left, innerWidth - chooser.offsetWidth - 16))}px`;
-  chooser.style.top = `${Math.min(box.bottom + 4, innerHeight - chooser.offsetHeight - 16)}px`;
+  chooser.style.top = `${Math.max(16, Math.min(box.bottom + 4, innerHeight - chooser.offsetHeight - 16))}px`;
+  chooser.scrollTop = 0;
 }
 
 function renderResults(recognition: Recognition | null): void {
@@ -213,7 +221,7 @@ function renderResults(recognition: Recognition | null): void {
       cell(glyph),
       cell(button("📋", `Copy ${code(codePoint)}`, (source) => void copy(codePoint, source))),
       cell(code(codePoint)),
-      cell(recognizer?.charset.characters.get(codePoint)?.name ?? ""),
+      nameCell(recognizer?.charset.characters.get(codePoint)?.name ?? ""),
       lookAlikeCell,
       cell(details),
     );

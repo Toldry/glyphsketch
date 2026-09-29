@@ -68,7 +68,13 @@ button:hover { border-color: var(--accent); }
 #candidates td { padding: 2px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
 #candidates .rank, #candidates .score { text-align: right; color: var(--muted); }
 #candidates .code { color: var(--muted); white-space: nowrap; }
-#candidates .name { white-space: nowrap; }
+/* Long names end in an ellipsis; the full name is the cell's tooltip. */
+#candidates .name {
+  max-width: 17rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #candidates td button { padding: 2px 6px; }
 #candidates .char { font-size: 1.4rem; min-width: 2.4rem; line-height: 1.2; }
 #candidates .tile { font-size: 1.1rem; min-width: 2.6rem; position: relative; padding-right: 18px; }
@@ -95,6 +101,10 @@ button:hover { border-color: var(--accent); }
   position: fixed;
   z-index: 10;
   max-width: min(360px, calc(100vw - 32px));
+  /* Large groups (the circles have 65 members) scroll inside the popup. */
+  max-height: min(420px, calc(100vh - 32px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -106,7 +116,7 @@ button:hover { border-color: var(--accent); }
 }
 /* The display rule above would otherwise override the hidden attribute. */
 .chooser[hidden] { display: none; }
-.chooser button { display: flex; gap: 10px; align-items: baseline; text-align: left; border: none; }
+.chooser button { flex: none; display: flex; gap: 10px; align-items: baseline; text-align: left; border: none; }
 .chooser .char { font-size: 1.5rem; width: 2rem; }
 .chooser .name { font-size: 0.8rem; color: var(--muted); }
 footer { margin-top: 32px; font-size: 0.8rem; }
