@@ -37,6 +37,7 @@ DISPLAY_FONTS = [
     "noto-emoji",
     "noto-music",
     "noto-sans-egyptian-hieroglyphs",
+    "noto-sans-cham",
     "noto-sans-mono",
     "noto-naskh-arabic",
     "klee-one",

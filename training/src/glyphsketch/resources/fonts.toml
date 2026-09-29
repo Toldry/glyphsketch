@@ -173,6 +173,16 @@ license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713
 license_sha256 = "dc8114a49f5bb53bad3d99ee52cbb245e98076438d59428a258720258494de68"
 
 [[font]]
+id = "noto-sans-cham"
+family = "Noto Sans Cham"
+style = "sans"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscham/NotoSansCham%5Bwght%5D.ttf"
+sha256 = "0b4db93cffadd22de4668cdf8238725f0eedf5c2fcbf89a36bb24ccc82a1d889"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosanscham/OFL.txt"
+license_sha256 = "dcbc971844d8db052a5fe3adfb8bce4e56788986fee96f9c7bfbf56ef519b9c9"
+
+[[font]]
 id = "stix-two-text"
 family = "STIX Two Text"
 style = "serif"
