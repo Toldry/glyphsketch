@@ -19,6 +19,7 @@ test("the site holds the demo, the engine and the shipped files only", { skip: !
       "web/demo/icons/icon-512.png", "web/demo/icons/maskable-512.png",
       "web/dist/demo/demo.js", "web/dist/src/index.js", "web/dist/src/model.js",
       "export/glyphsketch-model.bin", "export/glyphsketch-index.bin", "export/glyphsketch-charset.json",
+      "export/Unicode-3.0.txt",
     ]) {
       assert.ok(existsSync(join(output, path)), path);
     }

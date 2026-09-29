@@ -79,7 +79,11 @@ ATTRIBUTIONS = [
     "https://dumps.wikimedia.org.",
     "Contains information from the Detexify database (https://github.com/kirel/detexify-data), "
     "which is made available under the Open Database License (ODbL) v1.0.",
-    "Character data from the Unicode Character Database (Unicode License V3).",
+    "Trained in part on UJI Pen Characters v2 by F. Prat, M. J. Castro, D. Llorens, A. Marzal "
+    "and J. M. Vilar (CC BY 4.0, https://archive.ics.uci.edu/dataset/177), and on Omniglot by "
+    "Brenden Lake (MIT License, https://github.com/brendenlake/omniglot).",
+    "Character data from the Unicode Character Database, Copyright © 1991-2026 Unicode, Inc. "
+    "(Unicode License V3, https://www.unicode.org/license.txt).",
 ]
 
 

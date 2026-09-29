@@ -75,7 +75,11 @@ val copyExportAssets =
 val copyNotices =
     tasks.register<CopyIntoSources>("copyNotices") {
         into.set("META-INF/glyphsketch")
-        sources.from(rootProject.file("../LICENSE"), file("NOTICE.md"))
+        sources.from(
+            rootProject.file("../LICENSE"),
+            rootProject.file("../LICENSES/Unicode-3.0.txt"),
+            file("NOTICE.md"),
+        )
         outputDir.set(layout.buildDirectory.dir("generated/notices"))
     }
 

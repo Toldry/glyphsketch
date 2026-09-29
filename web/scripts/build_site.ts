@@ -67,6 +67,8 @@ export function buildSite(output: string): void {
     }
   }
   for (const name of EXPORT_FILES) copy(join(REPO_DIR, "export", name), join(output, "export", name));
+  // The charset metadata carries Unicode Character Database data; its license goes with it.
+  copy(join(REPO_DIR, "LICENSES", "Unicode-3.0.txt"), join(output, "export", "Unicode-3.0.txt"));
   writeFileSync(
     join(output, "index.html"),
     '<!doctype html>\n<meta charset="utf-8">\n<title>glyphsketch</title>\n' +
