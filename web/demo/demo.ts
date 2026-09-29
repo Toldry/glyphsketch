@@ -1,4 +1,4 @@
-/** The demo page: draw, see tiles and candidates, save labelled drawings locally. */
+/** The demo page: draw, see the ranked candidates, save labelled drawings locally. */
 
 import {
   displayText,
@@ -6,7 +6,6 @@ import {
   type Recognition,
   Recognizer,
   type Stroke,
-  type Tile,
 } from "../src/index.ts";
 
 // Relative to the page (web/demo/), not to the compiled script in web/dist/demo/.
@@ -14,7 +13,7 @@ const EXPORT_URL = new URL("../../export/", document.baseURI);
 const SAVED_KEY = "glyphsketch.labelledDrawings";
 const LANGUAGE_KEY = "glyphsketch.language";
 const CANDIDATE_COUNT_KEY = "glyphsketch.candidateCount";
-const LONG_PRESS_MS = 450;
+const DETAILS_URL = "https://unicodefyi.com/char/";
 
 interface LabelledDrawing {
   label: string;
@@ -32,8 +31,7 @@ const element = <T extends HTMLElement>(id: string): T => {
 
 const pad = element<HTMLCanvasElement>("pad");
 const inputCanvas = element<HTMLCanvasElement>("input");
-const tilesBox = element<HTMLDivElement>("tiles");
-const candidatesList = element<HTMLOListElement>("candidates");
+const candidatesBody = element<HTMLTableElement>("candidates").tBodies[0]!;
 const timings = element<HTMLParagraphElement>("timings");
 const output = element<HTMLInputElement>("output");
 const languageSelect = element<HTMLSelectElement>("language");
@@ -104,9 +102,47 @@ function shown(codePoint: number): string {
   return info ? displayText(info) : String.fromCodePoint(codePoint);
 }
 
+/** U+XXXX notation. */
+function code(codePoint: number): string {
+  return `U+${codePoint.toString(16).toUpperCase().padStart(4, "0")}`;
+}
+
 function describe(codePoint: number): string {
+  return `${code(codePoint)} ${recognizer?.charset.characters.get(codePoint)?.name ?? ""}`;
+}
+
+/** The other members of a character's look-alike group, ordered for the keyboard. */
+function lookAlikes(codePoint: number): number[] {
   const info = recognizer?.charset.characters.get(codePoint);
-  return `U+${codePoint.toString(16).toUpperCase().padStart(4, "0")} ${info?.name ?? ""}`;
+  if (!recognizer || !info) return [];
+  const scripts = recognizer.scriptsFor(languageSelect.value);
+  return recognizer.ranker.chooser(info.group, scripts).filter((member) => member !== codePoint);
+}
+
+function cell(...children: (Node | string)[]): HTMLTableCellElement {
+  const td = document.createElement("td");
+  td.append(...children);
+  return td;
+}
+
+function button(label: string, title: string, onClick: (button: HTMLButtonElement) => void): HTMLButtonElement {
+  const result = document.createElement("button");
+  result.type = "button";
+  result.textContent = label;
+  result.title = title;
+  result.setAttribute("aria-label", title);
+  result.addEventListener("click", () => onClick(result));
+  return result;
+}
+
+async function copy(codePoint: number, source: HTMLButtonElement): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(String.fromCodePoint(codePoint));
+    source.textContent = "✓";
+  } catch {
+    source.textContent = "✗"; // no clipboard access (e.g. not served over HTTPS)
+  }
+  setTimeout(() => (source.textContent = "📋"), 1200);
 }
 
 function type(codePoint: number): void {
@@ -114,9 +150,9 @@ function type(codePoint: number): void {
   labelInput.value = String.fromCodePoint(codePoint);
 }
 
-function showChooser(tile: Tile, anchor: HTMLElement): void {
+function showChooser(members: number[], anchor: HTMLElement): void {
   chooser.replaceChildren(
-    ...tile.members.map((codePoint) => {
+    ...members.map((codePoint) => {
       const button = document.createElement("button");
       button.type = "button";
       const glyph = document.createElement("span");
@@ -140,66 +176,60 @@ function showChooser(tile: Tile, anchor: HTMLElement): void {
 }
 
 function renderResults(recognition: Recognition | null): void {
-  tilesBox.replaceChildren();
-  candidatesList.replaceChildren();
+  candidatesBody.replaceChildren();
   drawInputImage(recognition?.image ?? null);
   if (!recognition) {
     timings.textContent = recognizer ? "Draw a character." : timings.textContent;
     return;
   }
-  for (const tile of recognition.tiles) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "tile";
-    button.textContent = shown(tile.representative);
-    button.title = describe(tile.representative);
-    if (tile.members.length > 1) {
-      const more = document.createElement("span");
-      more.className = "more";
-      more.textContent = `+${tile.members.length - 1}`;
-      button.append(more);
-    }
-    let pressTimer = 0;
-    let longPressed = false;
-    button.addEventListener("pointerdown", (event) => {
-      longPressed = false;
-      if (event.button !== 0) return; // right-click opens the menu through contextmenu
-      pressTimer = window.setTimeout(() => {
-        longPressed = true;
-        showChooser(tile, button);
-      }, LONG_PRESS_MS);
-    });
-    button.addEventListener("pointerup", () => clearTimeout(pressTimer));
-    button.addEventListener("pointerleave", () => clearTimeout(pressTimer));
-    button.addEventListener("contextmenu", (event) => {
-      event.preventDefault();
-      showChooser(tile, button);
-    });
-    button.addEventListener("click", () => {
-      if (!longPressed) type(tile.representative);
-    });
-    tilesBox.append(button);
-  }
-  for (const candidate of recognition.characters) {
-    const item = document.createElement("li");
-    const glyph = document.createElement("span");
+  recognition.characters.forEach((candidate, position) => {
+    const { codePoint } = candidate;
+    const row = document.createElement("tr");
+    const glyph = button(shown(codePoint), `Type ${describe(codePoint)}`, () => type(codePoint));
     glyph.className = "char";
-    glyph.textContent = shown(candidate.codePoint);
-    const code = document.createElement("span");
-    code.className = "code";
-    code.textContent = describe(candidate.codePoint);
-    const score = document.createElement("span");
-    score.className = "score";
-    score.textContent = `  ${candidate.score.toFixed(3)}`;
-    item.append(glyph, code, score);
-    candidatesList.append(item);
-  }
+    const details = document.createElement("a");
+    details.href = `${DETAILS_URL}${code(codePoint)}/`;
+    details.target = "_blank";
+    details.rel = "noopener noreferrer";
+    details.textContent = "unicodefyi ↗";
+    const others = lookAlikes(codePoint);
+    let lookAlikeCell: HTMLTableCellElement;
+    if (others.length === 0) {
+      lookAlikeCell = cell();
+    } else {
+      const tile = button(shown(others[0]!), `${others.length} look-alike${others.length === 1 ? "" : "s"}`,
+        (source) => showChooser(others, source));
+      tile.className = "tile";
+      if (others.length > 1) {
+        const more = document.createElement("span");
+        more.className = "more";
+        more.textContent = `+${others.length - 1}`;
+        tile.append(more);
+      }
+      lookAlikeCell = cell(tile);
+    }
+    row.append(
+      cell(String(position + 1)),
+      cell(candidate.score.toFixed(3)),
+      cell(glyph),
+      cell(button("📋", `Copy ${code(codePoint)}`, (source) => void copy(codePoint, source))),
+      cell(code(codePoint)),
+      cell(recognizer?.charset.characters.get(codePoint)?.name ?? ""),
+      lookAlikeCell,
+      cell(details),
+    );
+    row.cells[0]!.className = "rank";
+    row.cells[1]!.className = "score";
+    row.cells[4]!.className = "code";
+    row.cells[5]!.className = "name";
+    candidatesBody.append(row);
+  });
   const { rasterizeMs, encodeMs, rankMs, totalMs } = recognition.timings;
   timings.textContent =
     `${totalMs.toFixed(1)} ms per query: rasterize ${rasterizeMs.toFixed(1)}, ` +
     `encode ${encodeMs.toFixed(1)}, rank ${rankMs.toFixed(1)}.`;
   if (!labelInput.matches(":focus")) {
-    labelInput.value = String.fromCodePoint(recognition.tiles[0]?.representative ?? 32).trim();
+    labelInput.value = String.fromCodePoint(recognition.characters[0]?.codePoint ?? 32).trim();
   }
 }
 

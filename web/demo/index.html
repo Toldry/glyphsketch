@@ -22,12 +22,10 @@
         </div>
         <p id="language-help" class="explain">
           Some characters look the same when drawn, such as Latin A, Greek Α and Cyrillic А.
-          Each tile stands for one such group and shows the member your keyboard's language
-          uses: A with English, Α with Greek. The others are in the tile's menu. The setting
-          doesn't change what is recognized, only which look-alike a tile shows.
+          Each candidate's look-alikes are in its <em>Look-alikes</em> menu, ordered for your
+          keyboard's language: with Greek, Α comes first; with English, A. The setting doesn't
+          change what is recognized or how it ranks.
         </p>
-        <div class="tiles" id="tiles" aria-live="polite"></div>
-        <p class="hint">Tap a tile to type it; long-press or right-click for its look-alikes.</p>
         <label class="output">Text <input id="output" type="text" autocomplete="off" /></label>
       </section>
       <section class="details">
@@ -42,8 +40,24 @@
             </select>
           </label>
         </div>
-        <p class="explain">Every character ranked by score, look-alikes listed separately.</p>
-        <ol id="candidates"></ol>
+        <p class="explain">Every character ranked by score. Click a character to type it.</p>
+        <div class="table-wrap">
+          <table id="candidates">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Score</th>
+                <th scope="col">Char</th>
+                <th scope="col"><span class="visually-hidden">Copy</span></th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Look-alikes</th>
+                <th scope="col"><span class="visually-hidden">Details</span></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
         <p id="timings" class="timings">Loading the model…</p>
         <div class="input-image">
           <canvas id="input" width="64" height="64" aria-label="Encoder input"></canvas>

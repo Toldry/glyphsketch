@@ -28,10 +28,10 @@ body {
 }
 h1 { margin: 0; font-size: 1.5rem; }
 h2 { font-size: 1.05rem; margin: 1.2rem 0 0.4rem; }
-header p, .hint, .timings, footer, #saved { color: var(--muted); }
+header p, .timings, footer, #saved { color: var(--muted); }
 main { display: flex; flex-wrap: wrap; gap: 24px; }
 .drawing { flex: 0 1 340px; }
-.details { flex: 1 1 320px; min-width: 0; }
+.details { flex: 1 1 520px; min-width: 0; }
 #pad {
   width: 100%;
   max-width: 340px;
@@ -52,30 +52,42 @@ button, select, input {
   padding: 4px 10px;
 }
 button:hover { border-color: var(--accent); }
-.tiles { display: flex; gap: 6px; min-height: 64px; }
-.tile {
-  flex: 1;
-  min-width: 0;
-  font-size: 2rem;
-  line-height: 1;
-  padding: 10px 0;
-  position: relative;
-}
-.tile .more {
-  position: absolute;
-  right: 4px;
-  bottom: 2px;
-  font-size: 0.7rem;
-  color: var(--muted);
-}
 .explain { font-size: 0.85rem; color: var(--muted); margin: 0 0 8px; }
 .candidates-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .candidates-heading label { font-size: 0.9rem; color: var(--muted); }
 .output input { width: 100%; font-size: 1.3rem; margin-top: 4px; }
-#candidates { padding-left: 1.6rem; margin: 0; }
-#candidates li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-#candidates .char { display: inline-block; width: 1.8rem; font-size: 1.2rem; }
-#candidates .code, #candidates .score { color: var(--muted); font-size: 0.85rem; }
+.table-wrap { overflow-x: auto; }
+#candidates { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+#candidates th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding: 2px 6px;
+}
+#candidates td { padding: 2px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+#candidates .rank, #candidates .score { text-align: right; color: var(--muted); }
+#candidates .code { color: var(--muted); white-space: nowrap; }
+#candidates .name { min-width: 10rem; }
+#candidates td button { padding: 2px 6px; }
+#candidates .char { font-size: 1.4rem; min-width: 2.4rem; line-height: 1.2; }
+#candidates .tile { font-size: 1.1rem; min-width: 2.6rem; position: relative; padding-right: 18px; }
+#candidates .tile .more {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+#candidates a { color: var(--accent); white-space: nowrap; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .input-image { display: flex; align-items: center; gap: 10px; color: var(--muted); }
 #input { width: 96px; height: 96px; image-rendering: pixelated; border: 1px solid var(--line); }
 #label { width: 5rem; }
