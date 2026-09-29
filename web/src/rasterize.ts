@@ -117,32 +117,48 @@ function roundHalfEven(value: number): number {
   return floor % 2 === 0 ? floor : floor + 1;
 }
 
-/** Anti-aliased, round-capped segments (pixel coordinates) → bytes, 0 paper to 255 ink. */
+/**
+ * Anti-aliased, round-capped segments (pixel coordinates) → bytes, 0 paper to 255 ink.
+ *
+ * A pixel gets ink only within radius + 0.5 of a segment, so each segment visits just the
+ * pixels of its bounding box grown by that much. The image is the same as comparing every
+ * pixel with every segment: a segment outside the box is too far to change a pixel's ink.
+ */
 export function rasterizeSegments(segments: Float64Array, imageSize: number, penWidth: number): Uint8Array {
   const radius = penWidth / 2;
-  const image = new Uint8Array(imageSize * imageSize);
-  const count = segments.length / 4;
-  for (let row = 0; row < imageSize; row++) {
-    const py = row + 0.5;
-    for (let column = 0; column < imageSize; column++) {
-      const px = column + 0.5;
-      let nearest = Infinity;
-      for (let segment = 0; segment < count; segment++) {
-        const ax = segments[4 * segment]!;
-        const ay = segments[4 * segment + 1]!;
-        const dx = segments[4 * segment + 2]! - ax;
-        const dy = segments[4 * segment + 3]! - ay;
-        const lengthSquared = dx * dx + dy * dy;
+  const reach = radius + 0.5;
+  const nearest = new Float64Array(imageSize * imageSize).fill(Infinity);
+  for (let segment = 0; segment < segments.length / 4; segment++) {
+    const ax = segments[4 * segment]!;
+    const ay = segments[4 * segment + 1]!;
+    const bx = segments[4 * segment + 2]!;
+    const by = segments[4 * segment + 3]!;
+    const dx = bx - ax;
+    const dy = by - ay;
+    const lengthSquared = dx * dx + dy * dy;
+    // Pixel centres are at index + 0.5.
+    const firstColumn = Math.max(0, Math.floor(Math.min(ax, bx) - reach - 0.5));
+    const lastColumn = Math.min(imageSize - 1, Math.ceil(Math.max(ax, bx) + reach - 0.5));
+    const firstRow = Math.max(0, Math.floor(Math.min(ay, by) - reach - 0.5));
+    const lastRow = Math.min(imageSize - 1, Math.ceil(Math.max(ay, by) + reach - 0.5));
+    for (let row = firstRow; row <= lastRow; row++) {
+      const py = row + 0.5;
+      for (let column = firstColumn; column <= lastColumn; column++) {
+        const px = column + 0.5;
         let t = lengthSquared > 0 ? ((px - ax) * dx + (py - ay) * dy) / lengthSquared : 0;
         t = Math.min(Math.max(t, 0), 1);
         const ex = px - (ax + t * dx);
         const ey = py - (ay + t * dy);
         const distance = Math.sqrt(ex * ex + ey * ey);
-        if (distance < nearest) nearest = distance;
+        const pixel = row * imageSize + column;
+        if (distance < nearest[pixel]!) nearest[pixel] = distance;
       }
-      const ink = Math.min(Math.max(radius + 0.5 - nearest, 0), 1);
-      image[row * imageSize + column] = roundHalfEven(Math.fround(Math.fround(ink) * 255));
     }
+  }
+  const image = new Uint8Array(imageSize * imageSize);
+  for (let pixel = 0; pixel < nearest.length; pixel++) {
+    const ink = Math.min(Math.max(radius + 0.5 - nearest[pixel]!, 0), 1);
+    image[pixel] = roundHalfEven(Math.fround(Math.fround(ink) * 255));
   }
   return image;
 }

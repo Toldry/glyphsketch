@@ -1,6 +1,7 @@
 package io.github.toldry.glyphsketch
 
 import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.hypot
 import kotlin.math.max
@@ -144,26 +145,38 @@ object Rasterizer {
         return values
     }
 
-    /** Anti-aliased, round-capped segments (pixel coordinates) → bytes, 0 paper to 255 ink. */
+    /**
+     * Anti-aliased, round-capped segments (pixel coordinates) → bytes, 0 paper to 255 ink.
+     *
+     * A pixel gets ink only within radius + 0.5 of a segment, so each segment visits just the
+     * pixels of its bounding box grown by that much. The image is the same as comparing every
+     * pixel with every segment: a segment outside the box is too far to change a pixel's ink.
+     */
     fun rasterizeSegments(
         segments: DoubleArray,
         imageSize: Int,
         penWidth: Double,
     ): ByteArray {
         val radius = penWidth / 2
-        val image = ByteArray(imageSize * imageSize)
-        val count = segments.size / 4
-        for (row in 0 until imageSize) {
-            val py = row + 0.5
-            for (column in 0 until imageSize) {
-                val px = column + 0.5
-                var nearest = Double.POSITIVE_INFINITY
-                for (segment in 0 until count) {
-                    val ax = segments[4 * segment]
-                    val ay = segments[4 * segment + 1]
-                    val dx = segments[4 * segment + 2] - ax
-                    val dy = segments[4 * segment + 3] - ay
-                    val lengthSquared = dx * dx + dy * dy
+        val reach = radius + 0.5
+        val nearest = DoubleArray(imageSize * imageSize) { Double.POSITIVE_INFINITY }
+        for (segment in 0 until segments.size / 4) {
+            val ax = segments[4 * segment]
+            val ay = segments[4 * segment + 1]
+            val bx = segments[4 * segment + 2]
+            val by = segments[4 * segment + 3]
+            val dx = bx - ax
+            val dy = by - ay
+            val lengthSquared = dx * dx + dy * dy
+            // Pixel centres are at index + 0.5.
+            val firstColumn = max(0, floor(min(ax, bx) - reach - 0.5).toInt())
+            val lastColumn = min(imageSize - 1, ceil(max(ax, bx) + reach - 0.5).toInt())
+            val firstRow = max(0, floor(min(ay, by) - reach - 0.5).toInt())
+            val lastRow = min(imageSize - 1, ceil(max(ay, by) + reach - 0.5).toInt())
+            for (row in firstRow..lastRow) {
+                val py = row + 0.5
+                for (column in firstColumn..lastColumn) {
+                    val px = column + 0.5
                     var t =
                         if (lengthSquared >
                             0
@@ -176,12 +189,15 @@ object Rasterizer {
                     val ex = px - (ax + t * dx)
                     val ey = py - (ay + t * dy)
                     val distance = sqrt(ex * ex + ey * ey)
-                    if (distance < nearest) nearest = distance
+                    val pixel = row * imageSize + column
+                    if (distance < nearest[pixel]) nearest[pixel] = distance
                 }
-                val ink = min(max(radius + 0.5 - nearest, 0.0), 1.0)
-                image[row * imageSize + column] =
-                    roundHalfEven((ink.toFloat() * 255f).toDouble()).toByte()
             }
+        }
+        val image = ByteArray(imageSize * imageSize)
+        for (pixel in nearest.indices) {
+            val ink = min(max(radius + 0.5 - nearest[pixel], 0.0), 1.0)
+            image[pixel] = roundHalfEven((ink.toFloat() * 255f).toDouble()).toByte()
         }
         return image
     }

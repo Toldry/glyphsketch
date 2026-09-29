@@ -33,3 +33,35 @@ test("combining marks are shown on a dotted circle", async () => {
   assert.equal(displayText({ char: "́", generalCategory: "Mn" }), "◌́");
   assert.equal(displayText({ char: "A", generalCategory: "Lu" }), "A");
 });
+
+test("the bounding-box rasterizer draws exactly what comparing every pixel draws", async () => {
+  const { rasterizeSegments } = await import("../src/rasterize.ts");
+  // The straightforward version: every pixel against every segment.
+  const reference = (segments: Float64Array, size: number, penWidth: number): Uint8Array => {
+    const image = new Uint8Array(size * size);
+    for (let pixel = 0; pixel < size * size; pixel++) {
+      const px = (pixel % size) + 0.5;
+      const py = Math.floor(pixel / size) + 0.5;
+      let nearest = Infinity;
+      for (let index = 0; index < segments.length; index += 4) {
+        const [ax, ay, bx, by] = [segments[index]!, segments[index + 1]!, segments[index + 2]!, segments[index + 3]!];
+        const dx = bx - ax;
+        const dy = by - ay;
+        const lengthSquared = dx * dx + dy * dy;
+        const t = Math.min(Math.max(lengthSquared > 0 ? ((px - ax) * dx + (py - ay) * dy) / lengthSquared : 0, 0), 1);
+        nearest = Math.min(nearest, Math.hypot(px - (ax + t * dx), py - (ay + t * dy)));
+      }
+      const ink = Math.min(Math.max(penWidth / 2 + 0.5 - nearest, 0), 1);
+      image[pixel] = Math.round(Math.fround(Math.fround(ink) * 255)); // halves don't occur here
+    }
+    return image;
+  };
+  let seed = 7;
+  const random = (): number => ((seed = (seed * 16807) % 2147483647) / 2147483647) * 70 - 3;
+  for (let drawing = 0; drawing < 20; drawing++) {
+    const segments = Float64Array.from({ length: 4 * (1 + drawing * 3) }, random);
+    // Some zero-length segments (taps).
+    if (drawing % 4 === 0) segments.set([segments[0]!, segments[1]!], 2);
+    assert.deepEqual(rasterizeSegments(segments, 64, 2.5), reference(segments, 64, 2.5), `drawing ${drawing}`);
+  }
+});
