@@ -413,4 +413,14 @@ async function start(): Promise<void> {
   recognize();
 }
 
+/** Installable and offline (manifest.webmanifest, sw.js). Browsers allow service workers on
+ * HTTPS and localhost only; elsewhere the demo simply runs without one. */
+function registerServiceWorker(): void {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.register("sw.js").catch((error: unknown) => {
+    console.warn("No offline support:", error);
+  });
+}
+
+registerServiceWorker();
 void start();

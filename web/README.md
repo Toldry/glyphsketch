@@ -39,14 +39,24 @@ Source files: `src/rasterize.ts` (strokes → 64×64 image), `src/model.ts` (the
 
 ## Demo
 
-`demo/` holds the page. Draw with a mouse, pen or finger. Tap a tile to type it, and
-long-press or right-click it for its look-alikes. The keyboard selector changes which member
-a tile shows (Latin A or Greek Α); it doesn't change recognition. The page also shows the
-ranked candidates (10 to 100 of them), the time per query and the encoder's input image.
+`demo/` holds the page. Draw with a mouse, pen or finger. The candidates table (10 to 100
+rows) ranks every character by score; click a character to type it, 📋 to copy it, the
+look-alikes button for the others in its group (code point order), and the link for its
+unicodefyi page. **Link** puts the drawing in the page address (parameter `d`, see
+`demo/drawingLink.ts`) and copies the link. The page also shows the time per query and the
+encoder's input image.
 
-To build a personal test set, label a drawing (the top tile fills the label in), press
-**Save drawing**, and later **Export JSON**. Drawings stay in the browser's local storage
-until you export or delete them.
+To build a personal test set, label a drawing (the top candidate fills the label in), press
+**Save drawing**, and later **Export JSON** (format 2: label, strokes, the top five
+candidates, time). Drawings stay in the browser's local storage until you export or delete
+them.
+
+**Installing it as an app.** The page is a progressive web app: `manifest.webmanifest`
+names it and points to the icons in `icons/` (made by `glyphsketch.tools.logo`), and
+`sw.js` caches the page, the engine and the model so it works offline. On Android, open the
+published demo in Chrome and choose *Add to Home screen* or *Install app*; on iOS, Safari's
+Share → *Add to Home Screen*. Service workers need HTTPS or localhost. The site build
+stamps the commit into `sw.js`, so each deploy replaces the installed files.
 
 ## Publishing
 

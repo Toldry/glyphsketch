@@ -7,7 +7,7 @@
  */
 
 import { execFileSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -18,6 +18,17 @@ const EXPORT_FILES = [
   "glyphsketch-index.bin",
   "glyphsketch-charset.json",
   "README.md",
+];
+
+const DEMO_FILES = [
+  "index.html",
+  "style.css",
+  "favicon.svg",
+  "manifest.webmanifest",
+  "icons/icon-192.png",
+  "icons/icon-512.png",
+  "icons/maskable-512.png",
+  "icons/apple-touch-icon.png",
 ];
 
 function git(...args: string[]): string | null {
@@ -48,9 +59,7 @@ function copy(from: string, to: string): void {
 export function buildSite(output: string): void {
   rmSync(output, { recursive: true, force: true });
   mkdirSync(output, { recursive: true });
-  for (const name of ["index.html", "style.css", "favicon.svg"]) {
-    copy(join(WEB_DIR, "demo", name), join(output, "web", "demo", name));
-  }
+  for (const name of DEMO_FILES) copy(join(WEB_DIR, "demo", name), join(output, "web", "demo", name));
   for (const part of ["demo", "src"]) {
     const from = join(WEB_DIR, "dist", part);
     for (const name of readdirSync(from).filter((file) => file.endsWith(".js") || file.endsWith(".js.map"))) {
@@ -68,6 +77,11 @@ export function buildSite(output: string): void {
   writeFileSync(join(output, ".nojekyll"), "");
   const repository = repositoryUrl(git("remote", "get-url", "origin"), process.env["GITHUB_REPOSITORY"]);
   const commit = process.env["GITHUB_SHA"] ?? git("rev-parse", "HEAD");
+  // A new service worker per deploy, so installed apps pick up the new files.
+  const worker = readFileSync(join(WEB_DIR, "demo", "sw.js"), "utf-8");
+  const versioned = worker.replace('const VERSION = "dev";', `const VERSION = "${(commit ?? "unknown").slice(0, 12)}";`);
+  if (versioned === worker) throw new Error("sw.js has no VERSION line to replace");
+  writeFileSync(join(output, "web", "demo", "sw.js"), versioned);
   writeFileSync(join(output, "source.json"), JSON.stringify({ repository, commit }, null, 1) + "\n");
 }
 

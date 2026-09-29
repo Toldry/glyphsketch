@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -15,6 +15,8 @@ test("the site holds the demo, the engine and the shipped files only", { skip: !
     buildSite(output);
     for (const path of [
       "index.html", ".nojekyll", "source.json", "web/demo/index.html", "web/demo/style.css", "web/demo/favicon.svg",
+      "web/demo/manifest.webmanifest", "web/demo/sw.js", "web/demo/icons/icon-192.png",
+      "web/demo/icons/icon-512.png", "web/demo/icons/maskable-512.png",
       "web/dist/demo/demo.js", "web/dist/src/index.js", "web/dist/src/model.js",
       "export/glyphsketch-model.bin", "export/glyphsketch-index.bin", "export/glyphsketch-charset.json",
     ]) {
@@ -24,6 +26,7 @@ test("the site holds the demo, the engine and the shipped files only", { skip: !
       assert.ok(!existsSync(join(output, path)), `${path} should not be published`);
     }
     assert.match(readFileSync(join(output, "index.html"), "utf-8"), /url=web\/demo\//);
+    assert.doesNotMatch(readFileSync(join(output, "web/demo/sw.js"), "utf-8"), /VERSION = "dev"/);
   } finally {
     rmSync(output, { recursive: true, force: true });
   }
@@ -35,4 +38,14 @@ test("repository URLs come from GitHub Actions or the origin remote", () => {
   assert.equal(repositoryUrl("https://github.com/someone/glyphsketch.git"), "https://github.com/someone/glyphsketch");
   assert.equal(repositoryUrl("https://example.org/x.git"), null);
   assert.equal(repositoryUrl(null), null);
+});
+
+test("the service worker caches every compiled module of the engine and the demo", { skip: !built && "needs npm run build" }, () => {
+  const worker = readFileSync(new URL("../demo/sw.js", import.meta.url), "utf-8");
+  for (const part of ["demo", "src"]) {
+    const directory = new URL(`../dist/${part}/`, import.meta.url);
+    for (const name of readdirSync(directory).filter((file) => file.endsWith(".js"))) {
+      assert.ok(worker.includes(`"../dist/${part}/${name}"`), `sw.js should cache ${part}/${name}`);
+    }
+  }
 });

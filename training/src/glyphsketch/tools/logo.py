@@ -5,20 +5,27 @@ round-capped strokes on the grey pad, with rounded corners. ``logo.svg`` uses th
 pen width; ``favicon.svg`` uses a thicker line, because at 16–32 px the pad's width would
 be under a pixel. The Android demo's launcher icons are vector drawables made the same way:
 an adaptive icon (the drawing inside the 66 dp safe zone of its 108 dp canvas) and a plain
-one for Android 7 (API 24–25).
+one for Android 7 (API 24–25). The web demo's app icons (PWA manifest and iOS home screen)
+are PNGs: rounded like the favicon, plus a full-bleed "maskable" one whose drawing stays
+inside the central 80 % circle that Android may crop to.
 
 Usage: ``uv run python -m glyphsketch.tools.logo``
 """
 
+import io
 import json
 
 import numpy as np
+from PIL import Image, ImageDraw
 
 from glyphsketch.paths import REPO_ROOT
 from glyphsketch.strokes import simplify_stroke
 
 LOGO_DIR = REPO_ROOT / "docs" / "logo"
 ANDROID_RES_DIR = REPO_ROOT / "android" / "demo" / "src" / "main" / "res"
+WEB_ICON_DIR = REPO_ROOT / "web" / "demo" / "icons"
+SUPERSAMPLING = 4  # PNGs are drawn this much larger, then downsampled for smooth edges
+MASKABLE_MARGIN = 0.25  # of the side: keeps the drawing inside the 80 % safe circle
 DRAWING_FILE = LOGO_DIR / "gs-drawing.json"
 INK = "#ececf0"  # --ink, dark theme
 PAD = "#222228"  # --panel, dark theme
@@ -114,6 +121,30 @@ ICON_COLORS = f"""<?xml version="1.0" encoding="utf-8"?>
 """
 
 
+def _hex_color(color: str) -> tuple[int, int, int]:
+    return int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)
+
+
+def png(strokes: list[np.ndarray], size: int, margin: float, rounded: bool) -> bytes:
+    """An RGBA PNG icon: the drawing on the pad, rounded corners or full bleed."""
+    large = size * SUPERSAMPLING
+    fitted, scale = _fitted(strokes, large, margin)
+    image = Image.new("RGBA", (large, large), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    corner = round(PAD_CORNER * large * 2) if rounded else 0
+    draw.rounded_rectangle((0, 0, large - 1, large - 1), radius=corner, fill=_hex_color(PAD))
+    width = ICON_PEN_WIDTH * scale
+    ink = _hex_color(INK)
+    for stroke in fitted:
+        points = [(float(x), float(y)) for x, y in stroke]
+        draw.line(points, fill=ink, width=round(width), joint="curve")
+        for x, y in points[:: max(1, len(points) - 1)]:  # round caps at both ends
+            draw.ellipse((x - width / 2, y - width / 2, x + width / 2, y + width / 2), fill=ink)
+    output = io.BytesIO()
+    image.resize((size, size), Image.Resampling.LANCZOS).save(output, "PNG", optimize=True)
+    return output.getvalue()
+
+
 def main() -> None:
     raw = json.loads(DRAWING_FILE.read_text(encoding="utf-8"))
     strokes = [np.array(stroke, dtype=np.float64) for stroke in raw["strokes"]]
@@ -133,6 +164,17 @@ def main() -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
         print(f"{path.relative_to(REPO_ROOT)}: {len(content)} bytes")
+    images = {
+        WEB_ICON_DIR / "icon-192.png": png(strokes, 192, MARGIN, rounded=True),
+        WEB_ICON_DIR / "icon-512.png": png(strokes, 512, MARGIN, rounded=True),
+        WEB_ICON_DIR / "maskable-512.png": png(strokes, 512, MASKABLE_MARGIN, rounded=False),
+        # iOS rounds home screen icons itself and shows transparency as black.
+        WEB_ICON_DIR / "apple-touch-icon.png": png(strokes, 180, MARGIN, rounded=False),
+    }
+    for path, data in images.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+        print(f"{path.relative_to(REPO_ROOT)}: {len(data)} bytes")
 
 
 if __name__ == "__main__":
