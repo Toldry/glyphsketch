@@ -40,6 +40,40 @@ app's about screen.
 The parity tests read `../export/` directly, so run the export stage first if it's
 missing.
 
+## In Android Studio
+
+1. **Get the repository onto the machine that runs Android Studio**, the whole repository
+   rather than just `android/`: the build reads the model files from `../export/`. On the
+   Windows host that is the folder the devcontainer mounts (e.g. `C:\...\GlyphSketch`),
+   or a fresh `git clone https://github.com/Toldry/glyphsketch`.
+2. **Open the `android` folder**: *File → Open…*, choose `GlyphSketch\android` (the folder
+   with `settings.gradle.kts`), and trust the project. Opening the repository root instead
+   won't find the Gradle build.
+3. **Let Gradle sync.** The project uses Android Gradle Plugin 9.4.1 and Gradle 9.7.1 (the
+   wrapper downloads it). If Studio says it is too old for the plugin, update it
+   (*Help → Check for Updates*). If it asks for Android SDK Platform 37, accept the install.
+   The Gradle JDK must be 17 or newer; Studio's bundled JDK works (*Settings → Build,
+   Execution, Deployment → Build Tools → Gradle → Gradle JDK*). Studio writes
+   `local.properties` with your SDK path; it is ignored by git.
+4. **Create a virtual device**: *Tools → Device Manager → +* (*Create Virtual Device*),
+   pick a phone (e.g. Pixel 8) and a recent system image (API 35 or newer, x86_64 on an
+   Intel or AMD PC). Any image from API 24 up works.
+5. **Run the demo**: choose the `demo` run configuration in the toolbar, pick the virtual
+   device and press *Run* (▶). Draw with the mouse on the pad.
+6. **Run the unit tests**: in the *Project* view, right-click
+   `glyphsketch/src/test/kotlin` → *Run 'Tests in …'*. They include parity with
+   `export/fixtures.json`.
+7. **Run the benchmark**: open *Build → Select Build Variant…* and set `benchmark` to
+   `release` (debug builds are much slower and would skew the timings). Choose the
+   `benchmark` run configuration and run it. The results appear on screen and in *Logcat*;
+   filter it with `tag:GlyphsketchBench` for the one-line JSON report.
+
+**What emulator timings mean.** An x86_64 emulator runs on the PC's processor with hardware
+virtualization, so its timings are the PC's, not a phone's: typically several times faster
+than a mid-range phone. They are still a fair comparison between the Kotlin engine and ONNX
+Runtime, which run on the same emulated device. An ARM64 system image on an x86 PC is
+translated and far slower, so don't use one for timings.
+
 ## On a phone over Wi-Fi
 
 On the phone: Developer options → Wireless debugging → Pair device with pairing code. Then:
