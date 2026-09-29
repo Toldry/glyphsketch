@@ -236,6 +236,8 @@ Build and development tools only. Nothing from them is shipped.
 |-----------|---------|---------|--------|
 | GitHub Action `actions/checkout` | v7.0.1 (pinned by commit) | MIT | https://github.com/actions/checkout |
 | GitHub Action `astral-sh/setup-uv` | v10.2.0 (pinned by commit) | MIT | https://github.com/astral-sh/setup-uv |
+| GitHub Action `actions/setup-java` | v6.0.1 (pinned by commit) | MIT | https://github.com/actions/setup-java |
+| GitHub Action `actions/setup-node` | v7.0.0 (pinned by commit) | MIT | https://github.com/actions/setup-node |
 | Devcontainer base image `mcr.microsoft.com/devcontainers/base:ubuntu-24.04` | ubuntu-24.04 | MIT (image definition); Ubuntu packages under their own licenses | https://github.com/devcontainers/images |
 | Python | 3.12 (Ubuntu 24.04) | PSF-2.0 | https://www.python.org/ |
 | uv | 0.12.19 | MIT OR Apache-2.0 | https://github.com/astral-sh/uv |
