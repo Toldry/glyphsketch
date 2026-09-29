@@ -6,7 +6,7 @@ import kotlin.math.max
 import kotlin.math.sqrt
 
 /** One operation of glyphsketch-model.bin (spec: docs/export_format.md). */
-sealed interface Operation {
+internal sealed interface Operation {
     /** Dense (groups = 1) or depthwise (groups = channels) convolution, "same" padding. */
     class Conv(
         val inChannels: Int,
@@ -40,13 +40,13 @@ sealed interface Operation {
  * The encoder: reads glyphsketch-model.bin and runs it in float32, as web/src/model.ts.
  * Weights are dequantized once at load. Instances are immutable and thread-safe.
  */
-class Model(
-    val inputSize: Int,
-    val embeddingDim: Int,
-    val operations: List<Operation>,
+public class Model internal constructor(
+    public val inputSize: Int,
+    public val embeddingDim: Int,
+    internal val operations: List<Operation>,
 ) {
     /** Embedding of one image: pixels 0–255 (ink = 255, bytes read unsigned), row-major. */
-    fun embed(image: ByteArray): FloatArray {
+    public fun embed(image: ByteArray): FloatArray {
         require(image.size == inputSize * inputSize) { "Expected a $inputSize×$inputSize image" }
         var tensor =
             Tensor(
@@ -149,11 +149,11 @@ class Model(
         return Tensor(operation.outChannels, outSize, output)
     }
 
-    companion object {
+    public companion object {
         private const val MAGIC = "GSKM"
         private const val FORMAT_VERSION = 1
 
-        fun read(bytes: ByteArray): Model {
+        public fun read(bytes: ByteArray): Model {
             val reader = BinaryReader(bytes)
             reader.checkMagic(MAGIC, "model")
             val version = reader.u16()

@@ -74,5 +74,7 @@ jobs:
         run: ./gradlew lintKotlin --console=plain
       - name: Test (parity with export/fixtures.json)
         run: ./gradlew :glyphsketch:testDebugUnitTest --console=plain
-      - name: Build the demo and the benchmark
-        run: ./gradlew :demo:assembleDebug :benchmark:assembleDebug --console=plain
+      - name: Build the demo, the benchmark and the on-device tests
+        run: ./gradlew :demo:assembleDebug :benchmark:assembleDebug :glyphsketch:assembleDebugAndroidTest --console=plain
+      - name: Package the library as it would be published (unsigned, into ~/.m2)
+        run: ./gradlew :glyphsketch:publishToMavenLocal --console=plain

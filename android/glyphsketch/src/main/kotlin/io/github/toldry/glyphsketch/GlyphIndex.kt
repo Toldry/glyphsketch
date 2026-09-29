@@ -4,19 +4,19 @@ package io.github.toldry.glyphsketch
  * glyphsketch-index.bin (spec: docs/export_format.md): int8 vectors, one per font that
  * renders a character. A character's similarity is its best dot product over its vectors.
  */
-class GlyphIndex(
-    val dims: Int,
+public class GlyphIndex internal constructor(
+    public val dims: Int,
     /** Code points, ascending; the index's column order. */
-    val codePoints: IntArray,
+    public val codePoints: IntArray,
     /** Character k owns vectors starts[k] until starts[k + 1] (or the vector count). */
-    val starts: IntArray,
-    val scales: FloatArray,
-    val values: ByteArray,
+    internal val starts: IntArray,
+    internal val scales: FloatArray,
+    internal val values: ByteArray,
 ) {
-    val vectorCount: Int get() = scales.size
+    public val vectorCount: Int get() = scales.size
 
     /** Similarity of the embedding to every character, in the index's order. */
-    fun similarities(embedding: FloatArray): FloatArray {
+    public fun similarities(embedding: FloatArray): FloatArray {
         require(embedding.size == dims) { "Expected a $dims-dimensional embedding" }
         val result = FloatArray(starts.size)
         for (character in starts.indices) {
@@ -34,11 +34,11 @@ class GlyphIndex(
         return result
     }
 
-    companion object {
+    public companion object {
         private const val MAGIC = "GSKI"
         private const val FORMAT_VERSION = 1
 
-        fun read(bytes: ByteArray): GlyphIndex {
+        public fun read(bytes: ByteArray): GlyphIndex {
             val reader = BinaryReader(bytes)
             reader.checkMagic(MAGIC, "index")
             val version = reader.u16()

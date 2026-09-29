@@ -13,12 +13,18 @@ minSdk 24 and the build toolchain match Thumb-Key (Gradle 9.7.1, Android Gradle 
 ## Using the library
 
 ```kotlin
+// build.gradle.kts (Maven Central; not published yet, see CHANGELOG.md)
+implementation("io.github.toldry:glyphsketch:0.1.0")
+```
+
+```kotlin
 // Once, off the main thread (reads about 6 MB and parses the charset).
 val recognizer = Recognizer.fromAssets(context)
 
 // Per query: strokes in any unit, x to the right, y down.
 val strokes = listOf(listOf(Point(10.0, 10.0), Point(40.0, 80.0)))
-val result = recognizer.recognize(strokes, language = "en", tiles = 5, characters = 10)
+val result = recognizer.recognize(strokes, language = "en", tiles = 5, characters = 10,
+    accept = displayableOnThisDevice())  // optional: only characters this phone can show
 result.tiles        // one per look-alike group, representative chosen for the keyboard language
 result.characters   // every character ranked by score
 result.timings      // rasterize, encode and rank, in milliseconds
@@ -28,6 +34,14 @@ Show a character with `CharacterInfo.displayText` (a combining mark sits on a do
 circle) and insert `CharacterInfo.text`. `recognizer.ranker.members(group)` lists a
 look-alike group in code point order. `recognizer.charset.attribution` belongs in the
 app's about screen.
+
+## Releasing
+
+Push a version tag (`git tag v0.1.0 && git push origin v0.1.0`). The `Release` workflow
+(`.github/workflows/release.yml`) tests, signs and uploads the library to the Central
+Portal, where the deployment waits until you press *Publish*. Published versions can't be
+changed or removed. `./gradlew :glyphsketch:publishToMavenLocal` builds the same artifacts,
+unsigned, into `~/.m2` for a look. Update `CHANGELOG.md` first.
 
 ## Building and testing
 

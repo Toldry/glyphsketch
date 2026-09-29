@@ -162,4 +162,17 @@ class FixturesTest {
         assertEquals(members.sorted(), members)
         assertEquals(0x41, members.first())
     }
+
+    @Test
+    fun aFilterRemovesCharactersFromTheCandidatesAndTheTiles() {
+        val case = cases.first { it.label == "U+0041" }
+        val noLatin: CharacterFilter = { it.script != "Latin" }
+        val result = recognizer.recognize(case.strokes, characters = 20, accept = noLatin)
+        val infos = recognizer.charset.characters
+        assertTrue(result.characters.none { infos.getValue(it.codePoint).script == "Latin" })
+        val members = result.tiles.flatMap { it.members }
+        assertTrue(members.none { infos.getValue(it).script == "Latin" })
+        // Greek Α and Cyrillic А are still there, as the representative of A's group.
+        assertTrue(result.tiles.any { 0x391 in it.members && 0x41 !in it.members })
+    }
 }

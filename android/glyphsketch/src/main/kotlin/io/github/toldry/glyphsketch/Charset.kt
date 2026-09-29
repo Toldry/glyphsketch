@@ -1,48 +1,48 @@
 package io.github.toldry.glyphsketch
 
 /** One character of glyphsketch-charset.json. */
-data class CharacterInfo(
-    val codePoint: Int,
-    val name: String,
-    val block: String,
+public data class CharacterInfo(
+    public val codePoint: Int,
+    public val name: String,
+    public val block: String,
     /** UCD script name; `Common` for symbols, `Inherited` for most combining marks. */
-    val script: String,
+    public val script: String,
     /** UCD general category, e.g. `Lu`, `Nd`, `Sm`, `Mn`. */
-    val generalCategory: String,
+    public val generalCategory: String,
     /** The confusable group: its smallest code point. */
-    val group: Int,
-    val logPrior: Float,
+    public val group: Int,
+    public val logPrior: Float,
 ) {
     /** The character itself, what typing it inserts. */
-    val text: String get() = String(Character.toChars(codePoint))
+    public val text: String get() = String(Character.toChars(codePoint))
 
     /** How to show the character on its own: a combining mark sits on a dotted circle
      * (◌́) so it is visible. */
-    val displayText: String
+    public val displayText: String
         get() = if (isCombiningMark) DOTTED_CIRCLE + text else text
 
-    val isCombiningMark: Boolean get() = generalCategory.startsWith("M")
+    public val isCombiningMark: Boolean get() = generalCategory.startsWith("M")
 
-    companion object {
-        const val DOTTED_CIRCLE = "\u25CC"
+    public companion object {
+        public const val DOTTED_CIRCLE: String = "\u25CC"
     }
 }
 
 /** glyphsketch-charset.json: per-character metadata and the ranking settings. */
-class Charset(
-    val unicodeVersion: String,
-    val inputSize: Int,
-    val embeddingDim: Int,
-    val rasterization: RasterizationSettings,
-    val priorWeight: Double,
+public class Charset internal constructor(
+    public val unicodeVersion: String,
+    public val inputSize: Int,
+    public val embeddingDim: Int,
+    public val rasterization: RasterizationSettings,
+    public val priorWeight: Double,
     /** Keyboard language code → the scripts a keyboard in that language types. */
-    val keyboardScripts: Map<String, List<String>>,
-    val characters: Map<Int, CharacterInfo>,
+    public val keyboardScripts: Map<String, List<String>>,
+    public val characters: Map<Int, CharacterInfo>,
     /** Show it in the app's about screen. */
-    val attribution: List<String>,
+    public val attribution: List<String>,
 ) {
-    companion object {
-        fun parse(json: String): Charset {
+    public companion object {
+        public fun parse(json: String): Charset {
             val raw = Json.parse(json).asObject()
             val format = raw["format"].asDouble().toInt()
             require(format == 1) { "Unsupported charset format $format" }

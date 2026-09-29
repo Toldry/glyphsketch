@@ -3,19 +3,19 @@ package io.github.toldry.glyphsketch
 import java.io.InputStream
 
 /** The result of one query, with timings in milliseconds. */
-class Recognition(
-    val tiles: List<Tile>,
-    val characters: List<Candidate>,
+public class Recognition internal constructor(
+    public val tiles: List<Tile>,
+    public val characters: List<Candidate>,
     /** The 64×64 input image, row-major, 0 paper to 255 ink (read the bytes unsigned). */
-    val image: ByteArray,
-    val timings: Timings,
+    public val image: ByteArray,
+    public val timings: Timings,
 ) {
-    data class Timings(
-        val rasterizeMs: Double,
-        val encodeMs: Double,
-        val rankMs: Double,
+    public data class Timings(
+        public val rasterizeMs: Double,
+        public val encodeMs: Double,
+        public val rankMs: Double,
     ) {
-        val totalMs: Double get() = rasterizeMs + encodeMs + rankMs
+        public val totalMs: Double get() = rasterizeMs + encodeMs + rankMs
     }
 }
 
@@ -23,12 +23,12 @@ class Recognition(
  * The whole engine: strokes → result tiles and ranked characters. Load it once (about
  * 100 ms); it is immutable and can be queried from any thread.
  */
-class Recognizer(
-    val model: Model,
-    val index: GlyphIndex,
-    val charset: Charset,
+public class Recognizer(
+    public val model: Model,
+    public val index: GlyphIndex,
+    public val charset: Charset,
 ) {
-    val ranker = Ranker(index.codePoints, charset)
+    public val ranker: Ranker = Ranker(index.codePoints, charset)
 
     init {
         require(model.embeddingDim == index.dims && charset.embeddingDim == index.dims) {
@@ -38,14 +38,20 @@ class Recognizer(
 
     /** The scripts a keyboard in `language` types (a key of the charset's keyboard
      * scripts); Latin for unknown languages. */
-    fun scriptsFor(language: String?): List<String> =
+    public fun scriptsFor(language: String?): List<String> =
         language?.let { charset.keyboardScripts[it] } ?: listOf("Latin")
 
-    fun recognize(
+    /**
+     * Recognize one drawing: `tiles` look-alike groups with their representative for a
+     * keyboard in `language`, and the best `characters` characters. `accept` limits both,
+     * e.g. to characters the phone can show ([displayableOnThisDevice] on Android).
+     */
+    public fun recognize(
         strokes: List<Stroke>,
         language: String? = null,
         tiles: Int = 5,
         characters: Int = 10,
+        accept: CharacterFilter? = null,
     ): Recognition {
         val start = System.nanoTime()
         val image = Rasterizer.rasterize(strokes, charset.rasterization)
@@ -53,8 +59,8 @@ class Recognizer(
         val embedding = model.embed(image)
         val encoded = System.nanoTime()
         val ranking = ranker.rank(index.similarities(embedding))
-        val tileList = ranker.tiles(ranking, tiles, scriptsFor(language))
-        val characterList = ranker.topCharacters(ranking, characters)
+        val tileList = ranker.tiles(ranking, tiles, scriptsFor(language), accept)
+        val characterList = ranker.topCharacters(ranking, characters, accept)
         val ranked = System.nanoTime()
         return Recognition(
             tileList,
@@ -68,12 +74,12 @@ class Recognizer(
         )
     }
 
-    companion object {
-        const val MODEL_FILE = "glyphsketch-model.bin"
-        const val INDEX_FILE = "glyphsketch-index.bin"
-        const val CHARSET_FILE = "glyphsketch-charset.json"
+    public companion object {
+        public const val MODEL_FILE: String = "glyphsketch-model.bin"
+        public const val INDEX_FILE: String = "glyphsketch-index.bin"
+        public const val CHARSET_FILE: String = "glyphsketch-charset.json"
 
-        fun fromFiles(
+        public fun fromFiles(
             model: ByteArray,
             index: ByteArray,
             charsetJson: String,
@@ -82,7 +88,7 @@ class Recognizer(
 
         /** Load the three exported files by name, e.g. `{ context.assets.open(it) }` on
          * Android. */
-        fun load(open: (String) -> InputStream): Recognizer =
+        public fun load(open: (String) -> InputStream): Recognizer =
             fromFiles(
                 open(MODEL_FILE).use { it.readBytes() },
                 open(INDEX_FILE).use { it.readBytes() },

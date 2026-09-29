@@ -9,19 +9,19 @@ import kotlin.math.min
 import kotlin.math.sqrt
 
 /** A point: x to the right, y down, any unit. */
-data class Point(
-    val x: Double,
-    val y: Double,
+public data class Point(
+    public val x: Double,
+    public val y: Double,
 )
 
 /** A pen stroke; a single point is a tap and is drawn as a dot. */
-typealias Stroke = List<Point>
+public typealias Stroke = List<Point>
 
-data class RasterizationSettings(
-    val imageSize: Int = 64,
-    val contentFraction: Double = 0.875,
-    val penWidthFraction: Double = 2.5 / 64,
-    val simplifyTolerancePixels: Double = 0.25,
+public data class RasterizationSettings(
+    public val imageSize: Int = 64,
+    public val contentFraction: Double = 0.875,
+    public val penWidthFraction: Double = 2.5 / 64,
+    public val simplifyTolerancePixels: Double = 0.25,
 )
 
 /**
@@ -30,9 +30,9 @@ data class RasterizationSettings(
  * double precision; the final scaling to bytes repeats NumPy's float32 multiply and
  * round-half-to-even.
  */
-object Rasterizer {
+public object Rasterizer {
     /** Bytes, row-major, 0 paper to 255 ink. */
-    fun rasterize(
+    public fun rasterize(
         strokes: List<Stroke>,
         settings: RasterizationSettings = RasterizationSettings(),
     ): ByteArray {
@@ -49,7 +49,7 @@ object Rasterizer {
 
     /** Scale and centre the strokes so the longer side of their bounding box spans
      * contentFraction of the image. */
-    fun fitToImage(
+    internal fun fitToImage(
         strokes: List<Stroke>,
         settings: RasterizationSettings,
     ): List<Stroke> {
@@ -83,7 +83,7 @@ object Rasterizer {
     }
 
     /** Ramer–Douglas–Peucker simplification that keeps both end points. */
-    fun simplifyStroke(
+    internal fun simplifyStroke(
         points: Stroke,
         tolerance: Double,
     ): Stroke {
@@ -122,7 +122,7 @@ object Rasterizer {
     }
 
     /** Segments as a flat [ax, ay, bx, by, ...] array; a lone point is a zero-length segment. */
-    fun segmentsOf(strokes: List<Stroke>): DoubleArray {
+    internal fun segmentsOf(strokes: List<Stroke>): DoubleArray {
         val count = strokes.sumOf { if (it.size == 1) 1 else max(it.size - 1, 0) }
         val values = DoubleArray(4 * count)
         var next = 0
@@ -152,7 +152,7 @@ object Rasterizer {
      * pixels of its bounding box grown by that much. The image is the same as comparing every
      * pixel with every segment: a segment outside the box is too far to change a pixel's ink.
      */
-    fun rasterizeSegments(
+    internal fun rasterizeSegments(
         segments: DoubleArray,
         imageSize: Int,
         penWidth: Double,
