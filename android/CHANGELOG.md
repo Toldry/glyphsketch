@@ -3,12 +3,12 @@
 `io.github.toldry:glyphsketch` on Maven Central. Versions follow semantic versioning; before
 1.0, a new model or an API change raises the minor version.
 
-## Unreleased (0.1.1)
+## 0.1.1 (2026-09-29)
 
 - Complete notices: the package and the charset's `attribution` now credit UJI Pen
   Characters (CC BY 4.0) and Omniglot (MIT), which the model was also trained on, and the
   package carries the Unicode License V3 text for the Unicode data in the charset. 0.1.0
-  lacked these.
+  lacked these and was withdrawn before publication; 0.1.1 is the first published version.
 
 ## 0.1.0 (2026-09-29)
 

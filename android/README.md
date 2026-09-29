@@ -14,7 +14,7 @@ minSdk 24 and the build toolchain match Thumb-Key (Gradle 9.7.1, Android Gradle 
 
 ```kotlin
 // build.gradle.kts (Maven Central)
-implementation("io.github.toldry:glyphsketch:0.1.0")
+implementation("io.github.toldry:glyphsketch:0.1.1")
 ```
 
 ```kotlin
