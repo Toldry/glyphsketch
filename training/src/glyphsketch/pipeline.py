@@ -231,14 +231,18 @@ def run_realdata_stage(context: StageContext) -> None:
 
 
 def run_confusables_stage(context: StageContext) -> None:
+    from glyphsketch.charset import CHARSET_FILE_NAME, load_charset, load_charset_config
     from glyphsketch.confusables import REPORT_FILE, build_confusable_groups, write_groups
     from glyphsketch.glyphs import GlyphTable, load_renders
     from glyphsketch.ucd.parse import UnicodeDatabase
 
     ucd = UnicodeDatabase(context.input_dir("ucd"))
     glyphs_dir = context.input_dir("glyphs")
+    joining = {group.name for group in load_charset_config().groups if group.join_lookalikes}
+    records = load_charset(context.input_dir("charset") / CHARSET_FILE_NAME)
+    joiners = {record.code_point for record in records if record.group in joining}
     groups, pairs = build_confusable_groups(
-        ucd, load_renders(glyphs_dir), GlyphTable.load(glyphs_dir)
+        ucd, load_renders(glyphs_dir), GlyphTable.load(glyphs_dir), joiners=joiners
     )
     names = {code_point: entry.name for code_point, entry in ucd.entries.items()}
     write_groups(context.output_dir, groups, pairs, names)
@@ -471,8 +475,8 @@ def default_stages() -> list[Stage]:
             name="confusables",
             description="Group characters whose glyphs look alike",
             run=run_confusables_stage,
-            depends_on=("ucd", "glyphs"),
-            version="3",
+            depends_on=("ucd", "charset", "glyphs"),
+            version="4",
         ),
         Stage(
             name="wikiprior",

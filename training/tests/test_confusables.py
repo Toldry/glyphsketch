@@ -82,7 +82,8 @@ def test_real_groups_merge_true_homoglyphs_only() -> None:
     assert not same("A", "𝒜")
     assert not same("6", "O")
     assert not same("1", "l")
-    assert max(len(group) for group in groups.groups) < 40
+    # The largest group is the circles (o, O, and round letters of some 40 scripts since D40).
+    assert max(len(group) for group in groups.groups) < 80
 
 
 def test_compatibility_forms_join_their_base_when_they_look_alike() -> None:
@@ -97,3 +98,20 @@ def test_compatibility_forms_join_their_base_when_they_look_alike() -> None:
     assert [0x4F, 0x6F, 0x41E, 0xFF2F] in attached
     assert [0x41, 0xFF21] in attached  # the base had no group yet
     assert not any(0xFE82 in group for group in attached)  # a final form that looks different
+
+
+def test_joiners_join_existing_groups_instead_of_splitting_them() -> None:
+    from glyphsketch.confusables import attach_to_groups
+
+    # o/O form a group; a new-script circle (0x1000) looks like both, a new-script stroke
+    # (0x1001) like nothing, and a second circle (0x1002) only like the first circle.
+    looks = {frozenset((0x4F, 0x6F)), frozenset((0x1000, 0x6F)), frozenset((0x1000, 0x4F))}
+
+    def similarity(a: int, b: int) -> float:
+        return 0.95 if frozenset((a, b)) in looks else 0.2
+
+    candidates = [(0x4F, 0x6F), (0x6F, 0x1000), (0x1001, 0x6F), (0x1000, 0x1002)]
+    groups, placed = attach_to_groups([[0x4F, 0x6F]], {0x1000, 0x1001, 0x1002}, candidates,
+                                      similarity, 0.85)  # fmt: skip
+    assert groups == [[0x4F, 0x6F, 0x1000]]
+    assert placed == {0x1000}

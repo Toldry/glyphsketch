@@ -33,10 +33,14 @@ from glyphsketch.synth.generator import generate_images
 
 CHECK_SEED = 424242
 SAMPLES_PER_CHARACTER = 5
-# The groups and blocks D34 and D37 added, and combining marks from any block.
+# The groups and blocks D34, D37 and D40 added, and combining marks from any block.
 KINDS = {
     "Emoji and pictographs": {"Emoji and pictographs"},
     "Egyptian hieroglyphs": {"Egyptian hieroglyphs"},
+    "Living scripts (D40)": {"Living scripts", "Cham"},
+    "Historic scripts (D40)": {"Historic scripts"},
+    "Notations and numerals (D40)": {"Notations and numerals"},
+    "Large historic sets (D40)": {"Large historic sets"},
     "Compatibility forms": {"Compatibility forms"},
     "Combining marks": {"Combining marks"},
 }
@@ -96,14 +100,15 @@ def run(run_name: str) -> dict[str, dict[str, float]]:
     labels = np.array([code_point for code_point, _ in requests], dtype=np.int64)
     module = OperationsModule(operations).eval()
     embeddings = embed_uint8_images(module, images, torch.device("cpu"))  # type: ignore[arg-type]
-    scores = similarities(index, embeddings)
+    # In chunks: all drawings against all characters at once would take many gigabytes.
+    chunk = 1024
     tiles = np.concatenate(
         [
-            ranker.tile_representatives(scores[start : start + 1024], TOP_K,
-                                        [("Latin",)] * len(scores[start : start + 1024]))
-            for start in range(0, len(scores), 1024)
+            ranker.tile_representatives(scores, TOP_K, [("Latin",)] * len(scores))
+            for start in range(0, len(embeddings), chunk)
+            for scores in [similarities(index, embeddings[start : start + chunk])]
         ]
-    )  # fmt: skip
+    )
     hits = score_predictions(tiles, labels, group_of)
     rows: dict[str, list[int]] = defaultdict(list)
     for row, label in enumerate(labels.tolist()):

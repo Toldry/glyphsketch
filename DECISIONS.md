@@ -864,8 +864,33 @@ encoders on the same drawings and checks that they agree.
   150 kB class jar (debug, before R8 shrinking).
 - F-Droid: ONNX Runtime is a prebuilt native library; building it from source is a large
   C++ build F-Droid would have to run. Thumb-Key has no native code today.
-- Speed: the budget is 300 ms per query (D32); timings from the Android Studio emulator
-  (the user's choice over the Pixel 8) are added here when they come in.
+- Speed: the budget is 300 ms per query (D32). ONNX Runtime is much faster; see below.
+
+**Emulator benchmark** (2026-09-29; `android/benchmark`, release build, Android Studio's
+x86_64 emulator on the user's Intel Core Ultra 9 laptop, 25 fixture drawings × 10 rounds,
+the 11,791-character export):
+
+| Measure | Median | 90th percentile |
+|---|---:|---:|
+| Kotlin encoder | 26.6 ms | 38.8 ms |
+| ONNX Runtime encoder, 1 thread | 1.07 ms | 1.57 ms |
+| ONNX Runtime encoder, 4 threads | 1.07 ms | 1.84 ms |
+| Whole Kotlin query (rasterize, encode, rank) | 55.4 ms | 71.0 ms |
+
+Both encoders agree to 2.5e-7. ONNX Runtime is 25 times faster at encoding: its kernels
+use the processor's vector instructions and fuse operations, while the Kotlin loops run one
+float at a time. The whole Kotlin query still takes a fifth of the budget, but an emulator
+runs on a desktop processor, so a mid-range phone may well take several times longer; the
+phone timing is still open.
+
+The recommendation stays the Kotlin engine, because size and F-Droid are hard constraints
+and speed is within budget. Speeding up the Kotlin encoder is added to M13 (splitting the
+convolutions across threads, and loop layouts ART compiles well).
+
+Loading took 12.6 s, far too long. The cause was the JSON reader: Kotlin's
+`toDoubleOrNull` screens every number with a large regular expression, and the charset has
+tens of thousands of numbers. Whole numbers are now read directly and others with
+`Double.parseDouble`.
 
 ## D37. Egyptian hieroglyphs (2026-09-29)
 
@@ -932,3 +957,21 @@ glyph and test images that the export and evaluations use moved to a quick `inde
 stage. Retraining (the Kaggle bundle) still builds `encoderdata`.
 
 No retraining: the new characters are an index-only addition, as the brief intends.
+
+**Look-alike groups.** Clustered together with everything else, the added round letters
+(Armenian օ, Tamil ௦, Myanmar ဝ and dozens more) split o from O: under complete linkage
+each group gathered its own circles and the two could no longer merge. Characters of the
+added groups (`join_lookalikes = true` in the charset config) now stay out of the
+clustering and join the group of their most similar look-alike afterwards if they also look
+like its first member (`confusables.attach_to_groups`); the rest cluster among themselves.
+The circles are one group of 65 again.
+
+**Result.** 28,711 characters with a glyph (1,473 of the 30,184 candidates have none),
+115,248 renders, 9.30 MB shipped. On the real test set, whose characters are all older, the
+extra candidates cost about three points: tile top-5 (conf.) 83.7% (was 86.4%), tile top-1
+52.5% (was 54.1%), ranked top-1 49.6% (was 51.0%). On synthetic drawings of the added
+characters (`tools.new_characters`, before the look-alike fix), tile top-5 (conf.): living
+scripts 90.8%, historic scripts 85.5%, notations and numerals 85.1%, large historic sets
+90.3%; combining marks, now including the Indic vowel signs, 62.5%. The Android demo's
+display fonts grow to 6.4 MB (only mark positioning is kept from each font's layout rules;
+SignWriting's substitutions alone would add 4 MB).

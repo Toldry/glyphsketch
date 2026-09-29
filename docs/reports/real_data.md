@@ -7,17 +7,17 @@ test writers or real drawings of zero-shot characters.
 
 | Dataset | Samples | Characters | Writers | Test samples | Test writers |
 |---------|--------:|-----------:|--------:|-------------:|-------------:|
-| detexify | 207970 | 789 | 1290 | 36999 | 233 |
+| detexify | 208009 | 792 | 1290 | 37005 | 233 |
 | omniglot | 3640 | 180 | 120 | 834 | 27 |
 | uji | 11640 | 97 | 60 | 2134 | 11 |
-| **all** | 223250 | 1001 | 1470 | 39967 | – |
+| **all** | 223289 | 1004 | 1470 | 39973 | – |
 
-Zero-shot characters: 245 of 1001 (10789 test samples).
+Zero-shot characters: 248 of 1004 (10795 test samples).
 
 Detexify labels (keys) by mapping status:
 
-- kept: 1031 keys, 207970 samples
-- mapped to a character outside the glyph set: 5 keys, 319 samples
+- kept: 1034 keys, 208009 samples
+- mapped to a character outside the glyph set: 2 keys, 280 samples
 - no single-code-point equivalent: 62 keys, 2165 samples
 
 ## Samples by Unicode block
@@ -56,7 +56,9 @@ Detexify labels (keys) by mapping status:
 | Latin Extended-E | 85 | 1 | 12 |
 | Cyrillic Extended-B | 60 | 3 | 15 |
 | Enclosed Alphanumeric Supplement | 59 | 1 | 6 |
+| Modifier Tone Letters | 27 | 2 | 3 |
 | Miscellaneous Symbols and Arrows | 20 | 1 | 3 |
 | Arabic Supplement | 20 | 1 | 3 |
+| Thai | 12 | 1 | 3 |
 | Phonetic Extensions Supplement | 10 | 1 | 0 |
 | Latin Extended-D | 9 | 1 | 0 |

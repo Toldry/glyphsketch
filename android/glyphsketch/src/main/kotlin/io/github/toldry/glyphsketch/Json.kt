@@ -190,11 +190,30 @@ internal object Json {
             }
         }
 
+        /**
+         * Whole numbers (code points, most of the charset) are read digit by digit; others go
+         * to Double.parseDouble. Kotlin's toDoubleOrNull screens every string with a large
+         * regular expression first, which made loading the charset take seconds on a phone.
+         */
         private fun numberValue(): Double {
             val start = position
-            if (text[position] == '-') position++
+            val negative = text[position] == '-'
+            if (negative) position++
+            var whole = 0L
+            var digits = 0
+            while (position < text.length && text[position] in '0'..'9' && digits < 18) {
+                whole = whole * 10 + (text[position] - '0')
+                position++
+                digits++
+            }
+            val simple = position >= text.length || text[position] !in ".eE0123456789"
+            if (digits > 0 && simple) return if (negative) -whole.toDouble() else whole.toDouble()
             while (position < text.length && text[position] in "0123456789.eE+-") position++
-            return text.substring(start, position).toDoubleOrNull() ?: fail("bad number")
+            return try {
+                java.lang.Double.parseDouble(text.substring(start, position))
+            } catch (_: NumberFormatException) {
+                fail("bad number")
+            }
         }
     }
 }

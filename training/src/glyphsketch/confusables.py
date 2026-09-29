@@ -196,6 +196,39 @@ def attach_compatibility_forms(
     return sorted((sorted(group) for group in result), key=lambda group: group[0])
 
 
+def attach_to_groups(
+    groups: list[list[int]],
+    joiners: set[int],
+    candidates: Sequence[tuple[int, int]],
+    similarity: Callable[[int, int], float],
+    threshold: float,
+) -> tuple[list[list[int]], set[int]]:
+    """Add each joiner to the group of its most similar candidate partner outside the
+    joiners, if it also looks like that group's first member. A partner without a group
+    starts one. Returns the groups and the joiners placed."""
+    group_of = {member: index for index, group in enumerate(groups) for member in group}
+    result = [list(group) for group in groups]
+    best: dict[int, tuple[float, int]] = {}
+    for first, second in candidates:
+        for joiner, partner in ((first, second), (second, first)):
+            if joiner in joiners and partner not in joiners:
+                score = similarity(joiner, partner)
+                if score >= threshold and score > best.get(joiner, (0.0, 0))[0]:
+                    best[joiner] = (score, partner)
+    placed = set()
+    for joiner, (_, partner) in sorted(best.items()):
+        if partner not in group_of:
+            group_of[partner] = len(result)
+            result.append([partner])
+        group = result[group_of[partner]]
+        if similarity(joiner, group[0]) < threshold:
+            continue
+        group.append(joiner)
+        group_of[joiner] = group_of[partner]
+        placed.add(joiner)
+    return sorted((sorted(group) for group in result), key=lambda group: group[0]), placed
+
+
 def complete_linkage_groups(
     candidates: Sequence[tuple[int, int]],
     similarity: Callable[[int, int], float],
@@ -260,8 +293,15 @@ def build_confusable_groups(
     renders: np.ndarray,
     table: GlyphTable,
     threshold: float = SIMILARITY_THRESHOLD,
+    joiners: set[int] | None = None,
 ) -> tuple[ConfusableGroups, list[dict[str, Any]]]:
-    """Return the groups and every candidate pair with its similarity and decision."""
+    """Return the groups and every candidate pair with its similarity and decision.
+
+    ``joiners`` (characters of charset groups marked ``join_lookalikes``) stay out of the
+    clustering and join the groups it makes afterwards (``attach_to_groups``); those left
+    over are clustered among themselves.
+    """
+    joiners = joiners or set()
     code_points = set(table.code_points.tolist())
     bases = compatibility_bases(ucd, code_points)
     candidates = skeleton_candidates(ucd.ucd_dir, code_points)
@@ -274,7 +314,14 @@ def build_confusable_groups(
     }
     needed = {cp for pair in candidates for cp in pair} | set(bases) | set(bases.values())
     index = SignatureIndex.build(renders, table, needed)
-    clusters = complete_linkage_groups(sorted(candidates), index.similarity, threshold)
+    core = [pair for pair in sorted(candidates) if not set(pair) & joiners]
+    clusters = complete_linkage_groups(core, index.similarity, threshold)
+    clusters, placed = attach_to_groups(
+        clusters, joiners, sorted(candidates), index.similarity, threshold
+    )
+    rest = [pair for pair in sorted(candidates) if set(pair) <= joiners - placed]
+    clusters += complete_linkage_groups(rest, index.similarity, threshold)
+    clusters = sorted(clusters, key=lambda group: group[0])
     clusters = attach_compatibility_forms(clusters, bases, index.similarity, threshold)
     for form, base in bases.items():
         candidates[(min(form, base), max(form, base))] = "compatibility"

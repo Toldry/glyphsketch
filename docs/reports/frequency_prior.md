@@ -25,7 +25,7 @@ Source: Wikipedia pages-articles-multistream dumps of 20260901, sampled by byte 
 | ar | Arabic | 24 | 61,993 | 158,789,928 |
 | fa | Arabic | 24 | 66,994 | 131,345,982 |
 
-5,475 of 11,791 charset characters occur at least once in the sample.
+9,706 of 28,711 charset characters occur at least once in the sample.
 
 ## Most frequent characters
 
@@ -60,7 +60,7 @@ Source: Wikipedia pages-articles-multistream dumps of 20260901, sampled by byte 
 | 27 | р | U+0440 | CYRILLIC SMALL LETTER ER | -4.76 |
 | 28 | т | U+0442 | CYRILLIC SMALL LETTER TE | -4.77 |
 | 29 | b | U+0062 | LATIN SMALL LETTER B | -4.86 |
-| 30 | y | U+0079 | LATIN SMALL LETTER Y | -4.86 |
+| 30 | y | U+0079 | LATIN SMALL LETTER Y | -4.87 |
 | 31 | k | U+006B | LATIN SMALL LETTER K | -4.87 |
 | 32 | , | U+002C | COMMA | -4.87 |
 | 33 | с | U+0441 | CYRILLIC SMALL LETTER ES | -4.93 |
@@ -68,7 +68,7 @@ Source: Wikipedia pages-articles-multistream dumps of 20260901, sampled by byte 
 | 35 | v | U+0076 | LATIN SMALL LETTER V | -5.05 |
 | 36 | - | U+002D | HYPHEN-MINUS | -5.11 |
 | 37 | f | U+0066 | LATIN SMALL LETTER F | -5.14 |
-| 38 | ر | U+0631 | ARABIC LETTER REH | -5.18 |
+| 38 | ر | U+0631 | ARABIC LETTER REH | -5.19 |
 | 39 | к | U+043A | CYRILLIC SMALL LETTER KA | -5.19 |
 | 40 | л | U+043B | CYRILLIC SMALL LETTER EL | -5.19 |
 

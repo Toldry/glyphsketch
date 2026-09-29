@@ -33,6 +33,10 @@ def format_code_point(code_point: int) -> str:
 class BlockGroup:
     name: str
     blocks: tuple[str, ...]
+    # Join existing look-alike groups instead of shaping them (confusables, D40): a large
+    # set of added scripts full of circles and strokes would otherwise split groups such
+    # as o/O under complete linkage.
+    join_lookalikes: bool = False
 
 
 @dataclass(frozen=True)
@@ -62,7 +66,12 @@ def load_charset_config(path: Path = DEFAULT_CONFIG_PATH) -> CharsetConfig:
     return CharsetConfig(
         name=raw["name"],
         groups=tuple(
-            BlockGroup(name=group["name"], blocks=tuple(group["blocks"])) for group in raw["group"]
+            BlockGroup(
+                name=group["name"],
+                blocks=tuple(group["blocks"]),
+                join_lookalikes=group.get("join_lookalikes", False),
+            )
+            for group in raw["group"]
         ),
         excluded_general_categories=frozenset(raw["excluded_general_categories"]),
         exclude_deprecated=raw.get("exclude_deprecated", True),

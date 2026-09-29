@@ -215,7 +215,10 @@ def main() -> None:
         shutil.rmtree(OUTPUT_DIR)
     OUTPUT_DIR.mkdir(parents=True)
     options = subset.Options()
-    options.layout_features = ["*"]  # keeps mark positioning for combining marks
+    # Single characters need only mark positioning (a combining mark on its dotted circle).
+    # Substitution rules pull in every variant glyph they can reach: SignWriting's alone
+    # keep 37,000 glyphs (4.6 MB).
+    options.layout_features = ["mark", "mkmk"]
     options.hinting = False
     options.name_IDs = ["*"]
     options.notdef_outline = True

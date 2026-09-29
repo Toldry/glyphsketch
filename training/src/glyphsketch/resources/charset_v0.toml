@@ -145,6 +145,7 @@ blocks = ["Egyptian Hieroglyphs"]
 
 [[group]]
 name = "Cham"
+join_lookalikes = true
 blocks = ["Cham"]
 
 [[group]]
@@ -172,6 +173,7 @@ blocks = [
 
 [[group]]
 name = "Living scripts"
+join_lookalikes = true
 blocks = [
     "Armenian",
     "Syriac",
@@ -266,6 +268,7 @@ blocks = [
 
 [[group]]
 name = "Historic scripts"
+join_lookalikes = true
 blocks = [
     "Samaritan",
     "Ogham",
@@ -342,6 +345,7 @@ blocks = [
 
 [[group]]
 name = "Notations and numerals"
+join_lookalikes = true
 blocks = [
     "Khmer Symbols",
     "Vedic Extensions",
@@ -370,6 +374,7 @@ blocks = [
 
 [[group]]
 name = "Large historic sets"
+join_lookalikes = true
 blocks = [
     "Cuneiform",
     "Cuneiform Numbers and Punctuation",
