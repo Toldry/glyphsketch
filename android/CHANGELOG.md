@@ -3,7 +3,7 @@
 `io.github.toldry:glyphsketch` on Maven Central. Versions follow semantic versioning; before
 1.0, a new model or an API change raises the minor version.
 
-## Unreleased (0.1.0)
+## 0.1.0 (2026-09-29)
 
 - First release: the pure-Kotlin engine and the model files as assets, loaded with
   `Recognizer.fromAssets(context)`.
