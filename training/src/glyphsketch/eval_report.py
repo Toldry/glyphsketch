@@ -253,7 +253,7 @@ LIMITATIONS = [
     "- **No real handwriting of the characters added in D34.** Emoji, music symbols,",
     "  combining marks, box drawing, braille and the other added blocks are measured only",
     "  on synthetic drawings (DECISIONS.md, D34); the test set above has almost none.",
-    "- **Characters outside the fonts are out of reach**, and so is CJK in v0 (M12).",
+    "- **Characters outside the fonts are out of reach**, and CJK is excluded (D35).",
     "",
 ]
 

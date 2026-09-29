@@ -48,6 +48,7 @@ class CharsetConfig:
     groups: tuple[BlockGroup, ...]
     excluded_general_categories: frozenset[str]
     exclude_deprecated: bool = True
+    excluded_scripts: frozenset[str] = frozenset()
     includes: tuple[CodePointOverride, ...] = ()
     excludes: tuple[CodePointOverride, ...] = ()
 
@@ -65,6 +66,7 @@ def load_charset_config(path: Path = DEFAULT_CONFIG_PATH) -> CharsetConfig:
         ),
         excluded_general_categories=frozenset(raw["excluded_general_categories"]),
         exclude_deprecated=raw.get("exclude_deprecated", True),
+        excluded_scripts=frozenset(raw.get("excluded_scripts", [])),
         includes=tuple(
             CodePointOverride(parse_code_point(item["code_point"]), item["reason"], item["group"])
             for item in raw.get("include", [])
@@ -122,6 +124,9 @@ def exclusion_reason(ucd: UnicodeDatabase, config: CharsetConfig, code_point: in
         return f"general category {category}"
     if config.exclude_deprecated and code_point in ucd.deprecated:
         return "deprecated"
+    script = ucd.script_of(code_point)
+    if script in config.excluded_scripts:
+        return f"script {script}"
     return None
 
 

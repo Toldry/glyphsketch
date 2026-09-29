@@ -69,6 +69,13 @@ def test_builder_keeps_letters_and_symbols_and_drops_excluded_categories(
     assert build.exclusion_counts["general category Cn"] > 0
 
 
+def test_excluded_scripts_are_dropped_from_listed_blocks(fixture_ucd_dir: Path) -> None:
+    config = _fixture_config(excluded_scripts=frozenset(["Hebrew"]))
+    build = build_charset(UnicodeDatabase(fixture_ucd_dir), config)
+    assert 0x5D0 not in {record.code_point for record in build.characters}
+    assert build.exclusion_counts["script Hebrew"] == 1
+
+
 def test_records_carry_the_properties_later_stages_need(fixture_ucd_dir: Path) -> None:
     build = build_charset(UnicodeDatabase(fixture_ucd_dir), _fixture_config())
     records = {record.code_point: record for record in build.characters}
@@ -120,6 +127,14 @@ def test_v0_config_names_only_real_unicode_18_blocks() -> None:
     assert config.excluded_general_categories == V0_EXCLUDED_CATEGORIES
 
 
+def test_v0_config_leaves_cjk_out() -> None:
+    """D35: no CJK, Hangul, Kana, Bopomofo or ideographic description blocks."""
+    east_asian = ("CJK", "Hangul", "Hiragana", "Katakana", "Kana", "Bopomofo", "Kangxi",
+                  "Ideographic", "Yi ", "Kanbun")  # fmt: skip
+    for block in load_charset_config().blocks:
+        assert not any(block.startswith(prefix) for prefix in east_asian), block
+
+
 @pytest.mark.data
 def test_real_v0_charset() -> None:
     charset_dir = real_stage_dir_or_skip("charset", CHARSET_FILE_NAME)
@@ -134,6 +149,8 @@ def test_real_v0_charset() -> None:
     for excluded in "\u200b\u00a0\u00ad\u3000":
         assert ord(excluded) not in by_code_point, f"U+{ord(excluded):04X}"
     assert not {record.general_category for record in records} & V0_EXCLUDED_CATEGORIES
+    assert not {record.script for record in records} & config.excluded_scripts  # D35
+    assert ord("ｱ") not in by_code_point  # halfwidth katakana
     allowed_blocks = set(config.blocks) | {"Arabic Presentation Forms-A"}
     assert {record.block for record in records} <= allowed_blocks
     assert by_code_point[ord("⌚")].emoji_presentation

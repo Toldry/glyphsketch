@@ -55,16 +55,15 @@ Each milestone ends with tests passing, an entry in DECISIONS.md and focused com
 | M9 | **Web library + demo** | TypeScript engine with parity tests. Canvas demo (Vite) that shows candidates, per-query latency, and a local labelled-drawing export | Done 2026-09-27 (D28): parity on all fixtures, 20 ms per query in Node; demo without Vite (`make web-serve`) |
 | M10 | **EVAL.md + Detypify comparison** | Full report. Comparison with Detypify on its symbol set, with a warning about possible overlap with Detexify training data | Done 2026-09-28 (D31): written EVAL.md; Detypify 87.8% vs glyphsketch 76.8% top-1 on its 411 symbols (possible overlap noted) |
 | M11 | **Android library + demo (last)** | Pure-Kotlin engine with unit tests against the parity fixtures. ONNX Runtime benchmarked on the Pixel 8 (over Wi-Fi `adb`). Written recommendation. Compose demo. minSdk 24 (matches Thumb-Key) | Not started |
-| M12 | **Later, to be decided** | CJK as an optional index pack (combining marks moved into v0, D34) | Not started |
+| ~~M12~~ | ~~**Later, to be decided**~~ | Dropped 2026-09-29: CJK stays out (D35); combining marks moved into v0 (D34) | Dropped |
 
 `training/` runs end to end with one command (`uv run python -m glyphsketch.pipeline all`,
 or a `make all` wrapper). Each stage caches its output in `$DATA_DIR`.
 
 **Budget estimate:** A v0 charset of about 8–12k code points (to be measured in M1) at 128-d
 int8 makes an index of about 1–1.5 MB. The model is about 0.3–1 MB in int8. Metadata is
-under 1 MB. **CJK later:** about 100k characters at 128-d is about 12.8 MB, over budget.
-The index will be sharded by block, so CJK becomes an optional pack, possibly at 64-d or
-product-quantized.
+under 1 MB. **CJK:** about 100k characters at 128-d is about 12.8 MB, over budget. CJK
+stays out (D35).
 
 ## 3. Compute
 
@@ -92,6 +91,7 @@ only), no NVIDIA GPU.
 - Omniglot: hand-map the alphabets that are in scope.
 - Combining marks: included (shown on a dotted circle), 2026-09-28 (D34).
 - Emoji: included, rendered from the monochrome Noto Emoji; flat prior (D34).
+- CJK: excluded, no optional pack (2026-09-29, D35).
 - Frequency prior: Wikipedia dump character counts.
 - Unicode version: pin the latest released UCD in M1.
 - Android: last milestone. Web is the development test bench.

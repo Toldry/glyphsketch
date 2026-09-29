@@ -8,7 +8,7 @@
 # Emoji come from the monochrome Noto Emoji font, and combining marks are included; the
 # user interfaces show a combining mark on a dotted circle (◌́). See DECISIONS.md, D34.
 #
-# Still left out: CJK (a later, optional index pack; see PLAN.md, M12) and specialist
+# Still left out: CJK (excluded, DECISIONS.md D35) and specialist
 # notations (Byzantine and other historical musical notation, Yijing and Tai Xuan Jing
 # symbols).
 
@@ -16,6 +16,10 @@ name = "v0"
 
 excluded_general_categories = ["Cn", "Co", "Cc", "Cf", "Zs", "Zl", "Zp", "Cs"]
 exclude_deprecated = true
+# CJK is excluded (D35). Its blocks aren't listed below; this also drops the East Asian
+# characters that other listed blocks contain, such as halfwidth katakana in Halfwidth and
+# Fullwidth Forms and the Bopomofo tone letters in Spacing Modifier Letters.
+excluded_scripts = ["Han", "Hangul", "Hiragana", "Katakana", "Bopomofo", "Yi"]
 
 [[group]]
 name = "Latin"

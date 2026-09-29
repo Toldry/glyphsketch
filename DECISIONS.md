@@ -116,7 +116,7 @@ Alphanumeric Symbols), symbols 798, punctuation and letterlike 553, arrows 510, 
   forms of characters already in the set. A keyboard should insert the base character.
 - Emoji pictograph blocks (U+1F300 onwards), Geometric Shapes Extended and Supplemental
   Arrows-C: not in the brief's v0 list, and mostly emoji or obscure.
-- CJK: planned as an optional index pack (M12).
+- CJK: planned as an optional index pack (M12). Superseded: CJK is excluded (D35).
 
 **Deprecated characters** (4 in these blocks, e.g. U+0149 ŉ) are dropped: Unicode
 recommends against using them.
@@ -758,7 +758,7 @@ Alphanumeric Supplement, Miscellaneous Symbols Supplement, Miscellaneous Symbols
 Extended; the combining mark blocks; and the compatibility forms (Alphabetic and Arabic
 Presentation Forms, Halfwidth and Fullwidth Forms, Small Form Variants, Vertical Forms).
 Combining marks (Mn, Me) are no longer excluded anywhere, so Hebrew points and Arabic
-vowel marks come in too. CJK stays out (M12), as do historical music notations and
+vowel marks come in too. CJK stays out (D35), as do historical music notations and
 Yijing symbols.
 
 **Fonts.** Noto Emoji (monochrome outlines; a colour emoji can't be compared with a pen
@@ -825,3 +825,27 @@ It has seen synthetic drawings of those (from another generator seed), as the cu
 encoder had for the old characters, so the synthetic columns flatter it somewhat more.
 Adding a character still needs no handwriting data: the current encoder's column is what
 an index-only addition gives.
+
+## D35. CJK stays out (2026-09-29)
+
+The user decided to keep CJK excluded. The optional CJK index pack planned for M12 is
+dropped; there is no M12. Excluded are the CJK Unified Ideographs and their extensions,
+CJK Compatibility Ideographs, Hangul syllables and Jamo, Kana, Bopomofo, Kangxi and CJK
+radicals, and the other East Asian blocks the v0 block list never named
+(`resources/charset_v0.toml` lists the blocks to include).
+
+Two listed blocks did contain East Asian characters: Halfwidth and Fullwidth Forms
+(halfwidth katakana and Hangul, with no full-width base in the charset) and Spacing
+Modifier Letters (two Bopomofo tone letters, ˪ ˫). The config now also excludes by script
+(`excluded_scripts`: Han, Hangul, Hiragana, Katakana, Bopomofo, Yi), which drops 109
+candidates; 57 of them had font coverage (55 halfwidth katakana and ˪ ˫), so the shipped
+charset goes from 10,776 to 10,719 characters. The encoder needs no retraining (the index
+just loses those vectors). Fullwidth Latin letters and punctuation stay in, as
+compatibility forms (D34).
+
+**Why this is cheap to reverse.** Nothing in the design assumes a fixed charset: a pack
+would be a second index over the same encoder, loaded next to the first. The recognizer
+would need no handwriting data for it (the brief's key idea), but it would need a CJK
+font, a budget decision (about 100k characters, well over 10 MB at 48 int8 dimensions
+unless product-quantized), and CJK drawings to test with, since stroke-dense characters
+at 64×64 are untested.
