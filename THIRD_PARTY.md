@@ -225,6 +225,7 @@ artifact's POM or repository.
 | kotlinter (Gradle plugin) | 5.7.0 | Apache-2.0 | https://github.com/jeremymailen/kotlinter-gradle | build: lint and format |
 | ktlint (used by kotlinter) | 1.8.0 | MIT | https://github.com/pinterest/ktlint | build: lint and format |
 | JUnit | 4.13.2 | EPL-1.0 | https://github.com/junit-team/junit4 | tests only, not shipped |
+| ONNX Runtime for Android (`com.microsoft.onnxruntime:onnxruntime-android`) | 1.30.0 | MIT | https://github.com/microsoft/onnxruntime | benchmark app only (`android/benchmark`), for the comparison the brief asks for; not in the library or the demo |
 
 ## CI and development environment
 

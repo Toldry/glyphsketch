@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "glyphsketch-android"
-include(":glyphsketch", ":demo")
+include(":glyphsketch", ":demo", ":benchmark")
