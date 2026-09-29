@@ -7,6 +7,7 @@ import {
   Recognizer,
   type Stroke,
 } from "../src/index.ts";
+import { DRAWING_PARAMETER, decodeDrawing, encodeDrawing } from "./drawingLink.ts";
 
 // Relative to the page (web/demo/), not to the compiled script in web/dist/demo/.
 const EXPORT_URL = new URL("../../export/", document.baseURI);
@@ -276,6 +277,38 @@ element<HTMLButtonElement>("clear").addEventListener("click", () => {
   drawPad();
   recognize();
 });
+const linkButton = element<HTMLButtonElement>("link");
+linkButton.addEventListener("click", () => {
+  const url = new URL(location.href);
+  if (strokes.length === 0) {
+    url.searchParams.delete(DRAWING_PARAMETER);
+    history.replaceState(null, "", url);
+    return;
+  }
+  url.searchParams.set(DRAWING_PARAMETER, encodeDrawing(strokes));
+  history.replaceState(null, "", url);
+  const done = (message: string): void => {
+    linkButton.textContent = message;
+    setTimeout(() => (linkButton.textContent = "Link"), 1500);
+  };
+  navigator.clipboard.writeText(url.href).then(
+    () => done("Link copied"),
+    () => done("Link in address bar"),
+  );
+});
+
+/** A drawing from the page address (see the Link button), scaled down if it doesn't fit
+ * this pad. */
+function drawingFromAddress(): Point[][] | null {
+  const value = new URL(location.href).searchParams.get(DRAWING_PARAMETER);
+  const drawing = value === null ? null : decodeDrawing(value);
+  if (!drawing) return null;
+  const size = pad.getBoundingClientRect().width;
+  const extent = Math.max(...drawing.flat().flatMap(([x, y]) => [x, y]));
+  const scale = extent > size ? size / extent : 1;
+  return drawing.map((stroke) => stroke.map(([x, y]): Point => [x * scale, y * scale]));
+}
+
 candidateCountSelect.addEventListener("change", () => {
   store(CANDIDATE_COUNT_KEY, candidateCountSelect.value);
   recognize();
@@ -375,6 +408,8 @@ async function start(): Promise<void> {
   element<HTMLElement>("attribution").textContent = recognizer.charset.attribution.join(" ");
   void showSourceLink();
   timings.textContent = "Draw a character.";
+  strokes.push(...(drawingFromAddress() ?? []));
+  drawPad();
   recognize();
 }
 
