@@ -57,7 +57,10 @@ missing.
    `local.properties` with your SDK path; it is ignored by git.
 4. **Create a virtual device**: *Tools → Device Manager → +* (*Create Virtual Device*),
    pick a phone (e.g. Pixel 8) and a recent system image (API 35 or newer, x86_64 on an
-   Intel or AMD PC). Any image from API 24 up works.
+   Intel or AMD PC). Any image from API 24 up works. On Windows with WSL 2 or Docker
+   Desktop (which use Hyper-V), the emulator needs the *Windows Hypervisor Platform*
+   feature: *Turn Windows features on or off* → tick it → restart. If the emulator
+   reports that hardware acceleration is unavailable, that is the missing piece.
 5. **Run the demo**: choose the `demo` run configuration in the toolbar, pick the virtual
    device and press *Run* (▶). Draw with the mouse on the pad.
 6. **Run the unit tests**: in the *Project* view, right-click
@@ -67,6 +70,9 @@ missing.
    `release` (debug builds are much slower and would skew the timings). Choose the
    `benchmark` run configuration and run it. The results appear on screen and in *Logcat*;
    filter it with `tag:GlyphsketchBench` for the one-line JSON report.
+
+The devcontainer and Android Studio share `android/build` and `android/.gradle` when
+Studio opens the mounted folder; don't run Gradle in both at the same time.
 
 **What emulator timings mean.** An x86_64 emulator runs on the PC's processor with hardware
 virtualization, so its timings are the PC's, not a phone's: typically several times faster
