@@ -1,30 +1,29 @@
 package io.github.toldry.glyphsketch.demo
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.graphics.Bitmap
 import android.graphics.Paint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -46,21 +45,32 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.toldry.glyphsketch.CharacterInfo
 import io.github.toldry.glyphsketch.Point
 import io.github.toldry.glyphsketch.Recognition
 import io.github.toldry.glyphsketch.Recognizer
-import io.github.toldry.glyphsketch.Tile
 import io.github.toldry.glyphsketch.fromAssets
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.Locale
 
 private val CANDIDATE_COUNTS = listOf(10, 20, 50, 100)
 private const val SOURCE_URL = "https://github.com/Toldry/glyphsketch"
+private const val DETAILS_URL = "https://unicodefyi.com/char/"
+
+// Table column widths.
+private val RANK_WIDTH = 32.dp
+private val SCORE_WIDTH = 52.dp
+private val CHAR_WIDTH = 56.dp
+private val COPY_WIDTH = 44.dp
+private val CODE_WIDTH = 76.dp
+private val NAME_WIDTH = 300.dp
+private val LOOK_ALIKES_WIDTH = 72.dp
+private val LINK_WIDTH = 96.dp
 
 @Composable
 fun DemoScreen() {
@@ -71,34 +81,25 @@ fun DemoScreen() {
     Surface(Modifier.fillMaxSize()) {
         val loaded = recognizer
         if (loaded == null) {
-            Box(
-                Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) { Text("Loading the model…") }
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text("Loading the model…")
+            }
         } else {
             RecognitionScreen(loaded)
         }
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun RecognitionScreen(recognizer: Recognizer) {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     val strokes = remember { mutableStateListOf<List<Offset>>() }
     var strokesVersion by remember { mutableIntStateOf(0) }
-    val languages =
-        remember {
-            recognizer.charset.keyboardScripts.keys
-                .sorted()
-        }
-    var language by remember {
-        mutableStateOf(Locale.getDefault().language.takeIf { it in languages } ?: "en")
-    }
     var candidateCount by remember { mutableIntStateOf(CANDIDATE_COUNTS[0]) }
     var result by remember { mutableStateOf<Recognition?>(null) }
     var text by remember { mutableStateOf("") }
-    var chooser by remember { mutableStateOf<Tile?>(null) }
+    var lookAlikeMenu by remember { mutableStateOf<List<Int>?>(null) }
     var label by remember { mutableStateOf("") }
     val drawings = remember { LabelledDrawings(context.applicationContext) }
     var savedCount by remember { mutableIntStateOf(drawings.count) }
@@ -106,18 +107,17 @@ private fun RecognitionScreen(recognizer: Recognizer) {
 
     fun info(codePoint: Int): CharacterInfo = recognizer.charset.characters.getValue(codePoint)
 
+    fun code(codePoint: Int): String = "U+%04X".format(codePoint)
+
     /** The character as shown, or its code point when this phone has no font for it. */
     fun shown(codePoint: Int): String {
-        val info = info(codePoint)
-        return if (paint.hasGlyph(
-                info.displayText,
-            )
-        ) {
-            info.displayText
-        } else {
-            "U+%04X".format(codePoint)
-        }
+        val display = info(codePoint).displayText
+        return if (paint.hasGlyph(display)) display else code(codePoint)
     }
+
+    /** The other members of the character's look-alike group, in code point order. */
+    fun lookAlikes(codePoint: Int): List<Int> =
+        recognizer.ranker.members(info(codePoint).group).filter { it != codePoint }
 
     fun clear() {
         strokes.clear()
@@ -126,11 +126,16 @@ private fun RecognitionScreen(recognizer: Recognizer) {
 
     fun type(codePoint: Int) {
         text += info(codePoint).text
-        chooser = null
+        lookAlikeMenu = null
         clear()
     }
 
-    LaunchedEffect(strokesVersion, language, candidateCount) {
+    fun copy(codePoint: Int) {
+        val clipboard = context.getSystemService(ClipboardManager::class.java)
+        clipboard.setPrimaryClip(ClipData.newPlainText(code(codePoint), info(codePoint).text))
+    }
+
+    LaunchedEffect(strokesVersion, candidateCount) {
         val drawing =
             strokes.map { stroke ->
                 stroke.map { Point(it.x.toDouble(), it.y.toDouble()) }
@@ -140,7 +145,7 @@ private fun RecognitionScreen(recognizer: Recognizer) {
                 null
             } else {
                 withContext(Dispatchers.Default) {
-                    recognizer.recognize(drawing, language = language, characters = candidateCount)
+                    recognizer.recognize(drawing, characters = candidateCount)
                 }
             }
     }
@@ -158,10 +163,7 @@ private fun RecognitionScreen(recognizer: Recognizer) {
             strokes.add(it)
             strokesVersion++
         })
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedButton(onClick = {
                 if (strokes.isNotEmpty()) {
                     strokes.removeAt(strokes.size - 1)
@@ -169,56 +171,7 @@ private fun RecognitionScreen(recognizer: Recognizer) {
                 }
             }) { Text("Undo stroke") }
             OutlinedButton(onClick = ::clear) { Text("Clear") }
-            Spacer(Modifier.weight(1f))
-            Choice("Keyboard", language, languages, { it }) { language = it }
         }
-        Text(
-            "Some characters look the same when drawn, such as Latin A, Greek Α and Cyrillic А. " +
-                "Each tile stands for one such group and shows the member your keyboard's " +
-                "language uses: A with English, Α with Greek. The others are in the tile's " +
-                "menu. The setting doesn't change what is recognized, only which look-alike a " +
-                "tile shows.",
-            style = MaterialTheme.typography.bodySmall,
-        )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            val tiles = result?.tiles.orEmpty()
-            for (position in 0 until 5) {
-                val tile = tiles.getOrNull(position)
-                Box(
-                    Modifier
-                        .weight(1f)
-                        .height(64.dp)
-                        .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(8.dp))
-                        .let { box ->
-                            if (tile == null) {
-                                box
-                            } else {
-                                box.combinedClickable(
-                                    onClick = { type(tile.representative) },
-                                    onLongClick = { chooser = tile },
-                                )
-                            }
-                        },
-                    contentAlignment = Alignment.Center,
-                ) {
-                    if (tile != null) {
-                        val shownText = shown(tile.representative)
-                        Text(shownText, fontSize = if (shownText.startsWith("U+")) 11.sp else 30.sp)
-                        if (tile.members.size > 1) {
-                            Text(
-                                "+${tile.members.size - 1}",
-                                Modifier.align(Alignment.BottomEnd).padding(4.dp),
-                                style = MaterialTheme.typography.labelSmall,
-                            )
-                        }
-                    }
-                }
-            }
-        }
-        Text(
-            "Tap a tile to type it; long-press for its look-alikes.",
-            style = MaterialTheme.typography.bodySmall,
-        )
         OutlinedTextField(text, { text = it }, Modifier.fillMaxWidth(), label = { Text("Text") })
 
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -227,43 +180,65 @@ private fun RecognitionScreen(recognizer: Recognizer) {
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.weight(1f),
             )
-            Choice("Show", candidateCount, CANDIDATE_COUNTS, { it.toString() }) {
-                candidateCount =
-                    it
-            }
+            Choice("Show", candidateCount, CANDIDATE_COUNTS) { candidateCount = it }
         }
         Text(
-            "Every character ranked by score, look-alikes listed separately.",
+            "Every character ranked by score. Tap a character to type it.",
             style = MaterialTheme.typography.bodySmall,
         )
-        result?.characters?.forEachIndexed { position, candidate ->
-            val info = info(candidate.codePoint)
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .combinedClickable(onClick = { type(candidate.codePoint) }),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    "${position + 1}.",
-                    Modifier.width(36.dp),
-                    style = MaterialTheme.typography.bodySmall,
-                )
-                Text(shown(candidate.codePoint), Modifier.width(72.dp), fontSize = 20.sp)
-                Column(Modifier.weight(1f)) {
-                    Text(
-                        info.name.lowercase(Locale.ROOT),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Text(
-                        "U+%04X · %s · score %.3f".format(
-                            candidate.codePoint,
-                            info.block,
-                            candidate.score,
-                        ),
-                        style = MaterialTheme.typography.bodySmall,
-                    )
+        Column(Modifier.horizontalScroll(rememberScrollState())) {
+            val header = MaterialTheme.typography.labelMedium
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Cell(RANK_WIDTH) { Text("#", style = header) }
+                Cell(SCORE_WIDTH) { Text("Score", style = header) }
+                Cell(CHAR_WIDTH) { Text("Char", style = header) }
+                Cell(COPY_WIDTH) {}
+                Cell(CODE_WIDTH) { Text("Code", style = header) }
+                Cell(NAME_WIDTH) { Text("Name", style = header) }
+                Cell(LOOK_ALIKES_WIDTH) { Text("Look-alikes", style = header) }
+                Cell(LINK_WIDTH) {}
+            }
+            HorizontalDivider()
+            result?.characters?.forEachIndexed { position, candidate ->
+                val codePoint = candidate.codePoint
+                val others = lookAlikes(codePoint)
+                val small = MaterialTheme.typography.bodySmall
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Cell(RANK_WIDTH) { Text("${position + 1}", style = small) }
+                    Cell(SCORE_WIDTH) { Text("%.3f".format(candidate.score), style = small) }
+                    Cell(CHAR_WIDTH, Modifier.clickable { type(codePoint) }) {
+                        Text(shown(codePoint), fontSize = 22.sp, maxLines = 1)
+                    }
+                    Cell(COPY_WIDTH, Modifier.clickable { copy(codePoint) }) { Text("📋") }
+                    Cell(CODE_WIDTH) { Text(code(codePoint), style = small) }
+                    Cell(NAME_WIDTH) {
+                        Text(info(codePoint).name, style = small, maxLines = 1, softWrap = false)
+                    }
+                    Cell(
+                        LOOK_ALIKES_WIDTH,
+                        Modifier.clickable(others.isNotEmpty()) {
+                            lookAlikeMenu = others
+                        },
+                    ) {
+                        if (others.isNotEmpty()) {
+                            val more = if (others.size > 1) " +${others.size - 1}" else ""
+                            Text(shown(others[0]) + more, maxLines = 1)
+                        }
+                    }
+                    Cell(
+                        LINK_WIDTH,
+                        Modifier.clickable {
+                            uriHandler.openUri("$DETAILS_URL${code(codePoint)}/")
+                        },
+                    ) {
+                        Text(
+                            "unicodefyi ↗",
+                            style = small,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
                 }
+                HorizontalDivider()
             }
         }
         val timings = result?.timings
@@ -301,8 +276,13 @@ private fun RecognitionScreen(recognizer: Recognizer) {
             Button(
                 enabled = label.isNotEmpty() && strokes.isNotEmpty(),
                 onClick = {
-                    val tiles = result?.tiles.orEmpty().map { info(it.representative).text }
-                    drawings.save(label, strokes.toList(), language, tiles)
+                    val top =
+                        result
+                            ?.characters
+                            .orEmpty()
+                            .take(5)
+                            .map { info(it.codePoint).text }
+                    drawings.save(label, strokes.toList(), top)
                     savedCount = drawings.count
                     label = ""
                     clear()
@@ -313,10 +293,9 @@ private fun RecognitionScreen(recognizer: Recognizer) {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            OutlinedButton(
-                enabled = savedCount > 0,
-                onClick = { drawings.share() },
-            ) { Text("Share JSON") }
+            OutlinedButton(enabled = savedCount > 0, onClick = { drawings.share() }) {
+                Text("Share JSON")
+            }
             OutlinedButton(enabled = savedCount > 0, onClick = {
                 drawings.deleteAll()
                 savedCount = 0
@@ -332,18 +311,18 @@ private fun RecognitionScreen(recognizer: Recognizer) {
         )
     }
 
-    chooser?.let { tile ->
+    lookAlikeMenu?.let { members ->
         AlertDialog(
-            onDismissRequest = { chooser = null },
-            confirmButton = { TextButton(onClick = { chooser = null }) { Text("Close") } },
+            onDismissRequest = { lookAlikeMenu = null },
+            confirmButton = { TextButton(onClick = { lookAlikeMenu = null }) { Text("Close") } },
             title = { Text("Look-alikes") },
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
-                    for (member in tile.members) {
+                    for (member in members) {
                         Row(
                             Modifier
                                 .fillMaxWidth()
-                                .combinedClickable(onClick = { type(member) })
+                                .clickable { type(member) }
                                 .padding(vertical = 6.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
@@ -353,16 +332,28 @@ private fun RecognitionScreen(recognizer: Recognizer) {
                                 fontSize = 24.sp,
                                 textAlign = TextAlign.Center,
                             )
-                            Text(
-                                info(member).name.lowercase(Locale.ROOT),
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
+                            Column {
+                                Text(info(member).name, style = MaterialTheme.typography.bodyMedium)
+                                Text(code(member), style = MaterialTheme.typography.bodySmall)
+                            }
                         }
                     }
                 }
             },
         )
     }
+}
+
+@Composable
+private fun Cell(
+    width: Dp,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Box(
+        modifier.width(width).padding(horizontal = 4.dp, vertical = 6.dp),
+        contentAlignment = Alignment.CenterStart,
+    ) { content() }
 }
 
 /** The encoder's input, magnified without smoothing. */
@@ -373,8 +364,11 @@ private fun EncoderInput(
 ) {
     val bitmap =
         remember(image) {
-            val pixels = IntArray(image.size) { 255 - (image[it].toInt() and 0xFF) }
-            val colors = IntArray(pixels.size) { (0xFF shl 24) or (pixels[it] * 0x010101) }
+            val colors =
+                IntArray(image.size) {
+                    val shade = 255 - (image[it].toInt() and 0xFF)
+                    (0xFF shl 24) or (shade * 0x010101)
+                }
             Bitmap.createBitmap(colors, size, size, Bitmap.Config.ARGB_8888).asImageBitmap()
         }
     Row(
@@ -387,19 +381,18 @@ private fun EncoderInput(
 }
 
 @Composable
-private fun <T> Choice(
+private fun Choice(
     label: String,
-    selected: T,
-    options: List<T>,
-    name: (T) -> String,
-    onSelect: (T) -> Unit,
+    selected: Int,
+    options: List<Int>,
+    onSelect: (Int) -> Unit,
 ) {
     var open by remember { mutableStateOf(false) }
     Box {
-        TextButton(onClick = { open = true }) { Text("$label: ${name(selected)} ▾") }
+        TextButton(onClick = { open = true }) { Text("$label: $selected ▾") }
         DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
             for (option in options) {
-                DropdownMenuItem(text = { Text(name(option)) }, onClick = {
+                DropdownMenuItem(text = { Text("$option") }, onClick = {
                     onSelect(option)
                     open = false
                 })

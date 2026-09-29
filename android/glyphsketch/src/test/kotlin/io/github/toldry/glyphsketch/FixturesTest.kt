@@ -149,4 +149,17 @@ class FixturesTest {
         assertEquals(case.tiles.getValue("Greek")[0], result.tiles[0].members)
         assertTrue(result.timings.totalMs >= result.timings.encodeMs)
     }
+
+    @Test
+    fun groupMembersComeInCodePointOrder() {
+        val members =
+            recognizer.ranker.members(
+                recognizer.charset.characters
+                    .getValue(0x41)
+                    .group,
+            )
+        assertTrue(members.containsAll(listOf(0x41, 0x391, 0x410)))
+        assertEquals(members.sorted(), members)
+        assertEquals(0x41, members.first())
+    }
 }

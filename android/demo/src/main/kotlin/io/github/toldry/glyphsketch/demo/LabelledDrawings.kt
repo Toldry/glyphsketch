@@ -12,8 +12,8 @@ import java.util.TimeZone
 
 /**
  * Drawings saved with the character they were meant to be, for a personal test set. The
- * export has the web demo's format (`{"format": 1, "drawings": [...]}`), so both go through
- * the same evaluation. Stored one JSON object per line in the app's private files.
+ * export has the web demo's format 2 (`{"format": 2, "drawings": [...]}`, each with the
+ * recognizer's first five candidates), so both go through the same evaluation. Stored one JSON object per line in the app's private files.
  */
 class LabelledDrawings(
     private val context: Context,
@@ -26,17 +26,16 @@ class LabelledDrawings(
     fun save(
         label: String,
         strokes: List<List<Offset>>,
-        language: String,
-        tiles: List<String>,
+        candidates: List<String>,
     ) {
         val strokesJson =
             strokes.joinToString(",", "[", "]") { stroke ->
                 stroke.joinToString(",", "[", "]") { "[${round(it.x)},${round(it.y)}]" }
             }
-        val tilesJson = tiles.joinToString(",", "[", "]") { quote(it) }
+        val candidatesJson = candidates.joinToString(",", "[", "]") { quote(it) }
         val line =
-            "{\"label\":${quote(label)},\"strokes\":$strokesJson,\"language\":${quote(language)}," +
-                "\"tiles\":$tilesJson,\"savedAt\":${quote(now())}}"
+            "{\"label\":${quote(label)},\"strokes\":$strokesJson," +
+                "\"candidates\":$candidatesJson,\"savedAt\":${quote(now())}}"
         file.appendText(line + "\n")
     }
 
@@ -49,7 +48,7 @@ class LabelledDrawings(
         val lines = if (file.exists()) file.readLines().filter { it.isNotBlank() } else emptyList()
         val directory = File(context.cacheDir, "exports").apply { mkdirs() }
         val export = File(directory, "glyphsketch-drawings-${now().take(10)}.json")
-        export.writeText("{\"format\":1,\"drawings\":[\n" + lines.joinToString(",\n") + "\n]}\n")
+        export.writeText("{\"format\":2,\"drawings\":[\n" + lines.joinToString(",\n") + "\n]}\n")
         val uri = FileProvider.getUriForFile(context, "${context.packageName}.files", export)
         val send =
             Intent(Intent.ACTION_SEND)

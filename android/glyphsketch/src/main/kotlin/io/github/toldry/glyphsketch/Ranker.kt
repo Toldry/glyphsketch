@@ -42,7 +42,7 @@ class Ranker(
         }
     private val logPriors = FloatArray(codePoints.size) { infos[it].logPrior }
     private val groups = IntArray(codePoints.size) { infos[it].group }
-    private val members: Map<Int, IntArray> =
+    private val groupColumns: Map<Int, IntArray> =
         codePoints.indices.groupBy { groups[it] }.mapValues { (_, columns) -> columns.toIntArray() }
     private val chooserCache = ConcurrentHashMap<String, List<Int>>()
 
@@ -79,6 +79,11 @@ class Ranker(
             Candidate(codePoints[column], ranking.scores[column], ranking.similarities[column])
         }
 
+    /** A group's members in code point order. */
+    fun members(group: Int): List<Int> =
+        groupColumns[group]?.map { codePoints[it] }?.sorted()
+            ?: throw IllegalArgumentException("Unknown group $group")
+
     /** A group's members for a keyboard typing `scripts`: its representative first. */
     fun chooser(
         group: Int,
@@ -88,7 +93,7 @@ class Ranker(
             fun typed(column: Int): Boolean =
                 infos[column].script in scripts || onEveryKeyboard(infos[column])
             val columns =
-                members.getValue(group).sortedWith(
+                groupColumns.getValue(group).sortedWith(
                     compareBy<Int> { !typed(it) }
                         .thenByDescending { logPriors[it] }
                         .thenBy { codePoints[it] },
