@@ -142,8 +142,9 @@ def test_real_v0_charset() -> None:
     by_code_point = {record.code_point: record for record in records}
     config = load_charset_config()
     assert 10000 < len(records) < 14000  # 12,205 candidates since D34
-    # Since D34 also combining marks (acute, Hebrew patah, Arabic fatha), emoji and music.
-    for included in "AzéßΩжאب∑→€ℝ①★✓𝔄\u0301\u05b7\u064e😀🚲𝄞":
+    # Since D34 also combining marks (acute, Hebrew patah, Arabic fatha), emoji and music;
+    # since D37 Egyptian hieroglyphs.
+    for included in "AzéßΩжאب∑→€ℝ①★✓𝔄\u0301\u05b7\u064e😀🚲𝄞𓀁":
         assert ord(included) in by_code_point, included
     # Zero-width space, no-break space, soft hyphen, ideographic space: never drawn.
     for excluded in "\u200b\u00a0\u00ad\u3000":

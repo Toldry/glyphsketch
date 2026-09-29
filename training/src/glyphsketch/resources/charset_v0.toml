@@ -138,6 +138,11 @@ blocks = [
     "Symbols and Pictographs Extended-A",
 ]
 
+# Egyptian Hieroglyphs Extended-A (U+13460 on) has no font in the manifest yet.
+[[group]]
+name = "Egyptian hieroglyphs"
+blocks = ["Egyptian Hieroglyphs"]
+
 [[group]]
 name = "Combining marks"
 blocks = [

@@ -163,6 +163,16 @@ license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713
 license_sha256 = "1679cb60544990b4c2445320c6d5298e4bb0c08ff00dbb5a526f3793fdaa1e6f"
 
 [[font]]
+id = "noto-sans-egyptian-hieroglyphs"
+family = "Noto Sans Egyptian Hieroglyphs"
+style = "symbols"
+url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansegyptianhieroglyphs/NotoSansEgyptianHieroglyphs-Regular.ttf"
+sha256 = "b792accc6207ca9caa59fc67f53926b6985a99d255dd432d7c68b68a6dfd62f8"
+license = "OFL-1.1"
+license_url = "https://raw.githubusercontent.com/google/fonts/23e54b51ddffbc7713c583748e3bd86f62b1fa4a/ofl/notosansegyptianhieroglyphs/OFL.txt"
+license_sha256 = "dc8114a49f5bb53bad3d99ee52cbb245e98076438d59428a258720258494de68"
+
+[[font]]
 id = "stix-two-text"
 family = "STIX Two Text"
 style = "serif"

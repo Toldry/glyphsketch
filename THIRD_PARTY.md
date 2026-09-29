@@ -79,6 +79,7 @@ How each license was verified:
 | Noto Sans Symbols 2 | 2.008 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosanssymbols2 | symbols |
 | Noto Emoji (monochrome) | 3.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notoemoji | symbols |
 | Noto Music | 2.003 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notomusic | symbols |
+| Noto Sans Egyptian Hieroglyphs | 2.002 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/notosansegyptianhieroglyphs | symbols (Egyptian Hieroglyphs block) |
 | STIX Two Text | 2.13 b171 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwotext | serif |
 | STIX Two Text Italic | 2.13 b171 | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwotext | serif |
 | STIX Two Math | 2.12 b168a | OFL-1.1 | https://github.com/google/fonts/tree/23e54b51ddff/ofl/stixtwomath | math |
