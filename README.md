@@ -1,8 +1,10 @@
 # glyphsketch
 
 Offline recognizer for hand-drawn Unicode characters. You draw a character, it returns
-ranked Unicode candidates. It is built for later integration into the
-[Thumb-Key](https://github.com/dessalines/thumb-key) Android keyboard.
+ranked Unicode candidates. It runs entirely on the device, in the browser or on Android.
+
+**[Try the web demo](https://toldry.github.io/glyphsketch/web/demo/)**: draw a character
+with a mouse, finger or pen. It works offline once loaded and can be installed as an app.
 
 It works by retrieval instead of classification. A small CNN encoder maps both the drawing
 and rendered font glyphs into the same embedding space, and the nearest glyphs are the
