@@ -3,10 +3,12 @@
 Offline handwritten Unicode character recognizer: retrieval over font-glyph embeddings,
 for later integration into the Thumb-Key Android keyboard (AGPL-3.0, F-Droid).
 
-- `docs/BRIEF.md`: the original brief (goal, hard constraints, deliverables). Read it first.
-- `PLAN.md`: approved milestones and the decisions made so far. Work through the
+- `docs/project/BRIEF.md`: the original brief (goal, hard constraints, deliverables). Read it
+  first.
+- `docs/project/PLAN.md`: approved milestones and the decisions made so far. Work through the
   milestones in order and update the status there as they complete.
-- `DECISIONS.md`: log every non-trivial design decision and trade-off (create it in M0).
+- `docs/project/DECISIONS.md`: log every non-trivial design decision and trade-off (create it
+  in M0).
 
 ## Hard constraints (details in the brief)
 - Fully offline at runtime; buildable from source (F-Droid); no Google Play Services/ML Kit.

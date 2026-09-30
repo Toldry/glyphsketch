@@ -16,9 +16,6 @@ candidates. The glyph embeddings are precomputed and shipped as an index. Becaus
 index comes from fonts, adding a character needs a font that covers it, not new
 handwriting data.
 
-Status: in development. See `PLAN.md` for the milestones and their status, and
-`DECISIONS.md` for the design decisions made so far.
-
 ## Layout
 
 | Path | Contents |
@@ -27,7 +24,7 @@ Status: in development. See `PLAN.md` for the milestones and their status, and
 | `export/` | Exported int8 model, glyph index and charset metadata |
 | `web/` | TypeScript library and demo web app |
 | `android/` | Kotlin library and demo app |
-| `docs/` | Project brief and longer write-ups |
+| `docs/` | Model file format, reports and images |
 
 ## Development
 
