@@ -6,6 +6,10 @@ ranked Unicode candidates. It runs entirely on the device, in the browser or on 
 **[Try the web demo](https://toldry.github.io/glyphsketch/web/demo/)**: draw a character
 with a mouse, finger or pen. It works offline once loaded and can be installed as an app.
 
+<video src="docs/images/glyphsketch_web_demo.mp4" controls muted width="600"></video>
+
+[Watch the demo video](docs/images/glyphsketch_web_demo.mp4) if it doesn't play above.
+
 It works by retrieval instead of classification. A small CNN encoder maps both the drawing
 and rendered font glyphs into the same embedding space, and the nearest glyphs are the
 candidates. The glyph embeddings are precomputed and shipped as an index. Because the
