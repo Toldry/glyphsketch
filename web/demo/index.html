@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>glyphsketch demo</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#16161a" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>glyphsketch</h1>
+      <p>Draw a character 🡒 get a unicode.<br>
+        Everything runs in this page; nothing is sent anywhere.</p>
+    </header>
+    <main>
+      <section class="drawing">
+        <canvas id="pad" width="320" height="320" aria-label="Drawing area"></canvas>
+        <div class="controls">
+          <button id="undo" type="button">Undo stroke</button>
+          <button id="clear" type="button">Clear</button>
+          <button id="link" type="button" title="Put the drawing in the page address and copy the link">Link</button>
+        </div>
+        <label class="output">Text <input id="output" type="text" autocomplete="off" /></label>
+      </section>
+      <section class="details">
+        <div class="candidates-heading">
+          <h2>Candidates</h2>
+          <label>Show
+            <select id="candidate-count">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+        </div>
+        <p class="explain">Every character ranked by score. Click a character to type it.</p>
+        <div class="table-wrap">
+          <table id="candidates">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Score</th>
+                <th scope="col">Char</th>
+                <th scope="col"><span class="visually-hidden">Copy</span></th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Look-alikes</th>
+                <th scope="col"><span class="visually-hidden">Details</span></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p id="timings" class="timings">Loading the model…</p>
+        <div class="input-image">
+          <canvas id="input" width="64" height="64" aria-label="Encoder input"></canvas>
+          <span>Encoder input (64×64)</span>
+        </div>
+        <h2>Labelled drawings</h2>
+        <p>Save drawings with their intended character to build a personal test set. They stay in
+          this browser until you export them.</p>
+        <div class="controls">
+          <input id="label" type="text" maxlength="4" placeholder="Label" aria-label="Label" />
+          <button id="save" type="button">Save drawing</button>
+          <button id="export" type="button">Export JSON</button>
+          <button id="forget" type="button">Delete saved</button>
+        </div>
+        <p id="saved"></p>
+      </section>
+    </main>
+    <div id="chooser" class="chooser" hidden></div>
+    <footer id="attribution"></footer>
+    <script type="module" src="../dist/demo/demo.js"></script>
+  </body>
+</html>

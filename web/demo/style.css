@@ -1,0 +1,122 @@
+:root {
+  --ink: #1d1d1f;
+  --muted: #6b6b70;
+  --paper: #ffffff;
+  --panel: #f4f4f6;
+  --accent: #2f5bd3;
+  --line: #d6d6db;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #ececf0;
+    --muted: #a0a0a8;
+    --paper: #16161a;
+    --panel: #222228;
+    --accent: #7e9bff;
+    --line: #3a3a42;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 16px;
+  font: 15px/1.45 system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+h1 { margin: 0; font-size: 1.5rem; }
+h2 { font-size: 1.05rem; margin: 1.2rem 0 0.4rem; }
+header p, .timings, footer, #saved { color: var(--muted); }
+main { display: flex; flex-wrap: wrap; gap: 24px; }
+.drawing { flex: 0 1 340px; }
+.details { flex: 1 1 520px; min-width: 0; }
+#pad {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  touch-action: none;
+  cursor: crosshair;
+}
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; align-items: center; }
+button, select, input {
+  font: inherit;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+button:hover { border-color: var(--accent); }
+.explain { font-size: 0.85rem; color: var(--muted); margin: 0 0 8px; }
+.candidates-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.candidates-heading label { font-size: 0.9rem; color: var(--muted); }
+.output input { width: 100%; font-size: 1.3rem; margin-top: 4px; }
+.table-wrap { overflow-x: auto; }
+#candidates { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+#candidates th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding: 2px 6px;
+}
+#candidates td { padding: 2px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+#candidates .rank, #candidates .score { text-align: right; color: var(--muted); }
+#candidates .code { color: var(--muted); white-space: nowrap; }
+/* Long names end in an ellipsis; the full name is the cell's tooltip. */
+#candidates .name {
+  max-width: 17rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#candidates td button { padding: 2px 6px; }
+#candidates .char { font-size: 1.4rem; min-width: 2.4rem; line-height: 1.2; }
+#candidates .tile { font-size: 1.1rem; min-width: 2.6rem; position: relative; padding-right: 18px; }
+#candidates .tile .more {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+#candidates a { color: var(--accent); white-space: nowrap; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.input-image { display: flex; align-items: center; gap: 10px; color: var(--muted); }
+#input { width: 96px; height: 96px; image-rendering: pixelated; border: 1px solid var(--line); }
+#label { width: 5rem; }
+.chooser {
+  position: fixed;
+  z-index: 10;
+  max-width: min(360px, calc(100vw - 32px));
+  /* Large groups (the circles have 65 members) scroll inside the popup. */
+  max-height: min(420px, calc(100vh - 32px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.2);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+/* The display rule above would otherwise override the hidden attribute. */
+.chooser[hidden] { display: none; }
+.chooser button { flex: none; display: flex; gap: 10px; align-items: baseline; text-align: left; border: none; }
+.chooser .char { font-size: 1.5rem; width: 2rem; }
+.chooser .name { font-size: 0.8rem; color: var(--muted); }
+footer { margin-top: 32px; font-size: 0.8rem; }
